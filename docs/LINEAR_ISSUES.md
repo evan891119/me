@@ -323,16 +323,17 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 4.1: Define visual direction for the prototype museum
 
 - Title: Define visual direction for the prototype museum
+- Status: Done
 - Goal: Establish a restrained visual language before adding assets.
 - Scope:
   - Decide architecture mood, lighting style, material palette, typography direction, and exhibit object language.
   - Keep the design compatible with performance budgets.
   - Document what belongs in phase 1 versus later art passes.
 - Acceptance Criteria:
-  - Visual direction is documented.
-  - Palette and material rules are clear.
-  - Prototype assets can be created without full art production.
-  - Post-processing remains deferred.
+  - Done: Visual direction is documented in `docs/VISUAL_DIRECTION.md`.
+  - Done: Palette and material rules are clear.
+  - Done: Prototype assets can be created without full art production.
+  - Done: Post-processing remains deferred.
 - Files likely touched:
   - `docs/VISUAL_DIRECTION.md`
   - `docs/ARCHITECTURE_DECISION.md`

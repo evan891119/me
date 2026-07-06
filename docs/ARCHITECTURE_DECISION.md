@@ -137,6 +137,19 @@ public/
 docs/
 ```
 
+## Visual Direction
+
+The accepted prototype visual direction is documented in `docs/VISUAL_DIRECTION.md`.
+
+Summary:
+
+- small interactive game-like museum scene;
+- restrained dark architecture with warm exhibit accents;
+- readable HTML content overlays instead of long 3D text;
+- simple geometry and lightweight GLB assets before final art;
+- no complex post-processing in Phase 1;
+- visual additions must preserve the performance budget.
+
 ## Deployment Strategy
 
 The first launch should be a static deployment:
