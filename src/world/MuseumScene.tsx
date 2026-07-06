@@ -2,6 +2,7 @@ import { PointerLockControls } from '@react-three/drei';
 import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier';
 import { useAppStore } from '../state/useAppStore';
 import { ExhibitGroup } from './exhibits/ExhibitGroup';
+import { ExhibitFocusDetector } from './interactions/ExhibitFocusDetector';
 import { SceneLighting } from './lighting';
 import { PlayerController } from './PlayerController';
 
@@ -50,6 +51,7 @@ export function MuseumScene() {
 
       <Physics gravity={[0, 0, 0]}>
         <PlayerController />
+        <ExhibitFocusDetector />
 
         <RigidBody type="fixed" position={[0, -0.05, 0]} colliders={false}>
           <CuboidCollider args={[6, 0.05, 6]} />

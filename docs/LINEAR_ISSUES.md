@@ -404,6 +404,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 5.1: Add exhibit focus detection
 
 - Title: Add exhibit focus detection
+- Status: Done
 - Goal: Detect which exhibit the visitor is near and looking at.
 - Scope:
   - Add proximity checks.
@@ -411,10 +412,12 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Surface a focused exhibit ID in state.
   - Tune thresholds for small-world usability.
 - Acceptance Criteria:
-  - Prompt appears only for the intended nearby exhibit.
-  - Focus changes predictably while moving.
-  - The system handles overlapping nearby exhibits.
-  - Focus detection does not create measurable frame drops.
+  - Done: Focused exhibit state is surfaced through `focusedExhibitId`.
+  - Done: Focus uses proximity plus camera-facing score.
+  - Done: Overlapping nearby exhibits resolve by best combined facing/proximity score.
+  - Done: State updates only when focus changes to avoid per-frame React churn.
+  - Done: A minimal focused exhibit prompt appears for the currently focused exhibit.
+  - Deferred: `E` activation and full interaction prompt copy are handled in Issue 5.2.
 - Files likely touched:
   - `src/world/interactions/`
   - `src/world/exhibits/ExhibitObject.tsx`

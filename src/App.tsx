@@ -4,6 +4,7 @@ import { museumMetadata } from './content/museum';
 import { ControlPrompt } from './ui/ControlPrompt';
 import { ExhibitIndex } from './ui/ExhibitIndex';
 import { ExhibitOverlay } from './ui/ExhibitOverlay';
+import { FocusedExhibitPrompt } from './ui/FocusedExhibitPrompt';
 import { MuseumScene } from './world/MuseumScene';
 
 export function App() {
@@ -26,6 +27,7 @@ export function App() {
       </section>
 
       <ControlPrompt />
+      <FocusedExhibitPrompt />
       <ExhibitIndex />
       <ExhibitOverlay />
     </main>
