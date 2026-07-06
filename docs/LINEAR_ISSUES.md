@@ -291,6 +291,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 3.3: Build exhibit detail overlay
 
 - Title: Build exhibit detail overlay
+- Status: Done
 - Goal: Show readable exhibit content when a visitor activates an exhibit.
 - Scope:
   - Add selected exhibit state.
@@ -298,10 +299,12 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Pause or disable movement while overlay is open.
   - Add close behavior.
 - Acceptance Criteria:
-  - Activating an exhibit opens the correct content.
-  - Overlay content is readable on laptop screens.
-  - Escape or close button returns to exploration.
-  - Links are visible and intentional.
+  - Done: Activating an exhibit from the prototype index opens the correct content.
+  - Done: Clicking a 3D exhibit object also opens the selected exhibit content.
+  - Done: Overlay content is readable on laptop screens.
+  - Done: Escape or close button returns to exploration.
+  - Done: Links are visible and intentional.
+  - Deferred: gaze/proximity focus and `E` activation remain in Phase 5.
 - Files likely touched:
   - `src/ui/ExhibitOverlay.tsx`
   - `src/state/useAppStore.ts`

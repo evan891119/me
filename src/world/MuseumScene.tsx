@@ -43,6 +43,7 @@ export function MuseumScene() {
       <fog attach="fog" args={['#15181a', 10, 22]} />
       <SceneLighting />
       <PointerLockControls
+        selector="#enter-world-button"
         onLock={() => setPointerLocked(true)}
         onUnlock={() => setPointerLocked(false)}
       />

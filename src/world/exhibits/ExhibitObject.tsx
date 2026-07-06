@@ -1,5 +1,6 @@
 import { CuboidCollider, RigidBody } from '@react-three/rapier';
 import type { ExhibitDisplayStyle, MuseumExhibit, Vec3 } from '../../content/types';
+import { useAppStore } from '../../state/useAppStore';
 
 interface ExhibitObjectProps {
   exhibit: MuseumExhibit;
@@ -49,6 +50,7 @@ function toTuple({ x, y, z }: Vec3): [number, number, number] {
 }
 
 export function ExhibitObject({ exhibit }: ExhibitObjectProps) {
+  const openExhibit = useAppStore((state) => state.openExhibit);
   const { transform } = exhibit;
   const style = exhibitStyleByDisplayStyle[exhibit.displayStyle];
   const position = toTuple(transform.position);
@@ -69,6 +71,10 @@ export function ExhibitObject({ exhibit }: ExhibitObjectProps) {
     0,
   ];
 
+  const handleActivate = () => {
+    openExhibit(exhibit.id);
+  };
+
   return (
     <RigidBody
       type="fixed"
@@ -78,11 +84,11 @@ export function ExhibitObject({ exhibit }: ExhibitObjectProps) {
       userData={{ exhibitId: exhibit.id }}
     >
       <CuboidCollider args={[scale[0] / 2, scale[1] / 2, scale[2] / 2]} />
-      <mesh scale={scale}>
+      <mesh scale={scale} onClick={handleActivate}>
         <boxGeometry />
         <meshStandardMaterial color={style.baseColor} roughness={style.roughness} />
       </mesh>
-      <mesh position={accentPosition} scale={accentScale}>
+      <mesh position={accentPosition} scale={accentScale} onClick={handleActivate}>
         <boxGeometry />
         <meshStandardMaterial color={style.accentColor} roughness={0.58} />
       </mesh>

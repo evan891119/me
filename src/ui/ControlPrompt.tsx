@@ -6,10 +6,6 @@ export function ControlPrompt() {
     typeof HTMLCanvasElement !== 'undefined' &&
     'requestPointerLock' in HTMLCanvasElement.prototype;
 
-  const enterPointerLock = () => {
-    document.querySelector('canvas')?.requestPointerLock();
-  };
-
   if (isPointerLocked) {
     return (
       <div className="control-strip" aria-live="polite">
@@ -37,7 +33,7 @@ export function ControlPrompt() {
         <h2 id="enter-world-title">Enter the museum</h2>
         <p>Use keyboard and mouse. Movement is intentionally slow for comfort.</p>
       </div>
-      <button id="enter-world-button" type="button" onClick={enterPointerLock}>
+      <button id="enter-world-button" type="button">
         Click to enter
       </button>
     </section>
