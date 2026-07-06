@@ -151,6 +151,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 2.1: Create minimal R3F canvas and scene shell
 
 - Title: Create minimal R3F canvas and scene shell
+- Status: Done
 - Goal: Render a stable full-screen 3D scene foundation.
 - Scope:
   - Add a full-screen canvas.
@@ -158,10 +159,10 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Add a loading boundary.
   - Keep geometry primitive and lightweight.
 - Acceptance Criteria:
-  - Scene renders without console errors.
-  - Canvas resizes with the viewport.
-  - Initial camera starts in a sensible lobby position.
-  - No post-processing is included.
+  - Done: Scene renders without console errors in browser verification.
+  - Done: Canvas resizes with the viewport in desktop and mobile-sized checks.
+  - Done: Initial camera starts in a sensible lobby position.
+  - Done: No post-processing is included.
 - Files likely touched:
   - `src/App.tsx`
   - `src/world/MuseumScene.tsx`
