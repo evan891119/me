@@ -1,10 +1,13 @@
 import { PointerLockControls } from '@react-three/drei';
 import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier';
+import { useEffect, useRef } from 'react';
+import type { PointerLockControls as PointerLockControlsImpl } from 'three-stdlib';
 import { useAppStore } from '../state/useAppStore';
 import { ExhibitGroup } from './exhibits/ExhibitGroup';
 import { ExhibitFocusDetector } from './interactions/ExhibitFocusDetector';
 import { SceneLighting } from './lighting';
 import { PlayerController } from './PlayerController';
+import { REQUEST_POINTER_LOCK_EVENT } from './pointerLockEvents';
 
 type Vec3 = [number, number, number];
 
@@ -37,6 +40,19 @@ function PhysicsBox({ color, position, roughness, scale }: WallSpec) {
 
 export function MuseumScene() {
   const setPointerLocked = useAppStore((state) => state.setPointerLocked);
+  const pointerLockControls = useRef<PointerLockControlsImpl>(null);
+
+  useEffect(() => {
+    const handlePointerLockRequest = () => {
+      pointerLockControls.current?.lock();
+    };
+
+    window.addEventListener(REQUEST_POINTER_LOCK_EVENT, handlePointerLockRequest);
+
+    return () => {
+      window.removeEventListener(REQUEST_POINTER_LOCK_EVENT, handlePointerLockRequest);
+    };
+  }, []);
 
   return (
     <>
@@ -44,6 +60,7 @@ export function MuseumScene() {
       <fog attach="fog" args={['#15181a', 10, 22]} />
       <SceneLighting />
       <PointerLockControls
+        ref={pointerLockControls}
         selector="#enter-world-button"
         onLock={() => setPointerLocked(true)}
         onUnlock={() => setPointerLocked(false)}

@@ -1,11 +1,23 @@
 import { useEffect } from 'react';
 import { museumExhibits } from '../content/exhibits';
 import { useAppStore } from '../state/useAppStore';
+import { REQUEST_POINTER_LOCK_EVENT } from '../world/pointerLockEvents';
 
 export function ExhibitOverlay() {
   const selectedExhibitId = useAppStore((state) => state.selectedExhibitId);
   const closeExhibit = useAppStore((state) => state.closeExhibit);
+  const shouldResumePointerLockOnClose = useAppStore(
+    (state) => state.shouldResumePointerLockOnClose,
+  );
   const exhibit = museumExhibits.find((item) => item.id === selectedExhibitId);
+
+  const handleCloseButtonClick = () => {
+    if (shouldResumePointerLockOnClose) {
+      window.dispatchEvent(new Event(REQUEST_POINTER_LOCK_EVENT));
+    }
+
+    closeExhibit();
+  };
 
   useEffect(() => {
     if (!exhibit) {
@@ -43,7 +55,7 @@ export function ExhibitOverlay() {
           <p className="phase-label">{exhibit.sectionId}</p>
           <h2 id="exhibit-overlay-title">{exhibit.title}</h2>
         </div>
-        <button className="icon-button" type="button" onClick={closeExhibit} aria-label="Close exhibit">
+        <button className="icon-button" type="button" onClick={handleCloseButtonClick} aria-label="Close exhibit">
           X
         </button>
       </div>

@@ -4,6 +4,7 @@ interface AppState {
   focusedExhibitId: string | null;
   isOverlayOpen: boolean;
   isPointerLocked: boolean;
+  shouldResumePointerLockOnClose: boolean;
   selectedExhibitId: string | null;
   closeExhibit: () => void;
   openExhibit: (selectedExhibitId: string) => void;
@@ -16,10 +17,21 @@ export const useAppStore = create<AppState>((set) => ({
   focusedExhibitId: null,
   isOverlayOpen: false,
   isPointerLocked: false,
+  shouldResumePointerLockOnClose: false,
   selectedExhibitId: null,
-  closeExhibit: () => set({ isOverlayOpen: false, selectedExhibitId: null }),
+  closeExhibit: () =>
+    set({
+      isOverlayOpen: false,
+      selectedExhibitId: null,
+      shouldResumePointerLockOnClose: false,
+    }),
   openExhibit: (selectedExhibitId) =>
-    set({ focusedExhibitId: null, isOverlayOpen: true, selectedExhibitId }),
+    set((state) => ({
+      focusedExhibitId: null,
+      isOverlayOpen: true,
+      selectedExhibitId,
+      shouldResumePointerLockOnClose: state.isPointerLocked,
+    })),
   setFocusedExhibitId: (focusedExhibitId) => set({ focusedExhibitId }),
   setOverlayOpen: (isOverlayOpen) => set({ isOverlayOpen }),
   setPointerLocked: (isPointerLocked) =>
