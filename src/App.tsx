@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
+import { museumMetadata } from './content/museum';
 import { ControlPrompt } from './ui/ControlPrompt';
 import { MuseumScene } from './world/MuseumScene';
 
@@ -17,9 +18,9 @@ export function App() {
       </Canvas>
 
       <section className="scene-hud" aria-labelledby="site-title">
-        <p className="phase-label">Phase 2.3</p>
-        <h1 id="site-title">First-Person Portfolio Museum</h1>
-        <p>Click to enter, then use WASD to test wall and exhibit collision.</p>
+        <p className="phase-label">{museumMetadata.phaseLabel}</p>
+        <h1 id="site-title">{museumMetadata.title}</h1>
+        <p>{museumMetadata.summary}</p>
       </section>
 
       <ControlPrompt />

@@ -207,7 +207,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 2.3: Add Rapier collision for the small world
 
 - Title: Add Rapier collision for the small world
-- Status: Implemented, pending manual collision confirmation
+- Status: Done
 - Goal: Prevent the player from walking through walls and exhibits.
 - Scope:
   - Add physics world.
@@ -215,9 +215,9 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Connect player movement to collision-aware motion.
   - Keep collision meshes simple.
 - Acceptance Criteria:
-  - Implemented: Player movement now uses a Rapier capsule body.
-  - Implemented: Floor, walls, and prototype exhibit blocks use fixed Rapier colliders.
-  - Pending manual confirmation: automated in-app browser QA cannot grant pointer lock for collision traversal.
+  - Done: Player movement now uses a Rapier capsule body.
+  - Done: Floor, walls, and prototype exhibit blocks use fixed Rapier colliders.
+  - Done: Manual collision confirmation completed by the user.
   - Risk noted: Rapier increases production JS gzip size and should be revisited in the performance pass.
 - Files likely touched:
   - `src/world/physics/`
@@ -235,6 +235,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 3.1: Define typed museum content schema
 
 - Title: Define typed museum content schema
+- Status: Done
 - Goal: Keep portfolio content separate from 3D render components.
 - Scope:
   - Define TypeScript types for sections and exhibits.
@@ -242,10 +243,11 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Add seed content for the first 3-5 exhibits.
   - Keep schema small enough to change while prototyping.
 - Acceptance Criteria:
-  - Exhibit content lives in data files.
-  - Render components consume typed content.
-  - No real portfolio copy is hard-coded inside scene components.
-  - Schema supports all first prototype exhibits.
+  - Done: Exhibit content lives in `src/content/exhibits.ts`.
+  - Done: Render components consume typed museum metadata from content data.
+  - Done: Portfolio copy is not hard-coded inside scene components.
+  - Done: Schema supports the first prototype exhibit set.
+  - Note: Seed exhibit copy is prototype copy, not final portfolio content.
 - Files likely touched:
   - `src/content/types.ts`
   - `src/content/exhibits.ts`
@@ -261,6 +263,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 3.2: Render exhibits from content data
 
 - Title: Render exhibits from content data
+- Status: Done
 - Goal: Generate prototype exhibit objects from the content schema.
 - Scope:
   - Map exhibit data to simple 3D objects.
@@ -268,10 +271,11 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Add lightweight labels or signs.
   - Keep content and component responsibilities separate.
 - Acceptance Criteria:
-  - Adding an exhibit to the data file creates a visible exhibit.
-  - Exhibit placement is controlled by data.
-  - Exhibit labels are readable enough for prototype testing.
-  - No component-specific copy duplication exists.
+  - Done: Adding an exhibit to `src/content/exhibits.ts` creates a visible exhibit.
+  - Done: Exhibit placement is controlled by content transform data.
+  - Done: Prototype display style is visible through data-driven accent colors.
+  - Done: No component-specific copy duplication exists in scene components.
+  - Deferred: readable text labels move to the exhibit overlay in Issue 3.3 to avoid 3D font asset overhead.
 - Files likely touched:
   - `src/world/exhibits/ExhibitObject.tsx`
   - `src/world/exhibits/ExhibitGroup.tsx`
