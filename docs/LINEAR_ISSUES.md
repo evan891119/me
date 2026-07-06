@@ -300,7 +300,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Add close behavior.
 - Acceptance Criteria:
   - Done: Activating an exhibit from the prototype index opens the correct content.
-  - Done: Clicking a 3D exhibit object also opens the selected exhibit content.
+  - Deferred: Clicking a 3D exhibit object is disabled until Phase 5 focus/activation rules are implemented.
   - Done: Overlay content is readable on laptop screens.
   - Done: Escape or close button returns to exploration.
   - Done: Links are visible and intentional.
