@@ -150,13 +150,15 @@ h1 {
   white-space: nowrap;
 }
 
-.focused-exhibit-prompt {
+.interaction-prompt {
   position: absolute;
   left: 50%;
   bottom: 78px;
   display: grid;
-  gap: 4px;
+  grid-template-columns: 1fr auto;
+  gap: 4px 14px;
   min-width: 220px;
+  align-items: center;
   transform: translateX(-50%);
   padding: 10px 14px;
   border: 1px solid rgb(201 164 109 / 28%);
@@ -166,7 +168,8 @@ h1 {
   backdrop-filter: blur(14px);
 }
 
-.focused-exhibit-prompt span {
+.interaction-prompt span {
+  grid-column: 1 / -1;
   color: #c9a46d;
   font-size: 0.72rem;
   font-weight: 700;
@@ -174,9 +177,22 @@ h1 {
   text-transform: uppercase;
 }
 
-.focused-exhibit-prompt strong {
+.interaction-prompt strong {
   font-size: 0.95rem;
   line-height: 1.2;
+}
+
+.interaction-prompt kbd {
+  display: grid;
+  min-width: 34px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid rgb(244 240 232 / 22%);
+  color: #15181a;
+  background: #c9a46d;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
 }
 
 .exhibit-index {

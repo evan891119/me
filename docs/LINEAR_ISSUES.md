@@ -433,6 +433,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 5.2: Add interaction prompt and activation flow
 
 - Title: Add interaction prompt and activation flow
+- Status: Done
 - Goal: Let visitors intentionally open focused exhibits.
 - Scope:
   - Show a concise prompt for focused exhibits.
@@ -440,10 +441,11 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Connect activation to exhibit overlay.
   - Handle pointer lock transitions cleanly.
 - Acceptance Criteria:
-  - Prompt appears and disappears correctly.
-  - `E` opens the focused exhibit.
-  - Click activation works where appropriate.
-  - Closing the overlay returns to exploration without stuck input.
+  - Done: Prompt appears when an exhibit is focused during pointer lock.
+  - Done: `E` opens the focused exhibit overlay.
+  - Done: Opening an exhibit exits pointer lock before showing the overlay.
+  - Done: Closing the overlay returns to exploration without retaining movement input.
+  - Deferred: 3D object click activation remains disabled until click rules are intentionally designed.
 - Files likely touched:
   - `src/ui/InteractionPrompt.tsx`
   - `src/world/interactions/`
