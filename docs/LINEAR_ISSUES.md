@@ -585,17 +585,22 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 6.3: Add graceful fallback for unsupported environments
 
 - Title: Add graceful fallback for unsupported environments
+- Status: Done
 - Goal: Avoid a blank or confusing page when the 3D experience cannot run well.
 - Scope:
   - Detect missing WebGL support or serious initialization failure.
   - Show a simple fallback message and contact links.
   - Consider a reduced-motion or low-quality mode flag.
 - Acceptance Criteria:
-  - WebGL initialization failure shows useful fallback UI.
-  - Contact path remains available.
-  - Fallback does not require duplicating all portfolio content.
+  - Done: WebGL support is checked before mounting the Canvas.
+  - Done: Canvas/runtime initialization failure falls back through an error boundary.
+  - Done: Fallback UI explains that the 3D museum needs a desktop WebGL browser.
+  - Done: Contact path remains available through the contact exhibit link.
+  - Done: Fallback does not duplicate all portfolio content.
 - Files likely touched:
   - `src/ui/FallbackView.tsx`
+  - `src/ui/CanvasErrorBoundary.tsx`
+  - `src/utils/webglSupport.ts`
   - `src/App.tsx`
   - `src/content/exhibits.ts`
 - Dependencies:

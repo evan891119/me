@@ -43,6 +43,21 @@ Use it to catch obvious regressions:
 - Browser resource timing may report `0` transferred bytes for cached or locally served resources.
 - Rapier is the dominant JavaScript cost. Replacing or deferring physics should be a deliberate product decision, not a cleanup task.
 
+## Fallback Check
+
+Use this URL while the dev server or preview server is running:
+
+```text
+/?forceFallback=1
+```
+
+Expected result:
+
+- the Canvas does not mount;
+- the fallback message is visible;
+- the contact link remains available;
+- the page is not blank.
+
 ## Phase 6.2 Baseline
 
 Build command:
