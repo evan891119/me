@@ -616,6 +616,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 7.1: Replace prototype copy with launch-ready content
 
 - Title: Replace prototype copy with launch-ready content
+- Status: Blocked on real portfolio content
 - Goal: Make the museum communicate clearly with real portfolio content.
 - Scope:
   - Polish exhibit titles, summaries, and body copy.
@@ -623,10 +624,11 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Remove obvious placeholder content.
   - Keep content in data files.
 - Acceptance Criteria:
-  - Every launch exhibit has real copy.
-  - Links are correct.
-  - Contact exhibit is accurate.
-  - Render components still contain no portfolio copy.
+  - Pending: Every launch exhibit has real copy.
+  - Pending: Links are correct.
+  - Pending: Contact exhibit is accurate.
+  - Done: Required content fields are captured in `docs/content-inventory.md`.
+  - Done: Render components still contain no portfolio copy.
 - Files likely touched:
   - `src/content/exhibits.ts`
   - `src/content/museum.ts`
