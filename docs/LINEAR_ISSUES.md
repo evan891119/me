@@ -498,6 +498,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 5.4: Add basic visitor guidance
 
 - Title: Add basic visitor guidance
+- Status: Deferred for now
 - Goal: Help visitors understand where to go without adding heavy navigation UI.
 - Scope:
   - Add simple signs, lighting cues, or floor markers.
@@ -525,19 +526,23 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 6.1: Add performance instrumentation
 
 - Title: Add performance instrumentation
+- Status: Done
 - Goal: Make frame rate, draw calls, and asset weight visible during development.
 - Scope:
   - Add a development-only performance panel or logging path.
   - Track FPS, frame timing, draw calls, triangles, and loaded asset sizes where feasible.
   - Keep instrumentation out of production or behind a debug flag.
 - Acceptance Criteria:
-  - Developers can inspect basic runtime performance.
-  - Debug UI is hidden in production by default.
-  - Performance budget can be checked during review.
+  - Done: Developers can inspect FPS, frame time, draw calls, triangles, lines, points, and transferred resource bytes.
+  - Done: Debug UI is hidden in production by default through `import.meta.env.DEV`.
+  - Done: Performance budget can be checked during review through the dev-only panel.
+  - Done: Usage notes are documented in `docs/PERFORMANCE_NOTES.md`.
 - Files likely touched:
   - `src/world/debug/`
-  - `src/state/useAppStore.ts`
+  - `src/state/usePerformanceStore.ts`
   - `src/App.tsx`
+  - `src/ui/PerformancePanel.tsx`
+  - `docs/PERFORMANCE_NOTES.md`
 - Dependencies:
   - Issue 2.1
 - Out of scope:

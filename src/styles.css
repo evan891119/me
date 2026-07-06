@@ -356,6 +356,48 @@ h1 {
   background: rgb(201 164 109 / 24%);
 }
 
+.performance-panel {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+  width: 190px;
+  padding: 12px;
+  border: 1px solid rgb(156 197 193 / 22%);
+  color: #f4f0e8;
+  background: rgb(18 20 22 / 78%);
+  backdrop-filter: blur(14px);
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.performance-panel .phase-label {
+  margin-bottom: 10px;
+  color: #9cc5c1;
+  font-size: 0.68rem;
+}
+
+.performance-panel dl {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+}
+
+.performance-panel div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.performance-panel dt {
+  color: #a9a196;
+}
+
+.performance-panel dd {
+  margin: 0;
+  color: #f4f0e8;
+  font-variant-numeric: tabular-nums;
+}
+
 @media (max-width: 760px) {
   .scene-hud {
     top: 16px;
@@ -391,5 +433,9 @@ h1 {
 
   .exhibit-overlay h2 {
     font-size: 1.45rem;
+  }
+
+  .performance-panel {
+    display: none;
   }
 }

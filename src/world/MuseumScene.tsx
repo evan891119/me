@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import type { PointerLockControls as PointerLockControlsImpl } from 'three-stdlib';
 import { useAppStore } from '../state/useAppStore';
 import { ExhibitGroup } from './exhibits/ExhibitGroup';
+import { PerformanceMonitor } from './debug/PerformanceMonitor';
 import { ExhibitFocusDetector } from './interactions/ExhibitFocusDetector';
 import { SceneLighting } from './lighting';
 import { PlayerController } from './PlayerController';
@@ -58,6 +59,7 @@ export function MuseumScene() {
     <>
       <color attach="background" args={['#15181a']} />
       <fog attach="fog" args={['#15181a', 10, 22]} />
+      {import.meta.env.DEV ? <PerformanceMonitor /> : null}
       <SceneLighting />
       <PointerLockControls
         ref={pointerLockControls}

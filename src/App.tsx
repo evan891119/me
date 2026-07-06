@@ -5,6 +5,7 @@ import { ControlPrompt } from './ui/ControlPrompt';
 import { ExhibitIndex } from './ui/ExhibitIndex';
 import { ExhibitOverlay } from './ui/ExhibitOverlay';
 import { InteractionPrompt } from './ui/InteractionPrompt';
+import { PerformancePanel } from './ui/PerformancePanel';
 import { MuseumScene } from './world/MuseumScene';
 
 export function App() {
@@ -30,6 +31,7 @@ export function App() {
       <InteractionPrompt />
       <ExhibitIndex />
       <ExhibitOverlay />
+      <PerformancePanel />
     </main>
   );
 }
