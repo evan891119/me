@@ -6,14 +6,6 @@ export function ControlPrompt() {
     typeof HTMLCanvasElement !== 'undefined' &&
     'requestPointerLock' in HTMLCanvasElement.prototype;
 
-  if (isPointerLocked) {
-    return (
-      <div className="control-strip" aria-live="polite">
-        WASD move · Mouse look · Esc exit
-      </div>
-    );
-  }
-
   if (!canUsePointerLock) {
     return (
       <section className="enter-world-panel" aria-labelledby="pointer-lock-unavailable-title">
@@ -27,15 +19,20 @@ export function ControlPrompt() {
   }
 
   return (
-    <section className="enter-world-panel" aria-labelledby="enter-world-title">
-      <div>
-        <p className="phase-label">Controls</p>
-        <h2 id="enter-world-title">Enter the museum</h2>
-        <p>Use keyboard and mouse. Movement is intentionally slow for comfort.</p>
+    <>
+      <div className="control-strip" aria-live="polite" hidden={!isPointerLocked}>
+        WASD move · Mouse look · Esc exit
       </div>
-      <button id="enter-world-button" type="button">
-        Click to enter
-      </button>
-    </section>
+      <section className="enter-world-panel" aria-labelledby="enter-world-title" hidden={isPointerLocked}>
+        <div>
+          <p className="phase-label">Controls</p>
+          <h2 id="enter-world-title">Enter the museum</h2>
+          <p>Use keyboard and mouse. Movement is intentionally slow for comfort.</p>
+        </div>
+        <button id="enter-world-button" type="button">
+          Click to enter
+        </button>
+      </section>
+    </>
   );
 }
