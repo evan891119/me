@@ -1,10 +1,14 @@
+import { CapsuleCollider, RapierRigidBody, RigidBody } from '@react-three/rapier';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Vector3 } from 'three';
 import { useAppStore } from '../state/useAppStore';
 
 const MOVE_SPEED = 3;
-const PLAYER_HEIGHT = 1.7;
+const CAMERA_OFFSET_Y = 0.8;
+const PLAYER_START_Y = 0.9;
+const PLAYER_RADIUS = 0.35;
+const PLAYER_SEGMENT_HALF_HEIGHT = 0.55;
 
 const movementKeys = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD']);
 
@@ -12,10 +16,11 @@ export function PlayerController() {
   const camera = useThree((state) => state.camera);
   const isPointerLocked = useAppStore((state) => state.isPointerLocked);
   const isOverlayOpen = useAppStore((state) => state.isOverlayOpen);
+  const rigidBody = useRef<RapierRigidBody>(null);
   const keysPressed = useRef<Set<string>>(new Set());
   const forward = useRef(new Vector3());
   const right = useRef(new Vector3());
-  const movement = useRef(new Vector3());
+  const velocity = useRef(new Vector3());
   const up = useRef(new Vector3(0, 1, 0));
 
   useEffect(() => {
@@ -46,8 +51,18 @@ export function PlayerController() {
     }
   }, [isOverlayOpen, isPointerLocked]);
 
-  useFrame((_, delta) => {
+  useFrame(() => {
+    const body = rigidBody.current;
+
+    if (!body) {
+      return;
+    }
+
+    const translation = body.translation();
+    camera.position.set(translation.x, translation.y + CAMERA_OFFSET_Y, translation.z);
+
     if (!isPointerLocked || isOverlayOpen || keysPressed.current.size === 0) {
+      body.setLinvel({ x: 0, y: 0, z: 0 }, true);
       return;
     }
 
@@ -56,32 +71,46 @@ export function PlayerController() {
     forward.current.normalize();
 
     right.current.copy(forward.current).cross(up.current).normalize();
-    movement.current.set(0, 0, 0);
+    velocity.current.set(0, 0, 0);
 
     if (keysPressed.current.has('KeyW')) {
-      movement.current.add(forward.current);
+      velocity.current.add(forward.current);
     }
 
     if (keysPressed.current.has('KeyS')) {
-      movement.current.sub(forward.current);
+      velocity.current.sub(forward.current);
     }
 
     if (keysPressed.current.has('KeyD')) {
-      movement.current.add(right.current);
+      velocity.current.add(right.current);
     }
 
     if (keysPressed.current.has('KeyA')) {
-      movement.current.sub(right.current);
+      velocity.current.sub(right.current);
     }
 
-    if (movement.current.lengthSq() === 0) {
+    if (velocity.current.lengthSq() === 0) {
+      body.setLinvel({ x: 0, y: 0, z: 0 }, true);
       return;
     }
 
-    movement.current.normalize().multiplyScalar(MOVE_SPEED * delta);
-    camera.position.add(movement.current);
-    camera.position.y = PLAYER_HEIGHT;
+    velocity.current.normalize().multiplyScalar(MOVE_SPEED);
+    body.setLinvel(
+      { x: velocity.current.x, y: 0, z: velocity.current.z },
+      true,
+    );
   });
 
-  return null;
+  return (
+    <RigidBody
+      ref={rigidBody}
+      type="dynamic"
+      position={[0, PLAYER_START_Y, 7]}
+      colliders={false}
+      enabledRotations={[false, false, false]}
+      linearDamping={8}
+    >
+      <CapsuleCollider args={[PLAYER_SEGMENT_HALF_HEIGHT, PLAYER_RADIUS]} />
+    </RigidBody>
+  );
 }

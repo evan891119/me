@@ -207,6 +207,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 2.3: Add Rapier collision for the small world
 
 - Title: Add Rapier collision for the small world
+- Status: Implemented, pending manual collision confirmation
 - Goal: Prevent the player from walking through walls and exhibits.
 - Scope:
   - Add physics world.
@@ -214,10 +215,10 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Connect player movement to collision-aware motion.
   - Keep collision meshes simple.
 - Acceptance Criteria:
-  - Player cannot pass through walls.
-  - Player cannot fall through the floor.
-  - Collision does not jitter during normal movement.
-  - Physics does not noticeably hurt frame rate in the small scene.
+  - Implemented: Player movement now uses a Rapier capsule body.
+  - Implemented: Floor, walls, and prototype exhibit blocks use fixed Rapier colliders.
+  - Pending manual confirmation: automated in-app browser QA cannot grant pointer lock for collision traversal.
+  - Risk noted: Rapier increases production JS gzip size and should be revisited in the performance pass.
 - Files likely touched:
   - `src/world/physics/`
   - `src/world/PlayerController.tsx`

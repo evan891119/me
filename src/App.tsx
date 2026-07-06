@@ -17,9 +17,9 @@ export function App() {
       </Canvas>
 
       <section className="scene-hud" aria-labelledby="site-title">
-        <p className="phase-label">Phase 2.2</p>
+        <p className="phase-label">Phase 2.3</p>
         <h1 id="site-title">First-Person Portfolio Museum</h1>
-        <p>Click to enter, then use WASD and mouse look to explore.</p>
+        <p>Click to enter, then use WASD to test wall and exhibit collision.</p>
       </section>
 
       <ControlPrompt />
