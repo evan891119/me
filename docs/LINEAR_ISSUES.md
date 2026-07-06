@@ -178,6 +178,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 2.2: Implement first-person movement and pointer lock
 
 - Title: Implement first-person movement and pointer lock
+- Status: Implemented, pending manual pointer-lock confirmation
 - Goal: Let visitors move through the prototype using desktop first-person controls.
 - Scope:
   - Add click-to-enter pointer lock.
@@ -186,11 +187,11 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Add conservative speed and FOV defaults.
   - Add a minimal control prompt.
 - Acceptance Criteria:
-  - WASD movement works.
-  - Mouse look works only after pointer lock.
-  - Escape exits pointer lock reliably.
-  - Movement does not continue while an overlay is open.
-  - Controls feel stable on desktop.
+  - Implemented: WASD movement updates the camera while pointer lock is active.
+  - Implemented: Mouse look is handled by Drei `PointerLockControls`.
+  - Implemented: Escape exits pointer lock through the browser pointer-lock flow.
+  - Implemented: Movement is disabled while overlay state is open.
+  - Pending manual confirmation: automated in-app browser QA cannot grant pointer lock.
 - Files likely touched:
   - `src/world/PlayerController.tsx`
   - `src/state/useAppStore.ts`

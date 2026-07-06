@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
+import { ControlPrompt } from './ui/ControlPrompt';
 import { MuseumScene } from './world/MuseumScene';
 
 export function App() {
@@ -16,10 +17,12 @@ export function App() {
       </Canvas>
 
       <section className="scene-hud" aria-labelledby="site-title">
-        <p className="phase-label">Phase 2.1</p>
+        <p className="phase-label">Phase 2.2</p>
         <h1 id="site-title">First-Person Portfolio Museum</h1>
-        <p>Minimal R3F scene shell: camera, lights, floor, and walls.</p>
+        <p>Click to enter, then use WASD and mouse look to explore.</p>
       </section>
+
+      <ControlPrompt />
     </main>
   );
 }

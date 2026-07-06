@@ -1,4 +1,7 @@
+import { PointerLockControls } from '@react-three/drei';
+import { useAppStore } from '../state/useAppStore';
 import { SceneLighting } from './lighting';
+import { PlayerController } from './PlayerController';
 
 type Vec3 = [number, number, number];
 
@@ -28,11 +31,18 @@ const wallPanelSpecs: WallSpec[] = [
 ];
 
 export function MuseumScene() {
+  const setPointerLocked = useAppStore((state) => state.setPointerLocked);
+
   return (
     <>
       <color attach="background" args={['#15181a']} />
       <fog attach="fog" args={['#15181a', 10, 22]} />
       <SceneLighting />
+      <PointerLockControls
+        onLock={() => setPointerLocked(true)}
+        onUnlock={() => setPointerLocked(false)}
+      />
+      <PlayerController />
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[12, 12]} />
