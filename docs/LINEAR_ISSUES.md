@@ -444,7 +444,8 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Done: Prompt appears when an exhibit is focused during pointer lock.
   - Done: `E` opens the focused exhibit overlay.
   - Done: Opening an exhibit exits pointer lock before showing the overlay.
-  - Done: Closing the overlay returns to exploration without retaining movement input.
+  - Done: Closing the overlay clears retained movement input.
+  - Done: Closing a pointer-lock-opened overlay with the close button resumes first-person controls.
   - Deferred: 3D object click activation remains disabled until click rules are intentionally designed.
 - Files likely touched:
   - `src/ui/InteractionPrompt.tsx`
@@ -459,7 +460,42 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Animated UI transitions beyond basic polish
   - Multi-step interactions
 
-### Issue 5.3: Add basic visitor guidance
+### Issue 5.3: Stabilize first-person interaction lifecycle
+
+- Title: Stabilize first-person interaction lifecycle
+- Status: Done
+- Goal: Make pointer lock, overlay state, and resume behavior predictable across the core visitor flow.
+- Scope:
+  - Preserve the pointer-lock entry button across lock/unlock transitions so Drei keeps its click listener.
+  - Track whether the visitor has entered the world to show resume-oriented copy after unlock.
+  - Track whether an overlay was opened from pointer lock before exiting pointer lock for readable HTML interaction.
+  - Resume pointer lock from the close button only when the overlay originated from first-person controls.
+  - Keep Escape behavior conservative: Escape exits pointer lock or closes the overlay without forcing re-entry.
+- Acceptance Criteria:
+  - Done: Initial entry uses `Click to enter`.
+  - Done: Esc from first-person reveals the same entry button with resume copy instead of recreating an unbound button.
+  - Done: Focused exhibit + `E` opens the overlay and releases pointer lock for HTML interaction.
+  - Done: Close button from a pointer-lock-origin overlay requests pointer lock recovery from the same trusted click event.
+  - Done: Escape from the overlay closes it without automatic pointer lock recovery.
+  - Done: Opening an exhibit from the index does not force pointer lock recovery on close.
+- Files likely touched:
+  - `src/state/useAppStore.ts`
+  - `src/ui/ControlPrompt.tsx`
+  - `src/ui/ExhibitOverlay.tsx`
+  - `src/world/MuseumScene.tsx`
+  - `src/world/pointerLockEvents.ts`
+  - `src/styles.css`
+  - `docs/PRODUCT_SPEC.md`
+- Dependencies:
+  - Issue 5.1
+  - Issue 5.2
+- Out of scope:
+  - Click-to-open 3D objects
+  - Mobile touch controls
+  - Complex modal routing
+  - Automated pointer-lock E2E coverage beyond browser-supported checks
+
+### Issue 5.4: Add basic visitor guidance
 
 - Title: Add basic visitor guidance
 - Goal: Help visitors understand where to go without adding heavy navigation UI.

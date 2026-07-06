@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 interface AppState {
   focusedExhibitId: string | null;
+  hasEnteredWorld: boolean;
   isOverlayOpen: boolean;
   isPointerLocked: boolean;
   shouldResumePointerLockOnClose: boolean;
@@ -15,6 +16,7 @@ interface AppState {
 
 export const useAppStore = create<AppState>((set) => ({
   focusedExhibitId: null,
+  hasEnteredWorld: false,
   isOverlayOpen: false,
   isPointerLocked: false,
   shouldResumePointerLockOnClose: false,
@@ -37,7 +39,7 @@ export const useAppStore = create<AppState>((set) => ({
   setPointerLocked: (isPointerLocked) =>
     set(
       isPointerLocked
-        ? { isPointerLocked }
+        ? { hasEnteredWorld: true, isPointerLocked }
         : { focusedExhibitId: null, isPointerLocked },
     ),
 }));

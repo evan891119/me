@@ -146,7 +146,10 @@ The first runnable version only needs:
 - A small prompt appears outside the 3D canvas or as a restrained in-world label.
 - Press `E` or click to open the exhibit overlay.
 - Overlay pauses or soft-disables movement.
-- Close overlay with Escape, close button, or click outside if appropriate.
+- Close overlay with Escape or the close button.
+- If the overlay was opened from first-person pointer lock, the close button should return directly to first-person controls.
+- Escape from the overlay closes it without forcing pointer lock recovery; the visitor can use the resume button to re-enter.
+- If the overlay was opened from non-pointer-lock UI such as the exhibit index, closing it should not force first-person controls.
 
 ### Navigation
 
