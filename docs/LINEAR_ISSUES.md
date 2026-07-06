@@ -347,6 +347,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 4.2: Set up GLB asset conventions
 
 - Title: Set up GLB asset conventions
+- Status: Done
 - Goal: Make asset import and optimization predictable before real assets accumulate.
 - Scope:
   - Define where runtime GLB files live.
@@ -355,10 +356,11 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Document optimization commands or tools.
   - Add one tiny test asset only if needed for validation.
 - Acceptance Criteria:
-  - Asset folder structure is documented.
-  - GLB naming and size expectations are clear.
-  - Optimization checklist exists.
-  - No large unoptimized source assets are committed accidentally.
+  - Done: Asset folder structure is documented in `docs/ASSET_PIPELINE.md`.
+  - Done: GLB naming and size expectations are clear.
+  - Done: Optimization checklist exists.
+  - Done: `.gitignore` blocks common large source asset formats and source staging folder contents.
+  - Note: No test asset was added because validation does not need one yet.
 - Files likely touched:
   - `docs/ASSET_PIPELINE.md`
   - `public/assets/models/`

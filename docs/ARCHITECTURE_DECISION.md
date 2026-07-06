@@ -99,6 +99,8 @@ The site should feel responsive before it looks expensive.
 
 ## Asset Pipeline
 
+Detailed asset conventions are documented in `docs/ASSET_PIPELINE.md`.
+
 Recommended source-to-runtime pipeline:
 
 1. Create or collect source assets in Blender, Figma, image tools, or generated image tools.

@@ -3,3 +3,13 @@ dist/
 .DS_Store
 *.local
 
+# Large source assets should not enter the runtime bundle.
+public/assets/source-not-committed/*
+!public/assets/source-not-committed/.gitkeep
+*.blend
+*.fbx
+*.obj
+*.psd
+*.kra
+*.spp
+*.exr
