@@ -1,4 +1,4 @@
-import { PointerLockControls } from '@react-three/drei';
+import { PointerLockControls } from '@react-three/drei/core/PointerLockControls';
 import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier';
 import { useEffect, useRef } from 'react';
 import type { PointerLockControls as PointerLockControlsImpl } from 'three-stdlib';

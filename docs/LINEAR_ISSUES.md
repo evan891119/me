@@ -553,6 +553,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 6.2: Optimize scene and assets against budget
 
 - Title: Optimize scene and assets against budget
+- Status: Done
 - Goal: Keep the first playable museum smooth on normal laptops.
 - Scope:
   - Review draw calls, triangle counts, texture sizes, shadows, and physics cost.
@@ -560,14 +561,18 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Add lazy loading or Suspense boundaries where useful.
   - Document the measured budget result.
 - Acceptance Criteria:
-  - Prototype meets frame rate target on the test machine.
-  - Asset payload remains inside the phase budget.
-  - No unnecessary post-processing is present.
-  - Performance findings are documented.
+  - Done: Prototype baseline measures 144 FPS and 6.9 ms frame time on the current test machine.
+  - Done: Runtime baseline measures 15 draw calls and 180 triangles.
+  - Done: App code is split from React, Three/R3F, and Rapier vendor chunks.
+  - Done: App chunk is 4.95 KB gzip after production build.
+  - Done: No committed GLB or texture payload exists yet, so asset payload remains inside the phase budget.
+  - Done: No unnecessary post-processing is present.
+  - Done: Performance findings are documented in `docs/PERFORMANCE_NOTES.md`.
 - Files likely touched:
   - `docs/PERFORMANCE_NOTES.md`
   - `src/world/`
   - `public/assets/`
+  - `vite.config.ts`
 - Dependencies:
   - Issue 4.3
   - Issue 5.2
