@@ -2,8 +2,8 @@ import type { MuseumMetadata, MuseumSection } from './types';
 
 export const museumMetadata: MuseumMetadata = {
   phaseLabel: 'Phase 3.2',
-  title: 'First-Person Portfolio Museum',
-  summary: 'Prototype exhibits now render from typed content data.',
+  title: "Evan's Portfolio Museum",
+  summary: 'A first-person portfolio museum about my projects, tools, and engineering work.',
 };
 
 export const museumSections: MuseumSection[] = [

@@ -40,14 +40,16 @@ export const museumExhibits: MuseumExhibit[] = [
   },
   {
     id: 'project-plinth',
-    title: 'Selected Project Plinth',
+    title: 'discord-voice-relay-bot',
     sectionId: 'projects',
-    summary: 'A prototype slot for one featured project case study.',
+    summary: 'A self-hosted Discord voice relay bot for bridging voice channels across separate servers.',
     body: [
-      'Project exhibits should explain the problem, the role, the stack, and what changed because of the work.',
-      'The first real project list is still undecided, so this seed stays intentionally generic.',
+      'Problem: Discord communities often need to talk across separate servers without moving everyone into the same Discord server or exposing a public hosted service.',
+      'Role: I built a self-hosted Discord voice relay bot that lets communities bridge voice channels across different Discord servers using Discord-native slash commands and short-lived pairing codes.',
+      'Stack: Node.js, npm workspaces, discord.js, @discordjs/voice, modular packages for bridge core, Discord adapter, local config, and local state storage. The project also includes Docker Compose support and JSON lifecycle/recovery logging.',
+      'Outcome: The MVP supports /bridge create, /bridge join <code>, /bridge status, and /bridge leave, with bidirectional voice forwarding, multi-speaker mixing, automatic cleanup when channels empty, multiple simultaneous bridge pairs, basic reconnect handling, and experimental opt-in three-endpoint group bridges.',
     ],
-    tags: ['project', 'case-study'],
+    tags: ['discord', 'voice', 'node.js', 'self-hosted'],
     displayStyle: 'project',
     transform: {
       position: { x: 0, y: 0.95, z: -0.4 },
@@ -57,9 +59,9 @@ export const museumExhibits: MuseumExhibit[] = [
     interactionRadius: 1.9,
     links: [
       {
-        href: 'https://github.com/',
+        href: 'https://github.com/evan891119/discord-voice-relay-bot',
         kind: 'repository',
-        label: 'Repository placeholder',
+        label: 'Repository',
       },
     ],
   },
@@ -85,10 +87,10 @@ export const museumExhibits: MuseumExhibit[] = [
     id: 'contact-terminal',
     title: 'Contact Terminal',
     sectionId: 'contact',
-    summary: 'A clear endpoint for contacting or following up.',
+    summary: 'The easiest way to reach me for projects, collaboration, or technical conversations.',
     body: [
-      'This exhibit should eventually hold the real contact path and selected profile links.',
-      'It should remain easy to find from the lobby and from the end of the museum path.',
+      'If you want to talk about a project, collaboration, or technical idea, email is the best place to start.',
+      'You can also find more of my work on GitHub.',
     ],
     tags: ['contact', 'exit'],
     displayStyle: 'contact',
@@ -100,9 +102,14 @@ export const museumExhibits: MuseumExhibit[] = [
     interactionRadius: 2,
     links: [
       {
-        href: 'mailto:hello@example.com',
+        href: 'mailto:sneezycat@sneezycat.dev',
         kind: 'email',
-        label: 'Email placeholder',
+        label: 'Email',
+      },
+      {
+        href: 'https://github.com/evan891119',
+        kind: 'profile',
+        label: 'GitHub',
       },
     ],
     relatedExhibitIds: ['welcome-console'],

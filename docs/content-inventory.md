@@ -2,17 +2,17 @@
 
 ## Status
 
-Issue 7.1 is ready for real content, but the launch copy is not available yet.
+Issue 7.1 is partially complete.
 
-Do not replace prototype copy in `src/content/exhibits.ts` until the fields below are filled with real information.
+Site metadata, the featured project exhibit, and the contact exhibit have been synced into `src/content/`. Welcome, background, and skills still need launch-ready copy.
 
 ## Site Metadata
 
-- Site title:
-- One-sentence summary:
-- Preferred contact email:
+- Site title: Evan's Portfolio Museum
+- One-sentence summary: A first-person portfolio museum about my projects, tools, and engineering work.
+- Preferred contact email: sneezycat@sneezycat.dev
 - Preferred profile links:
-  - GitHub:
+  - GitHub: https://github.com/evan891119
   - LinkedIn:
   - Personal site:
   - Other:
@@ -36,11 +36,10 @@ Recommended limits:
 - Current placeholder ID: `welcome-console`
 - Section: `lobby`
 - Purpose: Orient the visitor in the first minute.
-- Launch title:
-- Launch summary:
+- Launch title: Welcome!!
+- Launch summary: Welcome to my Museum
 - Body:
-  - 
-  - 
+  - hi
 - Tags:
 - Related exhibits:
   - `project-plinth`
@@ -66,16 +65,16 @@ Recommended limits:
 - Current placeholder ID: `project-plinth`
 - Section: `projects`
 - Purpose: Show one featured project case study.
-- Launch title:
+- Launch title: discord-voice-relay-bot
 - Launch summary:
 - Body:
-  - Problem:
-  - Role:
-  - Stack:
-  - Outcome:
+  - Problem: Discord communities often need to talk across separate servers without moving everyone into the same Discord server or exposing a public hosted service.
+  - Role: I built a self-hosted Discord voice relay bot that lets communities bridge voice channels across different Discord servers using Discord-native slash commands and short-lived pairing codes.
+  - Stack: Node.js, npm workspaces, discord.js, @discordjs/voice, modular packages for bridge core, Discord adapter, local config, and local state storage. The project also includes Docker Compose support and JSON lifecycle/recovery logging.
+  - Outcome: The MVP supports /bridge create, /bridge join <code>, /bridge status, and /bridge leave, with bidirectional voice forwarding, multi-speaker mixing, automatic cleanup when channels empty, multiple simultaneous bridge pairs, basic reconnect handling, and experimental opt-in three-endpoint group bridges.
 - Tags:
 - Links:
-  - Repository:
+  - Repository: https://github.com/evan891119/discord-voice-relay-bot
   - Live demo:
   - Case study:
 - Notes:
@@ -88,7 +87,7 @@ Recommended limits:
 - Launch title:
 - Launch summary:
 - Body:
-  - Skill cluster 1:
+  - Skill cluster 1: AI tools
   - Skill cluster 2:
   - Skill cluster 3:
 - Tags:
@@ -100,40 +99,34 @@ Recommended limits:
 - Current placeholder ID: `contact-terminal`
 - Section: `contact`
 - Purpose: Provide a clear follow-up path.
-- Launch title:
-- Launch summary:
+- Launch title: Contact Terminal
+- Launch summary: The easiest way to reach me for projects, collaboration, or technical conversations.
 - Body:
-  - 
-  - 
+  - If you want to talk about a project, collaboration, or technical idea, email is the best place to start.
+  - You can also find more of my work on GitHub.
 - Tags:
 - Links:
-  - Email:
-  - GitHub:
+  - Email: sneezycat@sneezycat.dev
+  - GitHub: https://github.com/evan891119
   - LinkedIn:
   - Other:
 - Notes:
 
 ## Placeholder Content Still In Source
 
-These source values should be replaced once the inventory is filled:
+These source values should be replaced once the remaining inventory is filled:
 
 - `src/content/museum.ts`
-  - `First-Person Portfolio Museum`
-  - `Prototype exhibits now render from typed content data.`
+  - No known placeholder metadata remains.
 - `src/content/exhibits.ts`
   - `Welcome Console`
   - `Background Timeline`
-  - `Selected Project Plinth`
   - `Skills Workbench`
-  - `Contact Terminal`
-  - `Repository placeholder`
-  - `Email placeholder`
-  - `hello@example.com`
 
 ## Replacement Checklist
 
-- Replace prototype titles, summaries, body copy, tags, and links in `src/content/exhibits.ts`.
-- Replace site title and summary in `src/content/museum.ts`.
+- Replace remaining prototype titles, summaries, body copy, tags, and links in `src/content/exhibits.ts`.
+- Confirm site title and summary still fit after the remaining exhibits are written.
 - Verify every external link.
 - Confirm contact email is correct.
 - Run `npm run lint`.
