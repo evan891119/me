@@ -103,3 +103,24 @@ The Vite chunk warning limit is set to 2,300 KB to reflect the current Rapier ve
 - No post-processing is present.
 - No model or texture optimization is required yet because no production assets are committed.
 - Lazy loading is deferred until the first real GLB or texture assets exist; there is no meaningful asset payload to stream yet.
+
+## Exterior Arrival Budget
+
+The accepted exterior direction is a lightweight arrival plaza, not an open world. The first exterior implementation must stay inside this budget until measured results justify changing it.
+
+| Metric | Target | Hard Cap |
+| --- | ---: | ---: |
+| Exterior draw calls | 30-60 | 100 |
+| Exterior visible triangles | 20k-50k | 100k |
+| Exterior texture payload | 1-2 MB | 3 MB |
+| Dynamic lights | 0-1 | 1 |
+| Real-time shadows | 0 | 1 only after profiling |
+| Dynamic physics bodies | 0 | 0 |
+
+Implementation rules:
+
+- use static colliders only for ground, entry, and boundaries;
+- represent distant scenery with silhouettes, billboards, fog, or background color;
+- avoid post-processing, particles, animated foliage, crowds, vehicles, and dynamic weather;
+- measure the development panel immediately after the primitive exterior blockout lands;
+- update this file with the measured draw calls, triangles, FPS, and frame time after implementation.

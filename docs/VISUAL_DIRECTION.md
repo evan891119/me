@@ -41,6 +41,27 @@ Phase 1 architecture should be built from primitives or lightweight GLB pieces:
 - simple terminals;
 - simple frames or shelves.
 
+## Exterior Arrival Direction
+
+The exterior should extend the same restrained visual language instead of becoming a separate open-world art direction.
+
+Accepted direction:
+
+- small arrival plaza outside the museum;
+- simple museum facade as the first landmark;
+- obvious entrance path into the existing interior;
+- distant city or landscape implied through silhouettes, fog, and background layers;
+- bounded movement area with no explorable streets or terrain.
+
+Rules:
+
+- Use the exterior to establish place, not to add portfolio content.
+- Keep the first exterior pass primitive-based.
+- Make the museum entrance visible from the spawn point.
+- Use lighting, path shape, and facade contrast to guide the visitor.
+- Avoid grass fields, crowds, traffic, weather, and dense props in the first pass.
+- Keep outdoor style compatible with the interior palette: dark neutral architecture, warm entrance accents, muted background distance.
+
 ## Lighting Style
 
 Lighting should be warm, directional, and performance-safe.
@@ -182,6 +203,8 @@ Asset rules:
 
 - optimized GLB props;
 - improved room kit;
+- optimized exterior facade pieces;
+- lightweight skyline or background silhouettes;
 - selected exhibit-specific objects;
 - simple signage;
 - visual polish after content and interaction are stable.

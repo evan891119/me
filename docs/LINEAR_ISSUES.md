@@ -722,3 +722,72 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - New features
   - Large content additions
   - Redesign
+
+### Issue 7.5: Design lightweight exterior arrival scene
+
+- Title: Design lightweight exterior arrival scene
+- Status: Done
+- Goal: Define the museum exterior experience before adding outdoor scene complexity.
+- Scope:
+  - Done: Turn `docs/EXTERIOR_WORLD_PLAN.md` into an accepted implementation boundary.
+  - Done: Decide whether the visitor starts outside or reaches the exterior later.
+  - Done: Define the first exterior layout as a small arrival plaza, not an open world.
+  - Done: Set performance budgets for outdoor geometry, textures, colliders, and lighting.
+  - Done: Identify the minimum assets required for a primitive blockout.
+- Acceptance Criteria:
+  - Done: Exterior direction is documented and accepted.
+  - Done: The first exterior version has a clear visitor path to the museum entrance.
+  - Done: Performance budget is explicit enough to evaluate the first implementation.
+  - Done: Non-goals prevent open-world scope creep.
+  - Done: Implementation can begin without needing final art assets.
+- Files likely touched:
+  - `docs/EXTERIOR_WORLD_PLAN.md`
+  - `docs/LINEAR_ISSUES.md`
+  - `docs/VISUAL_DIRECTION.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 6.1
+  - Issue 6.2
+- Out of scope:
+  - Implementing the exterior scene
+  - Creating final environment art
+  - Adding streaming or portal rendering
+  - Adding advanced post-processing
+  - Building an explorable city or open world
+
+### Issue 7.6: Implement primitive exterior arrival blockout
+
+- Title: Implement primitive exterior arrival blockout
+- Goal: Add the first lightweight exterior scene as a bounded arrival plaza before the museum entrance.
+- Scope:
+  - Add an exterior scene module using primitive geometry.
+  - Add an outdoor spawn point facing the museum entrance.
+  - Add a simple museum facade, path, boundary geometry, and distant silhouette layer.
+  - Add static Rapier colliders for ground, entrance, and boundaries only.
+  - Add a simple transition from exterior arrival into the existing museum interior.
+  - Measure draw calls, triangles, FPS, and frame time after implementation.
+- Acceptance Criteria:
+  - Visitor starts outside and can identify the museum entrance immediately.
+  - Visitor can enter the current interior without breaking pointer lock controls.
+  - Player cannot walk into unfinished empty space.
+  - Exterior stays within the budget in `docs/PERFORMANCE_NOTES.md`.
+  - No final GLB assets, post-processing, dynamic shadows, or complex outdoor systems are introduced.
+  - Fallback experience still works with `/?forceFallback=1`.
+- Files likely touched:
+  - `src/world/exterior/`
+  - `src/world/MuseumScene.tsx`
+  - `src/world/physics/`
+  - `src/content/world.ts`
+  - `src/state/useAppStore.ts`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 7.5
+  - Issue 5.3
+  - Issue 6.1
+- Out of scope:
+  - Final exterior art
+  - GLB facade kit
+  - Explorable city or open world
+  - Animated doors or portal rendering
+  - Advanced post-processing
+  - Mobile first-person controls
