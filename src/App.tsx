@@ -28,7 +28,7 @@ export function App() {
       <main className="app-shell">
         <Canvas
           className="museum-canvas"
-          camera={{ position: [0, 1.7, 7], fov: 58, near: 0.1, far: 100 }}
+          camera={{ position: [0, 1.7, 15.5], fov: 58, near: 0.1, far: 100 }}
           dpr={[1, 1.75]}
         >
           <Suspense fallback={null}>

@@ -2,6 +2,7 @@ import { CapsuleCollider, RapierRigidBody, RigidBody } from '@react-three/rapier
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Vector3 } from 'three';
+import { exteriorEntryTransition, exteriorSpawn } from '../content/world';
 import { useAppStore } from '../state/useAppStore';
 
 const MOVE_SPEED = 3;
@@ -11,6 +12,16 @@ const PLAYER_RADIUS = 0.35;
 const PLAYER_SEGMENT_HALF_HEIGHT = 0.55;
 
 const movementKeys = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD']);
+
+function isInsideExteriorEntryZone(position: { x: number; y: number; z: number }) {
+  const { center, halfExtents } = exteriorEntryTransition;
+
+  return (
+    Math.abs(position.x - center.x) <= halfExtents.x &&
+    Math.abs(position.y - center.y) <= halfExtents.y &&
+    Math.abs(position.z - center.z) <= halfExtents.z
+  );
+}
 
 export function PlayerController() {
   const camera = useThree((state) => state.camera);
@@ -61,6 +72,17 @@ export function PlayerController() {
     const translation = body.translation();
     camera.position.set(translation.x, translation.y + CAMERA_OFFSET_Y, translation.z);
 
+    const { activeLocationId, enterInterior } = useAppStore.getState();
+
+    if (activeLocationId === 'exterior' && isInsideExteriorEntryZone(translation)) {
+      const { position } = exteriorEntryTransition.targetSpawn;
+      body.setTranslation(position, true);
+      body.setLinvel({ x: 0, y: 0, z: 0 }, true);
+      camera.position.set(position.x, position.y + CAMERA_OFFSET_Y, position.z);
+      enterInterior();
+      return;
+    }
+
     if (!isPointerLocked || isOverlayOpen || keysPressed.current.size === 0) {
       body.setLinvel({ x: 0, y: 0, z: 0 }, true);
       return;
@@ -105,7 +127,7 @@ export function PlayerController() {
     <RigidBody
       ref={rigidBody}
       type="dynamic"
-      position={[0, PLAYER_START_Y, 7]}
+      position={[exteriorSpawn.position.x, PLAYER_START_Y, exteriorSpawn.position.z]}
       colliders={false}
       enabledRotations={[false, false, false]}
       linearDamping={8}

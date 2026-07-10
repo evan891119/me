@@ -758,21 +758,22 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 7.6: Implement primitive exterior arrival blockout
 
 - Title: Implement primitive exterior arrival blockout
+- Status: Implemented, pending manual pointer-lock transition confirmation
 - Goal: Add the first lightweight exterior scene as a bounded arrival plaza before the museum entrance.
 - Scope:
-  - Add an exterior scene module using primitive geometry.
-  - Add an outdoor spawn point facing the museum entrance.
-  - Add a simple museum facade, path, boundary geometry, and distant silhouette layer.
-  - Add static Rapier colliders for ground, entrance, and boundaries only.
-  - Add a simple transition from exterior arrival into the existing museum interior.
-  - Measure draw calls, triangles, FPS, and frame time after implementation.
+  - Done: Add an exterior scene module using primitive geometry.
+  - Done: Add an outdoor spawn point facing the museum entrance.
+  - Done: Add a simple museum facade, path, boundary geometry, and distant silhouette layer.
+  - Done: Add static Rapier colliders for ground, entrance, and boundaries only.
+  - Done: Add a simple transition from exterior arrival into the existing museum interior.
+  - Done: Measure draw calls, triangles, FPS, and frame time after implementation.
 - Acceptance Criteria:
-  - Visitor starts outside and can identify the museum entrance immediately.
-  - Visitor can enter the current interior without breaking pointer lock controls.
-  - Player cannot walk into unfinished empty space.
-  - Exterior stays within the budget in `docs/PERFORMANCE_NOTES.md`.
-  - No final GLB assets, post-processing, dynamic shadows, or complex outdoor systems are introduced.
-  - Fallback experience still works with `/?forceFallback=1`.
+  - Done: Visitor starts outside and can identify the museum entrance immediately.
+  - Implemented, pending manual confirmation: Visitor can enter the current interior without breaking pointer lock controls.
+  - Done: Player cannot walk into unfinished empty space through static plaza boundaries.
+  - Done: Exterior stays within the draw-call and triangle budgets in `docs/PERFORMANCE_NOTES.md`.
+  - Done: No final GLB assets, post-processing, dynamic shadows, or complex outdoor systems are introduced.
+  - Done: Fallback experience still works with `/?forceFallback=1`.
 - Files likely touched:
   - `src/world/exterior/`
   - `src/world/MuseumScene.tsx`

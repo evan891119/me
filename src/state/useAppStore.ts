@@ -1,6 +1,8 @@
 import { create } from 'zustand';
+import type { WorldLocationId } from '../content/world';
 
 interface AppState {
+  activeLocationId: WorldLocationId;
   focusedExhibitId: string | null;
   hasEnteredWorld: boolean;
   isOverlayOpen: boolean;
@@ -8,6 +10,7 @@ interface AppState {
   shouldResumePointerLockOnClose: boolean;
   selectedExhibitId: string | null;
   closeExhibit: () => void;
+  enterInterior: () => void;
   openExhibit: (selectedExhibitId: string) => void;
   setFocusedExhibitId: (focusedExhibitId: string | null) => void;
   setOverlayOpen: (isOverlayOpen: boolean) => void;
@@ -15,6 +18,7 @@ interface AppState {
 }
 
 export const useAppStore = create<AppState>((set) => ({
+  activeLocationId: 'exterior',
   focusedExhibitId: null,
   hasEnteredWorld: false,
   isOverlayOpen: false,
@@ -26,6 +30,11 @@ export const useAppStore = create<AppState>((set) => ({
       isOverlayOpen: false,
       selectedExhibitId: null,
       shouldResumePointerLockOnClose: false,
+    }),
+  enterInterior: () =>
+    set({
+      activeLocationId: 'interior',
+      focusedExhibitId: null,
     }),
   openExhibit: (selectedExhibitId) =>
     set((state) => ({

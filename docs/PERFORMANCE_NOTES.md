@@ -70,8 +70,8 @@ Production bundle after chunk splitting:
 
 | Chunk | Minified | Gzip |
 | --- | ---: | ---: |
-| App | 14.09 KB | 4.95 KB |
-| CSS | 6.27 KB | 1.77 KB |
+| App | 19.17 KB | 6.60 KB |
+| CSS | 7.01 KB | 1.91 KB |
 | React vendor | 200.95 KB | 63.41 KB |
 | Three/R3F vendor | 854.34 KB | 228.46 KB |
 | Rapier physics vendor | 2,261.60 KB | 843.82 KB |
@@ -124,3 +124,23 @@ Implementation rules:
 - avoid post-processing, particles, animated foliage, crowds, vehicles, and dynamic weather;
 - measure the development panel immediately after the primitive exterior blockout lands;
 - update this file with the measured draw calls, triangles, FPS, and frame time after implementation.
+
+## Phase 7.6 Exterior Blockout Check
+
+The primitive exterior arrival blockout was checked in Chrome headless with SwiftShader WebGL. This confirms render cost shape, but the FPS and frame time are not representative of a hardware-accelerated browser.
+
+| Metric | Headless SwiftShader Result |
+| --- | ---: |
+| FPS | 9 |
+| Frame time | 110.2 ms |
+| Draw calls | 28 |
+| Triangles | 326 |
+| Lines | 0 |
+| Points | 0 |
+| Dev transfer | 8.18 MB |
+
+Interpretation:
+
+- draw calls and triangles remain far below the exterior hard caps;
+- no GLB models or texture payload were added;
+- FPS must be rechecked manually in a normal desktop browser because headless SwiftShader is CPU-bound and not comparable to the earlier hardware baseline.

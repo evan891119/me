@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import type { PointerLockControls as PointerLockControlsImpl } from 'three-stdlib';
 import { useAppStore } from '../state/useAppStore';
 import { ExhibitGroup } from './exhibits/ExhibitGroup';
+import { ExteriorArrival } from './exterior/ExteriorArrival';
 import { PerformanceMonitor } from './debug/PerformanceMonitor';
 import { ExhibitFocusDetector } from './interactions/ExhibitFocusDetector';
 import { SceneLighting } from './lighting';
@@ -71,6 +72,8 @@ export function MuseumScene() {
       <Physics gravity={[0, 0, 0]}>
         <PlayerController />
         <ExhibitFocusDetector />
+
+        <ExteriorArrival />
 
         <RigidBody type="fixed" position={[0, -0.05, 0]} colliders={false}>
           <CuboidCollider args={[6, 0.05, 6]} />
