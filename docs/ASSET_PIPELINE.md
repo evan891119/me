@@ -352,3 +352,34 @@ Development A/B routes:
 /?spawn=garden&benchModel=primitive
 /?spawn=garden&benchModel=missing
 ```
+
+## Accepted Runtime Asset: Archive Core v1
+
+The fourth production GLB is accepted at:
+
+```text
+public/assets/models/landmark-archive-core.v1.glb
+```
+
+| Metric | Result | Budget |
+| --- | ---: | ---: |
+| File size | 45,460 bytes | Under 300 KB |
+| Triangles | 604 | Under 5k ordinary prop target |
+| Meshes | 2 | Minimal |
+| Materials | 2 | 1-3 |
+| Textures | 0 | No texture payload |
+
+The model supplies only the frame, base, and signal rings. The central Archive Cache remains a data-driven discovery object with unchanged interaction radius. No new collider is added.
+
+Regenerate it with:
+
+```bash
+node scripts/generate-archive-core.mjs
+```
+
+Development A/B routes:
+
+```text
+/?spawn=archive&archiveModel=primitive
+/?spawn=archive&archiveModel=missing
+```

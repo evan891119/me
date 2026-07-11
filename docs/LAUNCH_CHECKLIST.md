@@ -37,6 +37,8 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: missing Museum Entrance asset falls back to the primitive frame
 - Done: Garden Bench GLB preserves one simple cuboid collider
 - Done: Garden Bench matches the primitive FPS, frame time, and draw-call sample
+- Done: Archive Core surrounds but does not replace the data-driven Archive Cache
+- Done: missing Archive Core asset restores the primitive core
 
 ## Manual Desktop Walkthrough
 

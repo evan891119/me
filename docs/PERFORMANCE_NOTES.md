@@ -359,3 +359,31 @@ Single-tab hardware-accelerated samples at the same Garden Overlook spawn:
 The model adds 204 visible triangles with no measured change to FPS, frame time, or draw calls. The intentional missing route produced the expected local asset failure and used the shared fallback boundary. Its performance sample was discarded because the screenshot tool stalled during that navigation; no additional retry was run.
 
 The garden lantern was moved from directly in front of the bench to the side of the path so the landmark remains readable. Total persistent GLB payload is now 107,364 bytes across three assets.
+
+## Archive Core GLB A/B Check
+
+The fourth persistent GLB adds a frame around the existing interactive Archive Cache without changing discovery content, focus behavior, or collision.
+
+Asset shape:
+
+- `public/assets/models/landmark-archive-core.v1.glb`;
+- 45,460 bytes;
+- 604 triangles;
+- 2 merged meshes and 2 materials;
+- no textures, animation, transparency, shadows, or colliders.
+
+Single-tab hardware-accelerated samples at the same Archive Grove spawn:
+
+| Variant | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Primitive core | 137 | 7.3 ms | 76 | 4,204 |
+| Archive Core GLB | 138 | 7.2 ms | 77 | 4,796 |
+| Missing-model fallback | 138 | 7.3 ms | 76 | 4,204 |
+
+The GLB adds one draw call and 592 visible triangles. Normal loading produced no model error; the intentional missing route restored the primitive core. Total persistent GLB payload is now 152,824 bytes across four assets.
+
+Production build after the Archive Core addition:
+
+- App: 39.78 KB minified / 12.01 KB gzip;
+- World Model and loader chunks remain shared across every environment GLB;
+- no texture payload or additional physics body was introduced.

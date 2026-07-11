@@ -71,6 +71,16 @@ export const gardenBenchModelAsset: ExteriorModelAsset = {
   src: '/assets/models/prop-garden-bench.v1.glb',
 };
 
+export const archiveCoreModelAsset: ExteriorModelAsset = {
+  alt: 'Low-poly archive frame surrounding the interactive cache',
+  position: [0, 0.64, 22.35],
+  src: '/assets/models/landmark-archive-core.v1.glb',
+};
+
+export const archiveCoreFallbackPieces: ExteriorBoxPiece[] = [
+  { id: 'archive-core', position: [0, 0.95, 22.35], scale: [0.75, 0.75, 0.75], token: 'exhibitNoteAccent', collider: false },
+];
+
 export const gardenBenchFallbackPieces: ExteriorBoxPiece[] = [
   { id: 'garden-bench-block', position: [-10.5, 0.28, 11.2], scale: [2.7, 0.55, 0.65], token: 'exteriorFacade', collider: false },
   { id: 'garden-seat-inlay', position: [-10.5, 0.575, 11.2], scale: [2.15, 0.04, 0.46], token: 'exhibitContactAccent', collider: false },
@@ -114,7 +124,6 @@ export const exteriorVisualPieces: ExteriorBoxPiece[] = [
   { id: 'east-terrace-b', position: [13.4, 0.18, 15.4], scale: [5.7, 0.36, 2.1], token: 'exteriorPlanting', collider: false },
   { id: 'south-terrace-left', position: [-7.7, 0.2, 24.7], scale: [8.2, 0.4, 2.5], token: 'exteriorPlanting', collider: false },
   { id: 'south-terrace-right', position: [7.7, 0.2, 24.7], scale: [8.2, 0.4, 2.5], token: 'exteriorPlanting', collider: false },
-  { id: 'archive-core', position: [0, 0.95, 22.35], scale: [0.75, 0.75, 0.75], token: 'exhibitNoteAccent', collider: false },
 ];
 
 export const exteriorPathPieces: ExteriorBoxPiece[] = [

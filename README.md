@@ -49,6 +49,8 @@ The museum entrance uses `public/assets/models/landmark-museum-entrance.v1.glb` 
 
 The Garden Overlook uses `public/assets/models/prop-garden-bench.v1.glb` with one invisible primitive collider and a visible primitive fallback. Regenerate it with `node scripts/generate-garden-bench.mjs`.
 
+The Archive Grove uses `public/assets/models/landmark-archive-core.v1.glb` as a visual frame around the existing interactive cache. Regenerate it with `node scripts/generate-archive-core.mjs`.
+
 ## Project Notes
 
 - Architecture decision: `docs/ARCHITECTURE_DECISION.md`

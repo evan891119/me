@@ -1179,3 +1179,35 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Texture maps
   - Detailed collision mesh
   - Sitting animation
+
+### Issue 8.10: Add the Archive Core GLB
+
+- Title: Add the Archive Core GLB
+- Status: Done
+- Goal: Give the Archive Grove a distinct landmark without coupling the easter egg content to model code.
+- Scope:
+  - Generate a two-material archive frame, base, and signal-ring model.
+  - Keep the interactive cache rendered from `worldDiscoveries`.
+  - Add no new collider or physics body.
+  - Preserve the primitive core as loading and failure fallback.
+  - Compare primitive, model, and missing-model variants in one test tab.
+- Acceptance Criteria:
+  - Done: Asset is 45,460 bytes, 604 triangles, 2 meshes, and 2 materials.
+  - Done: GLB adds one measured draw call and remains below the exterior cap.
+  - Done: Interactive cache data and radius remain unchanged.
+  - Done: Missing-model route restores the primitive core.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `public/assets/models/landmark-archive-core.v1.glb`
+  - `scripts/generate-archive-core.mjs`
+  - `src/content/exteriorWorld.ts`
+  - `src/world/exterior/ArchiveCoreLandmark.tsx`
+  - `docs/ASSET_PIPELINE.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.9
+- Out of scope:
+  - Changing discovery copy
+  - New collision
+  - Animation or particles
+  - Texture maps
