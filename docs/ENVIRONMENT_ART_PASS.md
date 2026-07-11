@@ -69,7 +69,7 @@ Representative hardware-accelerated development samples:
 
 All reliable samples remain above 60 FPS, below 100 draw calls, and below 100k visible triangles. Signal's final structural sample after facade details remained at 78 calls and 10,816 triangles; its FPS reading was discarded because the screenshot backend was stalled during that sample.
 
-Final production app output is 57.88 KB minified / 16.07 KB gzip. The environment pass adds no new texture or model request; its geometry, placement data, and shader code ship inside the existing application and Three.js chunks.
+Final production app output after active-world render isolation is 58.08 KB minified / 16.11 KB gzip. The environment pass adds no new texture or model request; its geometry, placement data, and shader code ship inside the existing application and Three.js chunks.
 
 ## Fallback Evidence
 

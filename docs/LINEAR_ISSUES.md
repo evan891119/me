@@ -1440,3 +1440,32 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Real-time shadows or SSAO
   - Volumetric weather or dynamic time of day
   - Full city geometry
+
+### Issue 8.18: Isolate interior and exterior world rendering
+
+- Title: Isolate interior and exterior world rendering
+- Status: Done
+- Goal: Prevent new exterior architecture from intersecting the museum interior after a location transition.
+- Scope:
+  - Mount exterior world geometry only while the active location is `exterior`.
+  - Mount the interior shell and exhibits only while the active location is `interior`.
+  - Filter spatial guidance to the active location.
+  - Add the missing non-colliding interior ceiling slab.
+  - Verify both interior and exterior QA routes in one browser tab.
+- Acceptance Criteria:
+  - Done: Exterior massing no longer appears as black walls inside the museum.
+  - Done: No sky gap remains above the interior.
+  - Done: Interior exhibits and guidance remain visible.
+  - Done: Exterior world remounts when returning outside.
+  - Done: Typecheck, lint, production build, and browser QA pass.
+- Files likely touched:
+  - `src/world/MuseumScene.tsx`
+  - `src/world/guidance/SpatialGuidance.tsx`
+  - `src/world/interior/InteriorShell.tsx`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.17
+- Out of scope:
+  - Redesigning the interior
+  - Changing transition coordinates
+  - Adding ceiling collision or shadows

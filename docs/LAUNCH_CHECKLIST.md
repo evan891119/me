@@ -63,6 +63,9 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: repeated environment modules, vegetation, lights, guidance, and skyline use instancing
 - Done: final exterior samples remain above 60 FPS, below 100 calls, and below 100k visible triangles
 - Done: production forced fallback still mounts no Canvas and preserves Email and GitHub links
+- Done: exterior architecture unmounts after entering the museum and cannot intersect interior walls
+- Done: interior ceiling slab closes the shell without adding collision
+- Done: returning to exterior remounts the exterior world and guidance
 
 ## Manual Desktop Walkthrough
 

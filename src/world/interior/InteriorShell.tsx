@@ -44,6 +44,13 @@ const shellPieces: InteriorPiece[] = [
     token: 'interiorWall',
   },
   {
+    id: 'ceiling',
+    collider: false,
+    position: [0, 3.05, 0],
+    scale: [9, 0.12, 8],
+    token: 'interiorCeiling',
+  },
+  {
     id: 'ceiling-band-left',
     collider: false,
     position: [-2.9, 2.95, -0.1],

@@ -15,6 +15,7 @@ import { PlayerController } from './PlayerController';
 import { REQUEST_POINTER_LOCK_EVENT } from './pointerLockEvents';
 
 export function MuseumScene() {
+  const activeLocationId = useAppStore((state) => state.activeLocationId);
   const setPointerLocked = useAppStore((state) => state.setPointerLocked);
   const pointerLockControls = useRef<PointerLockControlsImpl>(null);
 
@@ -48,10 +49,15 @@ export function MuseumScene() {
         <ExhibitFocusDetector />
         <DiscoveryFocusDetector />
 
-        <ExteriorWorld />
-        <InteriorShell />
+        {activeLocationId === 'exterior' ? (
+          <ExteriorWorld />
+        ) : (
+          <>
+            <InteriorShell />
+            <ExhibitGroup />
+          </>
+        )}
         <SpatialGuidance />
-        <ExhibitGroup />
       </Physics>
     </>
   );

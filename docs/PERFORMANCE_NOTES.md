@@ -587,8 +587,21 @@ Detailed visual and fallback evidence is recorded in `docs/ENVIRONMENT_ART_PASS.
 
 Production build after the exterior environment pass:
 
-- App: 57.88 KB minified / 16.07 KB gzip;
+- App: 58.08 KB minified / 16.11 KB gzip;
 - CSS: 7.06 KB minified / 1.97 KB gzip;
 - optional world and exhibit model components remain below 1 KB each;
 - shared model loader remains 66.18 KB / 18.77 KB gzip and is not added to the initial preload graph;
 - no new runtime texture or model request was introduced by the environment modules.
+
+## Interior And Exterior Render Isolation
+
+The reference-driven exterior massing initially remained mounted after the player transitioned into the museum. Thick exterior facade volumes therefore intersected the interior and appeared as black side walls. The interior shell also had ceiling bands but no complete ceiling slab.
+
+The scene now mounts only the active location's world geometry:
+
+- `exterior` mounts `ExteriorWorld` and exterior guidance;
+- `interior` mounts `InteriorShell`, exhibits, and interior guidance;
+- PlayerController, interaction detectors, Pointer Lock, and transition state remain shared;
+- a non-colliding interior ceiling slab now closes the shell at wall height.
+
+Interior QA after the fix measured 141 FPS, 35 calls, and 1,916 visible triangles. Exterior navigation back to `data-location="exterior"` was also verified. The only console warning remains Rapier's known development initialization warning.
