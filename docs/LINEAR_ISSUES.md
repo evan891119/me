@@ -1114,3 +1114,34 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Real-time shadows
   - Replacing additional landmarks
   - Adding a general LOD system
+
+### Issue 8.8: Add the Museum Entrance GLB
+
+- Title: Add the Museum Entrance GLB
+- Status: Done
+- Goal: Improve the first-view museum landmark without changing navigation or exceeding the exterior budget.
+- Scope:
+  - Generate a two-material decorative entrance frame.
+  - Replace only the primitive entrance accents, not the facade or colliders.
+  - Reuse the lazy world-model loader and primitive fallback path.
+  - Compare primitive, model, and missing-model variants in one test tab.
+- Acceptance Criteria:
+  - Done: Asset is 19,240 bytes, 240 triangles, 2 meshes, and 2 materials.
+  - Done: GLB adds no measured draw calls at the Museum Plaza spawn.
+  - Done: Missing model restores the primitive entrance.
+  - Done: Navigation collider geometry remains unchanged.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `public/assets/models/landmark-museum-entrance.v1.glb`
+  - `scripts/generate-museum-entrance.mjs`
+  - `src/content/exteriorWorld.ts`
+  - `src/world/exterior/MuseumEntranceLandmark.tsx`
+  - `docs/ASSET_PIPELINE.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.7
+- Out of scope:
+  - Replacing the full facade
+  - Texture authoring
+  - Animated doors
+  - Real-time shadows

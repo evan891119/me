@@ -290,3 +290,34 @@ Development A/B routes:
 ```
 
 The `missing` route intentionally requests a nonexistent file to prove the local primitive fallback. It is development-only and is expected to log an asset error.
+
+## Accepted Runtime Asset: Museum Entrance v1
+
+The second production GLB test is accepted at:
+
+```text
+public/assets/models/landmark-museum-entrance.v1.glb
+```
+
+| Metric | Result | Budget |
+| --- | ---: | ---: |
+| File size | 19,240 bytes | Under 300 KB |
+| Triangles | 240 | Under 5k ordinary prop target |
+| Meshes | 2 | Minimal |
+| Materials | 2 | 1-3 |
+| Textures | 0 | No texture payload |
+
+The model replaces only the three decorative entrance pieces. Existing facade geometry and primitive colliders remain independent, so loading failure cannot remove the doorway or alter navigation.
+
+Regenerate it with:
+
+```bash
+node scripts/generate-museum-entrance.mjs
+```
+
+Development A/B routes:
+
+```text
+/?entranceModel=primitive
+/?entranceModel=missing
+```

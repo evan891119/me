@@ -33,6 +33,8 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: Signal Tower GLB loads through a separate model chunk
 - Done: missing Signal Tower asset falls back to the primitive landmark
 - Done: Signal Tower model remains inside the exterior performance and asset budgets
+- Done: Museum Entrance GLB adds no measured draw calls and preserves facade colliders
+- Done: missing Museum Entrance asset falls back to the primitive frame
 
 ## Manual Desktop Walkthrough
 

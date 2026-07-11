@@ -45,6 +45,8 @@ Outdoor zones, landmarks, and easter eggs are maintained in `src/content/exterio
 
 The Signal Yard uses `public/assets/models/landmark-signal-tower.v1.glb`, with the former primitive tower retained as its loading and error fallback. Regenerate the model with `node scripts/generate-signal-tower.mjs`; asset measurements and A/B results are recorded in `docs/ASSET_PIPELINE.md` and `docs/PERFORMANCE_NOTES.md`.
 
+The museum entrance uses `public/assets/models/landmark-museum-entrance.v1.glb` for its decorative frame while retaining the original facade and colliders. Regenerate it with `node scripts/generate-museum-entrance.mjs`.
+
 ## Project Notes
 
 - Architecture decision: `docs/ARCHITECTURE_DECISION.md`

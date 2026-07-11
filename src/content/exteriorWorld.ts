@@ -58,6 +58,18 @@ export const signalTowerModelAsset: ExteriorModelAsset = {
   src: '/assets/models/landmark-signal-tower.v1.glb',
 };
 
+export const museumEntranceModelAsset: ExteriorModelAsset = {
+  alt: 'Layered low-poly museum entrance frame',
+  position: [0, 0, 5.78],
+  src: '/assets/models/landmark-museum-entrance.v1.glb',
+};
+
+export const museumEntranceFallbackPieces: ExteriorBoxPiece[] = [
+  { id: 'entry-accent', position: [0, 2.05, 5.15], scale: [2.5, 0.18, 0.12], token: 'warmAccent', collider: false },
+  { id: 'entry-post-left', position: [-1.45, 1.2, 5.35], scale: [0.24, 2.4, 0.45], token: 'exteriorPathEdge', collider: false },
+  { id: 'entry-post-right', position: [1.45, 1.2, 5.35], scale: [0.24, 2.4, 0.45], token: 'exteriorPathEdge', collider: false },
+];
+
 export const signalTowerFallbackPieces: ExteriorBoxPiece[] = [
   { id: 'signal-mast-a', position: [10.5, 1.7, 10.6], scale: [0.18, 2.5, 0.18], token: 'exteriorPathEdge', collider: false },
   { id: 'signal-mast-b', position: [9.8, 1.55, 10.6], rotation: [0, 0, -0.38], scale: [0.13, 2.2, 0.13], token: 'exteriorPathEdge', collider: false },
@@ -84,9 +96,6 @@ export const exteriorVisualPieces: ExteriorBoxPiece[] = [
   { id: 'museum-west-shell', position: [-4.62, 1.7, 0.7], scale: [0.18, 3.4, 9.4], token: 'exteriorFacade', collider: false },
   { id: 'museum-east-shell', position: [4.62, 1.7, 0.7], scale: [0.18, 3.4, 9.4], token: 'exteriorFacade', collider: false },
   { id: 'museum-roof-band', position: [0, 3.25, 0.65], scale: [9.4, 0.35, 9.6], token: 'exteriorBoundary', collider: false },
-  { id: 'entry-accent', position: [0, 2.05, 5.15], scale: [2.5, 0.18, 0.12], token: 'warmAccent', collider: false },
-  { id: 'entry-post-left', position: [-1.45, 1.2, 5.35], scale: [0.24, 2.4, 0.45], token: 'exteriorPathEdge', collider: false },
-  { id: 'entry-post-right', position: [1.45, 1.2, 5.35], scale: [0.24, 2.4, 0.45], token: 'exteriorPathEdge', collider: false },
   { id: 'west-terrace-a', position: [-13.8, 0.28, 9], scale: [4.8, 0.55, 2.4], token: 'exteriorPlanting', collider: false },
   { id: 'west-terrace-b', position: [-13.2, 0.18, 15.2], scale: [5.6, 0.36, 2.1], token: 'exteriorPlanting', collider: false },
   { id: 'east-terrace-a', position: [13.7, 0.24, 7.4], scale: [5.1, 0.48, 2.2], token: 'exteriorPlanting', collider: false },

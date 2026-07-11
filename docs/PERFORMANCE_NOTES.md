@@ -307,3 +307,32 @@ Production build after the model addition:
 | Signal Tower GLB | 69.95 KB | Static asset | Requested by exterior scene |
 
 The result is inside the exterior budget. Additional GLBs should still be introduced one at a time and measured with the same primitive/model/failure comparison.
+
+## Museum Entrance GLB A/B Check
+
+The second persistent GLB replaces three decorative entrance primitives while leaving facade geometry and colliders unchanged.
+
+Asset shape:
+
+- `public/assets/models/landmark-museum-entrance.v1.glb`;
+- 19,240 bytes;
+- 240 triangles;
+- 2 merged meshes and 2 materials;
+- no textures, animation, transparency, or shadows.
+
+Single-tab hardware-accelerated samples at the same Museum Plaza spawn:
+
+| Variant | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Primitive entrance | 135 | 7.4 ms | 67 | 3,204 |
+| Museum Entrance GLB | 137 | 7.3 ms | 67 | 3,408 |
+| Missing-model fallback | 139 | 7.2 ms | 67 | 3,204 |
+
+The entrance model adds 204 visible triangles and no draw calls at the measured camera. Normal loading produced no asset error, and the intentional missing route restored the primitive entrance. The one test tab and Vite server were closed immediately after measurement.
+
+Production build after the entrance addition:
+
+- App: 38.51 KB minified / 11.79 KB gzip;
+- shared World Model component: 0.82 KB / 0.49 KB gzip;
+- model loader remains an optional 66.18 KB / 18.77 KB gzip chunk;
+- persistent GLB payload is now 89,188 bytes across Signal Tower and Museum Entrance.

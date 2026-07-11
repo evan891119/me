@@ -8,6 +8,7 @@ import { StaticBox, type WorldMaterialName } from '../primitives/StaticBox';
 import { Atmosphere } from './Atmosphere';
 import { DiscoveryObjects } from './DiscoveryObjects';
 import { ExteriorLanterns, ExteriorRocks, ExteriorTrees } from './ExteriorDetails';
+import { MuseumEntranceLandmark } from './MuseumEntranceLandmark';
 import { SignalTowerLandmark } from './SignalTowerLandmark';
 
 const visualPieces = [...exteriorVisualPieces, ...exteriorPathPieces];
@@ -33,6 +34,7 @@ export function ExteriorWorld() {
       <ExteriorTrees />
       <ExteriorRocks />
       <ExteriorLanterns />
+      <MuseumEntranceLandmark />
       <SignalTowerLandmark />
       <DiscoveryObjects />
 
