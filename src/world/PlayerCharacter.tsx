@@ -21,8 +21,17 @@ const PLAYER_MODEL_SRC =
     : '/assets/models/player-character.v1.glb';
 const ANIMATION_FADE_SECONDS = 0.16;
 const TURN_RESPONSE = 12;
+const FULL_TURN = Math.PI * 2;
 
 type AnimationName = 'Idle' | 'Jump' | 'Run' | 'Walk';
+
+function nearestEquivalentAngle(current: number, target: number) {
+  const shortestDelta = MathUtils.euclideanModulo(
+    target - current + Math.PI,
+    FULL_TURN,
+  ) - Math.PI;
+  return current + shortestDelta;
+}
 
 interface PlayerCharacterProps {
   stateRef: PlayerVisualStateRef;
@@ -88,6 +97,7 @@ function LoadedPlayerCharacter({ stateRef, visible }: PlayerCharacterProps) {
   const model = useMemo(() => clone(gltf.scene), [gltf.scene]);
   const { actions, mixer } = useAnimations(gltf.animations, root);
   const currentAction = useRef<AnimationName | null>(null);
+  const maxTurnArc = useRef(0);
 
   useEffect(() => {
     model.traverse((object) => {
@@ -109,12 +119,26 @@ function LoadedPlayerCharacter({ stateRef, visible }: PlayerCharacterProps) {
   useFrame((_, delta) => {
     if (!root.current) return;
 
-    root.current.rotation.y = MathUtils.damp(
-      root.current.rotation.y,
+    const currentYaw = root.current.rotation.y;
+    const shortestTargetYaw = nearestEquivalentAngle(
+      currentYaw,
       stateRef.current.facingYaw,
+    );
+    maxTurnArc.current = Math.max(
+      maxTurnArc.current,
+      Math.abs(shortestTargetYaw - currentYaw),
+    );
+    root.current.rotation.y = MathUtils.damp(
+      currentYaw,
+      shortestTargetYaw,
       TURN_RESPONSE,
       delta,
     );
+    if (import.meta.env.DEV) {
+      document
+        .querySelector<HTMLElement>('main.app-shell')
+        ?.setAttribute('data-player-max-turn-arc', maxTurnArc.current.toFixed(5));
+    }
 
     const nextName = selectAnimation(stateRef.current, actions);
     if (nextName === currentAction.current) return;

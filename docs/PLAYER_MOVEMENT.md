@@ -44,7 +44,7 @@ The exported clips are:
 | Run | 0.733 s | loop, speed-adjusted |
 | Jump | 0.933 s | once, clamp at finish |
 
-The model is visible only in third-person mode. The existing Rapier capsule remains the sole player collider. Movement rotates the visual character toward actual velocity with frame-rate-independent damping and leaves the last facing direction unchanged at rest. Animation changes use a 0.16-second crossfade, and the mixer reads mutable refs rather than causing per-frame React renders.
+The model is visible only in third-person mode. The existing Rapier capsule remains the sole player collider. Movement rotates the visual character toward actual velocity with frame-rate-independent damping and leaves the last facing direction unchanged at rest. Before damping, yaw is converted to the nearest equivalent angle within a half-turn, preventing direction changes across the -pi / +pi boundary from taking the long path around. Animation changes use a 0.16-second crossfade, and the mixer reads mutable refs rather than causing per-frame React renders.
 
 If the GLB fails, a local primitive character fallback renders inside the same capsule while physics, camera, and the rest of the scene continue.
 
@@ -133,6 +133,7 @@ Single-tab hardware-accelerated checks on 2026-07-11:
 | Third-person interaction | Welcome Console focused and opened with E |
 | Missing player GLB | primitive fallback rendered; Canvas and physics stayed active |
 | Third-person strafing | left, right, and alternating strafe stayed centered with 0.00000 maximum horizontal screen error |
+| Third-person direction changes | all sampled turn arcs stayed at or below pi radians, including alternating left/right input |
 
 Representative exterior performance after the movement pass: 144 FPS, 6.9 ms, 36 draw calls, and 7,772 visible triangles.
 
