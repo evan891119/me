@@ -48,6 +48,13 @@ WASD, Shift, Space edge state, and queued jumps are cleared when:
 
 Resetting input stops horizontal motion while preserving vertical Rapier velocity. A player who pauses in the air continues to fall naturally instead of freezing.
 
+## Pointer Lock Entry
+
+- Clicking the Canvas, title HUD, paused background, or other non-interactive screen area requests Pointer Lock.
+- Clicking an exhibit's X button or the backdrop outside the exhibit closes it and immediately requests Pointer Lock.
+- Pressing Escape closes an exhibit or exits Pointer Lock without automatically requesting it again.
+- Links, exhibit-index buttons, form controls, and video controls keep their normal interaction instead of entering Pointer Lock.
+
 ## Transition Handling
 
 World transitions retain their narrow doorway volumes and surrounding static wall colliders. A visitor can enter through the real doorway while walking, running, jumping, or climbing the entrance steps, but cannot reach that volume through the facade. On transition, the controller teleports to the existing target spawn, clears linear velocity and input, invalidates grounded state, and lets the destination floor establish the next grounded result.

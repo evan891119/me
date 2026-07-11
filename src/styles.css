@@ -233,6 +233,12 @@ h1 {
   font-size: 0.76rem;
 }
 
+.exhibit-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 18%);
+}
+
 .exhibit-overlay {
   position: absolute;
   top: 50%;

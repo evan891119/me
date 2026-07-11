@@ -1553,3 +1553,37 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Character models, animation, footstep audio, particles, or camera effects
   - Moving platforms or mobile virtual controls
   - Museum content or art-direction changes
+
+### Issue 8.21: Make screen clicks enter first-person view
+
+- Title: Make screen clicks enter first-person view
+- Status: Done
+- Goal: Let visitors enter or resume Pointer Lock from natural screen clicks while keeping Escape as the explicit exit action.
+- Scope:
+  - Request Pointer Lock when a paused visitor clicks the Canvas or another non-interactive area.
+  - Close an exhibit and request Pointer Lock from its X button.
+  - Add an exhibit backdrop that closes and requests Pointer Lock when clicked outside the dialog.
+  - Keep links, exhibit-index buttons, form controls, and media controls exempt from the global click behavior.
+  - Keep Escape as close/exit without automatic re-entry.
+  - Call `requestPointerLock()` directly inside the native user gesture instead of forwarding through a custom window event.
+- Acceptance Criteria:
+  - Done: Canvas click produces one Pointer Lock request.
+  - Done: X closes the dialog and produces one Pointer Lock request.
+  - Done: Backdrop click closes the dialog and produces one Pointer Lock request.
+  - Done: Escape closes the dialog and produces no Pointer Lock request.
+  - Done: Exhibit-index click opens the exhibit and produces no Pointer Lock request.
+  - Done: Typecheck, lint, production build, and `git diff --check` pass.
+- Files likely touched:
+  - `src/App.tsx`
+  - `src/ui/ExhibitOverlay.tsx`
+  - `src/world/MuseumScene.tsx`
+  - `src/world/pointerLockEvents.ts`
+  - `src/styles.css`
+  - `docs/PLAYER_MOVEMENT.md`
+  - `docs/LAUNCH_CHECKLIST.md`
+- Dependencies:
+  - Issue 8.20
+- Out of scope:
+  - Changing WASD, running, jumping, or collision behavior
+  - Capturing Pointer Lock from links or media controls
+  - Replacing Escape with a custom keyboard shortcut

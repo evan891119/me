@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useEffect, useMemo } from 'react';
+import { Suspense, useEffect, useMemo, type PointerEvent } from 'react';
 import { findInteractiveContent } from './content/interactiveContent';
 import { museumMetadata } from './content/museum';
 import { useAppStore } from './state/useAppStore';
@@ -12,12 +12,26 @@ import { InteractionPrompt } from './ui/InteractionPrompt';
 import { PerformancePanel } from './ui/PerformancePanel';
 import { supportsWebGL } from './utils/webglSupport';
 import { MuseumScene } from './world/MuseumScene';
+import { requestMuseumPointerLock } from './world/pointerLockEvents';
 
 export function App() {
   const canUseWebGL = useMemo(() => supportsWebGL(), []);
   const activeLocationId = useAppStore((state) => state.activeLocationId);
   const isOverlayOpen = useAppStore((state) => state.isOverlayOpen);
   const isPointerLocked = useAppStore((state) => state.isPointerLocked);
+
+  const handleAppPointerDown = (event: PointerEvent<HTMLElement>) => {
+    if (isPointerLocked || isOverlayOpen) {
+      return;
+    }
+
+    const target = event.target as HTMLElement;
+    if (target.closest('a, button, input, textarea, select, video')) {
+      return;
+    }
+
+    requestMuseumPointerLock();
+  };
 
   useEffect(() => {
     if (!import.meta.env.DEV) {
@@ -52,7 +66,11 @@ export function App() {
         console.error('3D canvas failed to start', error);
       }}
     >
-      <main className="app-shell" data-location={activeLocationId}>
+      <main
+        className="app-shell"
+        data-location={activeLocationId}
+        onPointerDown={handleAppPointerDown}
+      >
         <Canvas
           className="museum-canvas"
           camera={{ position: [0, 1.7, 19.5], fov: 58, near: 0.1, far: 100 }}

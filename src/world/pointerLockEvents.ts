@@ -1,1 +1,9 @@
-export const REQUEST_POINTER_LOCK_EVENT = 'museum:request-pointer-lock';
+export function requestMuseumPointerLock() {
+  if (import.meta.env.DEV) {
+    const shell = document.querySelector<HTMLElement>('main.app-shell');
+    const requestCount = Number(shell?.dataset.pointerLockRequests ?? 0) + 1;
+    shell?.setAttribute('data-pointer-lock-requests', String(requestCount));
+  }
+
+  document.querySelector<HTMLCanvasElement>('canvas')?.requestPointerLock();
+}

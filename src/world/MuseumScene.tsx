@@ -1,7 +1,5 @@
 import { PointerLockControls } from '@react-three/drei/core/PointerLockControls';
 import { Physics } from '@react-three/rapier';
-import { useEffect, useRef } from 'react';
-import type { PointerLockControls as PointerLockControlsImpl } from 'three-stdlib';
 import { useAppStore } from '../state/useAppStore';
 import { ExhibitGroup } from './exhibits/ExhibitGroup';
 import { ExteriorWorld } from './exterior/ExteriorWorld';
@@ -12,25 +10,11 @@ import { ExhibitFocusDetector } from './interactions/ExhibitFocusDetector';
 import { DiscoveryFocusDetector } from './interactions/DiscoveryFocusDetector';
 import { SceneLighting } from './lighting';
 import { PlayerController } from './PlayerController';
-import { REQUEST_POINTER_LOCK_EVENT } from './pointerLockEvents';
 import { GRAVITY_Y } from './playerMovement';
 
 export function MuseumScene() {
   const activeLocationId = useAppStore((state) => state.activeLocationId);
   const setPointerLocked = useAppStore((state) => state.setPointerLocked);
-  const pointerLockControls = useRef<PointerLockControlsImpl>(null);
-
-  useEffect(() => {
-    const handlePointerLockRequest = () => {
-      pointerLockControls.current?.lock();
-    };
-
-    window.addEventListener(REQUEST_POINTER_LOCK_EVENT, handlePointerLockRequest);
-
-    return () => {
-      window.removeEventListener(REQUEST_POINTER_LOCK_EVENT, handlePointerLockRequest);
-    };
-  }, []);
 
   return (
     <>
@@ -39,7 +23,6 @@ export function MuseumScene() {
       {import.meta.env.DEV ? <PerformanceMonitor /> : null}
       <SceneLighting />
       <PointerLockControls
-        ref={pointerLockControls}
         selector="#enter-world-button"
         onLock={() => setPointerLocked(true)}
         onUnlock={() => setPointerLocked(false)}
