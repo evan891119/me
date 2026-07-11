@@ -77,6 +77,7 @@ Resetting input stops horizontal motion while preserving vertical Rapier velocit
 
 ## Pointer Lock Entry
 
+- App-level `pointerlockchange` handling is the authoritative lifecycle signal in both camera modes, so Escape always clears the locked state and restores the paused UI even while third-person mode has disabled Drei camera rotation.
 - Clicking the Canvas, title HUD, paused background, or other non-interactive screen area requests Pointer Lock.
 - There is no separate `Click to enter` button or selector-driven Pointer Lock path.
 - Exhibits opened with `E` remember that they came from first-person mode; their X button or backdrop closes the exhibit and requests Pointer Lock.

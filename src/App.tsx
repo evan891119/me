@@ -36,6 +36,18 @@ export function App() {
   };
 
   useEffect(() => {
+    const handlePointerLockChange = () => {
+      const canvas = document.querySelector<HTMLCanvasElement>('canvas.museum-canvas');
+      useAppStore
+        .getState()
+        .setPointerLocked(canvas !== null && document.pointerLockElement === canvas);
+    };
+
+    document.addEventListener('pointerlockchange', handlePointerLockChange);
+    return () => document.removeEventListener('pointerlockchange', handlePointerLockChange);
+  }, []);
+
+  useEffect(() => {
     if (!import.meta.env.DEV) {
       return;
     }
@@ -54,6 +66,11 @@ export function App() {
     if (qaPointerState === 'paused') {
       useAppStore.getState().setPointerLocked(true);
       useAppStore.getState().setPointerLocked(false);
+    }
+
+    if (qaPointerState === 'unlockEvent') {
+      useAppStore.getState().setPointerLocked(true);
+      document.dispatchEvent(new Event('pointerlockchange'));
     }
 
     if (searchParams.get('qaCamera') === 'third') {
