@@ -9,7 +9,7 @@ interface AppState {
   isPointerLocked: boolean;
   shouldResumePointerLockOnClose: boolean;
   selectedContentId: string | null;
-  closeContent: () => void;
+  closeContent: (resumePointerLock?: boolean) => void;
   openContent: (selectedContentId: string) => void;
   setActiveLocation: (activeLocationId: WorldLocationId) => void;
   setFocusedContentId: (focusedContentId: string | null) => void;
@@ -25,8 +25,11 @@ export const useAppStore = create<AppState>((set) => ({
   isPointerLocked: false,
   shouldResumePointerLockOnClose: false,
   selectedContentId: null,
-  closeContent: () =>
+  closeContent: (resumePointerLock = false) =>
     set({
+      ...(resumePointerLock
+        ? { hasEnteredWorld: true, isPointerLocked: true }
+        : {}),
       isOverlayOpen: false,
       selectedContentId: null,
       shouldResumePointerLockOnClose: false,

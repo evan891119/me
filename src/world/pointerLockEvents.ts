@@ -5,5 +5,5 @@ export function requestMuseumPointerLock() {
     shell?.setAttribute('data-pointer-lock-requests', String(requestCount));
   }
 
-  document.querySelector<HTMLCanvasElement>('canvas')?.requestPointerLock();
+  return document.querySelector<HTMLCanvasElement>('canvas')?.requestPointerLock();
 }

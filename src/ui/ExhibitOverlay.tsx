@@ -6,16 +6,27 @@ import { requestMuseumPointerLock } from '../world/pointerLockEvents';
 export function ExhibitOverlay() {
   const selectedContentId = useAppStore((state) => state.selectedContentId);
   const closeContent = useAppStore((state) => state.closeContent);
+  const shouldResumePointerLockOnClose = useAppStore(
+    (state) => state.shouldResumePointerLockOnClose,
+  );
   const content = findInteractiveContent(selectedContentId);
 
-  const closeAndEnterWorld = () => {
-    requestMuseumPointerLock();
-    closeContent();
+  const handlePointerClose = () => {
+    if (!shouldResumePointerLockOnClose) {
+      closeContent();
+      return;
+    }
+
+    closeContent(true);
+    const pointerLockRequest = requestMuseumPointerLock();
+    void pointerLockRequest?.catch(() => {
+      useAppStore.getState().setPointerLocked(false);
+    });
   };
 
   const handleBackdropPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
-      closeAndEnterWorld();
+      handlePointerClose();
     }
   };
 
@@ -59,7 +70,7 @@ export function ExhibitOverlay() {
             <p className="phase-label">{content.eyebrow}</p>
             <h2 id="exhibit-overlay-title">{content.title}</h2>
           </div>
-          <button className="icon-button" type="button" onClick={closeAndEnterWorld} aria-label="Close exhibit">
+          <button className="icon-button" type="button" onClick={handlePointerClose} aria-label="Close exhibit">
             X
           </button>
         </div>

@@ -1561,16 +1561,17 @@ These markdown drafts are the repository tracking source. Status values reflect 
 - Goal: Let visitors enter or resume Pointer Lock from natural screen clicks while keeping Escape as the explicit exit action.
 - Scope:
   - Request Pointer Lock when a paused visitor clicks the Canvas or another non-interactive area.
-  - Close an exhibit and request Pointer Lock from its X button.
-  - Add an exhibit backdrop that closes and requests Pointer Lock when clicked outside the dialog.
+  - Close an exhibit and request Pointer Lock from its X button only when it was opened from first-person mode.
+  - Add an exhibit backdrop with the same source-aware close behavior.
   - Keep links, exhibit-index buttons, form controls, and media controls exempt from the global click behavior.
   - Keep Escape as close/exit without automatic re-entry.
   - Call `requestPointerLock()` directly inside the native user gesture instead of forwarding through a custom window event.
   - Remove the separate `Click to enter` button and its selector-driven Pointer Lock path.
 - Acceptance Criteria:
   - Done: Canvas click produces one Pointer Lock request.
-  - Done: X closes the dialog and produces one Pointer Lock request.
-  - Done: Backdrop click closes the dialog and produces one Pointer Lock request.
+  - Done: X and backdrop close produce one Pointer Lock request for content opened with `E`.
+  - Done: X and backdrop close produce no Pointer Lock request for content opened from the paused index.
+  - Done: Overlay close and optimistic resume state are committed atomically, preventing paused UI flash.
   - Done: Escape closes the dialog and produces no Pointer Lock request.
   - Done: Exhibit-index click opens the exhibit and produces no Pointer Lock request.
   - Done: No `Click to enter` button or active global document-click selector remains.

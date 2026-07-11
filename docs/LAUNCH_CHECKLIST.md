@@ -80,7 +80,9 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: jump and run work on both exterior and interior floors without crossing tested colliders
 - Done: four entrance-step colliders support the capsule without blocking the museum transition
 - Done: clicking the Canvas or another non-interactive screen area requests Pointer Lock
-- Done: exhibit X and backdrop clicks close content and request Pointer Lock
+- Done: exhibit X and backdrop clicks resume Pointer Lock only when content was opened from first-person mode
+- Done: exhibits opened from the paused index close without entering Pointer Lock
+- Done: first-person exhibit close updates overlay and resume state atomically without flashing paused UI
 - Done: Escape closes or exits without immediately requesting Pointer Lock again
 - Done: exhibit-index buttons and links remain interactive without accidental Pointer Lock
 - Done: the obsolete `Click to enter` button and selector listener are removed
