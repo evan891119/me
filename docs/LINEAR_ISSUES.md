@@ -1566,12 +1566,14 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Keep links, exhibit-index buttons, form controls, and media controls exempt from the global click behavior.
   - Keep Escape as close/exit without automatic re-entry.
   - Call `requestPointerLock()` directly inside the native user gesture instead of forwarding through a custom window event.
+  - Remove the separate `Click to enter` button and its selector-driven Pointer Lock path.
 - Acceptance Criteria:
   - Done: Canvas click produces one Pointer Lock request.
   - Done: X closes the dialog and produces one Pointer Lock request.
   - Done: Backdrop click closes the dialog and produces one Pointer Lock request.
   - Done: Escape closes the dialog and produces no Pointer Lock request.
   - Done: Exhibit-index click opens the exhibit and produces no Pointer Lock request.
+  - Done: No `Click to enter` button or active global document-click selector remains.
   - Done: Typecheck, lint, production build, and `git diff --check` pass.
 - Files likely touched:
   - `src/App.tsx`

@@ -97,7 +97,7 @@ h1 {
   right: 28px;
   bottom: 28px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   width: min(560px, calc(100vw - 56px));
   gap: 20px;
   align-items: center;
@@ -124,25 +124,6 @@ h1 {
   margin-top: 8px;
   font-size: 0.76rem;
   line-height: 1.5;
-}
-
-#enter-world-button {
-  min-height: 44px;
-  padding: 0 18px;
-  border: 1px solid rgb(244 240 232 / 20%);
-  color: #15181a;
-  background: #c9a46d;
-  cursor: pointer;
-}
-
-#enter-world-button:hover,
-#enter-world-button:focus-visible {
-  background: #e2bd82;
-}
-
-#enter-world-button:focus-visible {
-  outline: 2px solid #f4f0e8;
-  outline-offset: 3px;
 }
 
 .interaction-prompt {
@@ -481,10 +462,6 @@ h1 {
     right: 16px;
     bottom: 164px;
     width: calc(100vw - 32px);
-  }
-
-  #enter-world-button {
-    width: 100%;
   }
 
   .exhibit-overlay {

@@ -83,6 +83,7 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: exhibit X and backdrop clicks close content and request Pointer Lock
 - Done: Escape closes or exits without immediately requesting Pointer Lock again
 - Done: exhibit-index buttons and links remain interactive without accidental Pointer Lock
+- Done: the obsolete `Click to enter` button and selector listener are removed
 - Done: movement QA remains above 60 FPS and below scene draw-call and triangle caps
 
 ## Manual Desktop Walkthrough

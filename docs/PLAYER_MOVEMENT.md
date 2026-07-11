@@ -51,6 +51,7 @@ Resetting input stops horizontal motion while preserving vertical Rapier velocit
 ## Pointer Lock Entry
 
 - Clicking the Canvas, title HUD, paused background, or other non-interactive screen area requests Pointer Lock.
+- There is no separate `Click to enter` button or selector-driven Pointer Lock path.
 - Clicking an exhibit's X button or the backdrop outside the exhibit closes it and immediately requests Pointer Lock.
 - Pressing Escape closes an exhibit or exits Pointer Lock without automatically requesting it again.
 - Links, exhibit-index buttons, form controls, and video controls keep their normal interaction instead of entering Pointer Lock.

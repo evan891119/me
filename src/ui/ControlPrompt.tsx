@@ -33,17 +33,14 @@ export function ControlPrompt() {
         </h2>
         <p>
           {hasEnteredWorld
-            ? 'Click to return to first-person controls.'
-            : 'Use keyboard and mouse to explore the museum.'}
+            ? 'Click the scene to resume first-person controls.'
+            : 'Click the scene to enter first-person controls.'}
         </p>
         <p className="control-legend">
           WASD Move / Mouse Look / Shift Run / Space Jump / E Interact / Esc Pause
           {import.meta.env.DEV ? ' / P Performance' : ''}
         </p>
       </div>
-      <button id="enter-world-button" type="button">
-        {hasEnteredWorld ? 'Click to resume' : 'Click to enter'}
-      </button>
     </section>
   );
 }

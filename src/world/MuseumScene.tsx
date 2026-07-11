@@ -1,4 +1,5 @@
 import { PointerLockControls } from '@react-three/drei/core/PointerLockControls';
+import { useThree } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { useAppStore } from '../state/useAppStore';
 import { ExhibitGroup } from './exhibits/ExhibitGroup';
@@ -13,6 +14,7 @@ import { PlayerController } from './PlayerController';
 import { GRAVITY_Y } from './playerMovement';
 
 export function MuseumScene() {
+  const canvas = useThree((state) => state.gl.domElement);
   const activeLocationId = useAppStore((state) => state.activeLocationId);
   const setPointerLocked = useAppStore((state) => state.setPointerLocked);
 
@@ -23,7 +25,8 @@ export function MuseumScene() {
       {import.meta.env.DEV ? <PerformanceMonitor /> : null}
       <SceneLighting />
       <PointerLockControls
-        selector="#enter-world-button"
+        domElement={canvas}
+        selector="[data-pointer-lock-trigger]"
         onLock={() => setPointerLocked(true)}
         onUnlock={() => setPointerLocked(false)}
       />
