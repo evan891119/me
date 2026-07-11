@@ -336,3 +336,26 @@ Production build after the entrance addition:
 - shared World Model component: 0.82 KB / 0.49 KB gzip;
 - model loader remains an optional 66.18 KB / 18.77 KB gzip chunk;
 - persistent GLB payload is now 89,188 bytes across Signal Tower and Museum Entrance.
+
+## Garden Bench GLB A/B Check
+
+The third persistent GLB replaces the visible garden seat block while retaining one invisible cuboid collider.
+
+Asset shape:
+
+- `public/assets/models/prop-garden-bench.v1.glb`;
+- 18,176 bytes;
+- 228 triangles;
+- 2 merged meshes and 2 materials;
+- no textures, animation, transparency, or shadows.
+
+Single-tab hardware-accelerated samples at the same Garden Overlook spawn:
+
+| Variant | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Primitive bench | 137 | 7.3 ms | 64 | 2,900 |
+| Garden Bench GLB | 137 | 7.3 ms | 64 | 3,104 |
+
+The model adds 204 visible triangles with no measured change to FPS, frame time, or draw calls. The intentional missing route produced the expected local asset failure and used the shared fallback boundary. Its performance sample was discarded because the screenshot tool stalled during that navigation; no additional retry was run.
+
+The garden lantern was moved from directly in front of the bench to the side of the path so the landmark remains readable. Total persistent GLB payload is now 107,364 bytes across three assets.

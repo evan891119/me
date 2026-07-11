@@ -47,6 +47,8 @@ The Signal Yard uses `public/assets/models/landmark-signal-tower.v1.glb`, with t
 
 The museum entrance uses `public/assets/models/landmark-museum-entrance.v1.glb` for its decorative frame while retaining the original facade and colliders. Regenerate it with `node scripts/generate-museum-entrance.mjs`.
 
+The Garden Overlook uses `public/assets/models/prop-garden-bench.v1.glb` with one invisible primitive collider and a visible primitive fallback. Regenerate it with `node scripts/generate-garden-bench.mjs`.
+
 ## Project Notes
 
 - Architecture decision: `docs/ARCHITECTURE_DECISION.md`

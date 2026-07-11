@@ -321,3 +321,34 @@ Development A/B routes:
 /?entranceModel=primitive
 /?entranceModel=missing
 ```
+
+## Accepted Runtime Asset: Garden Bench v1
+
+The third production GLB is accepted at:
+
+```text
+public/assets/models/prop-garden-bench.v1.glb
+```
+
+| Metric | Result | Budget |
+| --- | ---: | ---: |
+| File size | 18,176 bytes | Under 300 KB |
+| Triangles | 228 | Under 5k ordinary prop target |
+| Meshes | 2 | Minimal |
+| Materials | 2 | 1-3 |
+| Textures | 0 | No texture payload |
+
+The visual bench uses wood-colored slats and a dark frame. Navigation still uses one invisible cuboid collider matching the former primitive block. Loading and failure fallback render the former block and inlay.
+
+Regenerate it with:
+
+```bash
+node scripts/generate-garden-bench.mjs
+```
+
+Development A/B routes:
+
+```text
+/?spawn=garden&benchModel=primitive
+/?spawn=garden&benchModel=missing
+```

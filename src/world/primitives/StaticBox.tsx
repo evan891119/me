@@ -25,6 +25,7 @@ export interface StaticBoxProps extends BoxMaterialProps {
   rotation?: Vec3Tuple;
   scale: Vec3Tuple;
   userData?: Record<string, unknown>;
+  visible?: boolean;
 }
 
 function resolveMaterial({ color, roughness, token }: BoxMaterialProps) {
@@ -39,7 +40,11 @@ function resolveMaterial({ color, roughness, token }: BoxMaterialProps) {
 }
 
 function BoxMesh(props: StaticBoxProps) {
-  const { receiveShadow, scale, token } = props;
+  const { receiveShadow, scale, token, visible = true } = props;
+
+  if (!visible) {
+    return null;
+  }
 
   return (
     <mesh

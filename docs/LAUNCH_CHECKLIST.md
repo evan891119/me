@@ -35,6 +35,8 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: Signal Tower model remains inside the exterior performance and asset budgets
 - Done: Museum Entrance GLB adds no measured draw calls and preserves facade colliders
 - Done: missing Museum Entrance asset falls back to the primitive frame
+- Done: Garden Bench GLB preserves one simple cuboid collider
+- Done: Garden Bench matches the primitive FPS, frame time, and draw-call sample
 
 ## Manual Desktop Walkthrough
 

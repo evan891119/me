@@ -16,6 +16,7 @@ export interface ExteriorBoxPiece {
   scale: Vec3Tuple;
   token: WorldMaterialName;
   collider?: boolean;
+  visible?: boolean;
 }
 
 export interface ExteriorTreePlacement {
@@ -64,6 +65,17 @@ export const museumEntranceModelAsset: ExteriorModelAsset = {
   src: '/assets/models/landmark-museum-entrance.v1.glb',
 };
 
+export const gardenBenchModelAsset: ExteriorModelAsset = {
+  alt: 'Low-poly garden bench with wood slats and metal frame',
+  position: [-10.5, 0, 11.2],
+  src: '/assets/models/prop-garden-bench.v1.glb',
+};
+
+export const gardenBenchFallbackPieces: ExteriorBoxPiece[] = [
+  { id: 'garden-bench-block', position: [-10.5, 0.28, 11.2], scale: [2.7, 0.55, 0.65], token: 'exteriorFacade', collider: false },
+  { id: 'garden-seat-inlay', position: [-10.5, 0.575, 11.2], scale: [2.15, 0.04, 0.46], token: 'exhibitContactAccent', collider: false },
+];
+
 export const museumEntranceFallbackPieces: ExteriorBoxPiece[] = [
   { id: 'entry-accent', position: [0, 2.05, 5.15], scale: [2.5, 0.18, 0.12], token: 'warmAccent', collider: false },
   { id: 'entry-post-left', position: [-1.45, 1.2, 5.35], scale: [0.24, 2.4, 0.45], token: 'exteriorPathEdge', collider: false },
@@ -87,7 +99,7 @@ export const exteriorColliderPieces: ExteriorBoxPiece[] = [
   { id: 'facade-left', position: [-3.35, 1.45, 5.55], scale: [4.5, 2.9, 0.35], token: 'exteriorFacade' },
   { id: 'facade-right', position: [3.35, 1.45, 5.55], scale: [4.5, 2.9, 0.35], token: 'exteriorFacade' },
   { id: 'facade-header', position: [0, 2.85, 5.55], scale: [8.7, 0.8, 0.35], token: 'exteriorFacade' },
-  { id: 'west-garden-seat', position: [-10.5, 0.28, 11.2], scale: [2.7, 0.55, 0.65], token: 'exteriorFacade' },
+  { id: 'west-garden-seat-collider', position: [-10.5, 0.28, 11.2], scale: [2.7, 0.55, 0.65], token: 'exteriorFacade', visible: false },
   { id: 'east-signal-base', position: [10.5, 0.38, 10.6], scale: [3.1, 0.76, 2.7], token: 'exteriorFacade' },
   { id: 'archive-plinth', position: [0, 0.32, 22.35], scale: [2.4, 0.64, 2.4], token: 'exteriorFacade' },
 ];
@@ -102,7 +114,6 @@ export const exteriorVisualPieces: ExteriorBoxPiece[] = [
   { id: 'east-terrace-b', position: [13.4, 0.18, 15.4], scale: [5.7, 0.36, 2.1], token: 'exteriorPlanting', collider: false },
   { id: 'south-terrace-left', position: [-7.7, 0.2, 24.7], scale: [8.2, 0.4, 2.5], token: 'exteriorPlanting', collider: false },
   { id: 'south-terrace-right', position: [7.7, 0.2, 24.7], scale: [8.2, 0.4, 2.5], token: 'exteriorPlanting', collider: false },
-  { id: 'garden-seat-inlay', position: [-10.5, 0.575, 11.2], scale: [2.15, 0.04, 0.46], token: 'exhibitContactAccent', collider: false },
   { id: 'archive-core', position: [0, 0.95, 22.35], scale: [0.75, 0.75, 0.75], token: 'exhibitNoteAccent', collider: false },
 ];
 
@@ -132,7 +143,7 @@ export const exteriorLanterns: ExteriorLanternPlacement[] = [
   { id: 'entry-right', position: [1.2, 0, 7.1] },
   { id: 'loop-west', position: [-7.0, 0, 16.5] },
   { id: 'loop-east', position: [7.0, 0, 16.5] },
-  { id: 'garden', position: [-10.5, 0, 12.9] },
+  { id: 'garden', position: [-8.5, 0, 13.5] },
   { id: 'signal', position: [9.0, 0, 12.8] },
   { id: 'archive-left', position: [-1.8, 0, 21.5] },
   { id: 'archive-right', position: [1.8, 0, 21.5] },

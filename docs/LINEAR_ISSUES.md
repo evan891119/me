@@ -1145,3 +1145,37 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Texture authoring
   - Animated doors
   - Real-time shadows
+
+### Issue 8.9: Add the Garden Bench GLB
+
+- Title: Add the Garden Bench GLB
+- Status: Done
+- Goal: Replace the Garden Overlook placeholder seat with a readable low-poly prop without increasing navigation cost.
+- Scope:
+  - Generate a wood-slat and metal-frame bench with two merged meshes.
+  - Separate the visual model from one simple invisible cuboid collider.
+  - Preserve the former seat block as loading and failure fallback.
+  - Move the garden lantern away from the bench sightline.
+  - Compare primitive and model variants in one test tab.
+- Acceptance Criteria:
+  - Done: Asset is 18,176 bytes, 228 triangles, 2 meshes, and 2 materials.
+  - Done: Model and primitive samples both run at 137 FPS and 7.3 ms.
+  - Done: Draw calls remain at 64 in the measured Garden Overlook view.
+  - Done: Missing-model route reaches the shared fallback boundary.
+  - Done: Player collision remains one cuboid.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `public/assets/models/prop-garden-bench.v1.glb`
+  - `scripts/generate-garden-bench.mjs`
+  - `src/content/exteriorWorld.ts`
+  - `src/world/primitives/StaticBox.tsx`
+  - `src/world/exterior/GardenBenchLandmark.tsx`
+  - `docs/ASSET_PIPELINE.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.8
+- Out of scope:
+  - Multiple bench instances
+  - Texture maps
+  - Detailed collision mesh
+  - Sitting animation
