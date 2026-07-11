@@ -15,6 +15,10 @@ import { supportsWebGL } from './utils/webglSupport';
 import { MuseumScene } from './world/MuseumScene';
 import { requestMuseumPointerLock } from './world/pointerLockEvents';
 
+function syncPointerLockState(pointerLockElement: Element | null = document.pointerLockElement) {
+  useAppStore.getState().setPointerLocked(pointerLockElement !== null);
+}
+
 export function App() {
   const canUseWebGL = useMemo(() => supportsWebGL(), []);
   const activeLocationId = useAppStore((state) => state.activeLocationId);
@@ -37,10 +41,7 @@ export function App() {
 
   useEffect(() => {
     const handlePointerLockChange = () => {
-      const canvas = document.querySelector<HTMLCanvasElement>('canvas.museum-canvas');
-      useAppStore
-        .getState()
-        .setPointerLocked(canvas !== null && document.pointerLockElement === canvas);
+      syncPointerLockState();
     };
 
     document.addEventListener('pointerlockchange', handlePointerLockChange);
@@ -71,6 +72,11 @@ export function App() {
     if (qaPointerState === 'unlockEvent') {
       useAppStore.getState().setPointerLocked(true);
       document.dispatchEvent(new Event('pointerlockchange'));
+    }
+
+    if (qaPointerState === 'relockEvent') {
+      useAppStore.getState().setPointerLocked(false);
+      syncPointerLockState(document.documentElement);
     }
 
     if (searchParams.get('qaCamera') === 'third') {
