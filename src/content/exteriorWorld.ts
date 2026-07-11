@@ -36,11 +36,34 @@ export interface ExteriorRockPlacement {
   scale: Vec3Tuple;
 }
 
+export interface ExteriorModelAsset {
+  alt: string;
+  position: Vec3Tuple;
+  rotation?: Vec3Tuple;
+  scale?: Vec3Tuple;
+  src: string;
+}
+
 export const exteriorZones: ExteriorZone[] = [
   { id: 'arrival-plaza', title: 'Museum Plaza', center: [0, 0, 13], radius: 7 },
   { id: 'west-garden', title: 'Garden Overlook', center: [-10.5, 0, 11.5], radius: 5 },
   { id: 'east-signal-yard', title: 'Signal Yard', center: [10.5, 0, 10.5], radius: 5 },
   { id: 'south-archive-grove', title: 'Archive Grove', center: [0, 0, 22], radius: 4.5 },
+];
+
+export const signalTowerModelAsset: ExteriorModelAsset = {
+  alt: 'Low-poly signal tower landmark',
+  position: [10.5, 0.76, 10.6],
+  scale: [0.65, 0.65, 0.65],
+  src: '/assets/models/landmark-signal-tower.v1.glb',
+};
+
+export const signalTowerFallbackPieces: ExteriorBoxPiece[] = [
+  { id: 'signal-mast-a', position: [10.5, 1.7, 10.6], scale: [0.18, 2.5, 0.18], token: 'exteriorPathEdge', collider: false },
+  { id: 'signal-mast-b', position: [9.8, 1.55, 10.6], rotation: [0, 0, -0.38], scale: [0.13, 2.2, 0.13], token: 'exteriorPathEdge', collider: false },
+  { id: 'signal-mast-c', position: [11.2, 1.55, 10.6], rotation: [0, 0, 0.38], scale: [0.13, 2.2, 0.13], token: 'exteriorPathEdge', collider: false },
+  { id: 'signal-head', position: [10.5, 3.0, 10.6], scale: [0.68, 0.42, 0.68], token: 'warmAccent', collider: false },
+  { id: 'signal-panel', position: [10.5, 0.78, 9.2], scale: [1.15, 0.62, 0.12], token: 'exhibitTimelineAccent', collider: false },
 ];
 
 export const exteriorColliderPieces: ExteriorBoxPiece[] = [
@@ -70,11 +93,6 @@ export const exteriorVisualPieces: ExteriorBoxPiece[] = [
   { id: 'east-terrace-b', position: [13.4, 0.18, 15.4], scale: [5.7, 0.36, 2.1], token: 'exteriorPlanting', collider: false },
   { id: 'south-terrace-left', position: [-7.7, 0.2, 24.7], scale: [8.2, 0.4, 2.5], token: 'exteriorPlanting', collider: false },
   { id: 'south-terrace-right', position: [7.7, 0.2, 24.7], scale: [8.2, 0.4, 2.5], token: 'exteriorPlanting', collider: false },
-  { id: 'signal-mast-a', position: [10.5, 1.7, 10.6], scale: [0.18, 2.5, 0.18], token: 'exteriorPathEdge', collider: false },
-  { id: 'signal-mast-b', position: [9.8, 1.55, 10.6], rotation: [0, 0, -0.38], scale: [0.13, 2.2, 0.13], token: 'exteriorPathEdge', collider: false },
-  { id: 'signal-mast-c', position: [11.2, 1.55, 10.6], rotation: [0, 0, 0.38], scale: [0.13, 2.2, 0.13], token: 'exteriorPathEdge', collider: false },
-  { id: 'signal-head', position: [10.5, 3.0, 10.6], scale: [0.68, 0.42, 0.68], token: 'warmAccent', collider: false },
-  { id: 'signal-panel', position: [10.5, 0.78, 9.2], scale: [1.15, 0.62, 0.12], token: 'exhibitTimelineAccent', collider: false },
   { id: 'garden-seat-inlay', position: [-10.5, 0.575, 11.2], scale: [2.15, 0.04, 0.46], token: 'exhibitContactAccent', collider: false },
   { id: 'archive-core', position: [0, 0.95, 22.35], scale: [0.75, 0.75, 0.75], token: 'exhibitNoteAccent', collider: false },
 ];

@@ -267,3 +267,43 @@ Current production build after Phase 8:
 | Optional model loader with Meshopt | 66.18 KB | 18.77 KB | No |
 
 The App chunk grew by about 2.96 KB gzip from the previous completed primitive-world baseline while adding four outdoor zones, bidirectional transitions, environment detail, development QA routes, and the discovery content system.
+
+## Signal Tower GLB A/B Check
+
+The first persistent runtime GLB replaces the five-piece primitive Signal Yard tower while preserving that primitive as the Suspense and error fallback.
+
+Asset shape:
+
+- `public/assets/models/landmark-signal-tower.v1.glb`;
+- 69,948 bytes;
+- 944 triangles;
+- 2 merged meshes and 2 materials;
+- no textures, animation, transparency, or shadow requirement.
+
+Hardware-accelerated development samples at the same Signal Yard preview spawn:
+
+| Variant | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Primitive baseline | 133 | 7.5 ms | 64 | 2,716 |
+| Signal Tower GLB | 132 | 7.6 ms | 65 | 3,600 |
+| Missing-model fallback | 144 | 6.9 ms | 66 | 2,716 |
+
+Interpretation:
+
+- the GLB adds one visible draw call and 884 visible triangles at this camera angle;
+- the 1 FPS and 0.1 ms differences are normal sample variation, not a material regression;
+- the normal model route produced no asset or application error; only the known Rapier warning remained;
+- the browser asset inventory confirmed a fetch for `landmark-signal-tower.v1.glb`;
+- the intentional missing-model route rendered the primitive tower instead of failing the Canvas;
+- no additional browser load test was run after the user requested that the test tabs be closed; final verification continued through terminal checks only.
+
+Production build after the model addition:
+
+| Chunk | Minified | Gzip | Initial preload |
+| --- | ---: | ---: | --- |
+| App | 37.95 KB | 11.71 KB | Yes |
+| World model component | 0.82 KB | 0.49 KB | No |
+| Optional model loader with Meshopt | 66.18 KB | 18.77 KB | No |
+| Signal Tower GLB | 69.95 KB | Static asset | Requested by exterior scene |
+
+The result is inside the exterior budget. Additional GLBs should still be introduced one at a time and measured with the same primitive/model/failure comparison.

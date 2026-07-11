@@ -187,7 +187,7 @@ Scope:
 - Done: Phase F performance, fallback, overlay, production build, laptop layout, and manual Pointer Lock checks.
 - Done: Phase G compact outdoor hub, bidirectional transition, and data-driven discovery slots.
 
-The lightweight primitive world now includes the museum and an explorable exterior hub. Final GLB art remains optional and must pass the asset budgets before it replaces or augments the primitive baseline.
+The lightweight primitive world now includes the museum and an explorable exterior hub. One measured Signal Tower GLB augments the exterior; further final GLB art remains optional and must pass the same asset budgets before replacing or augmenting the primitive baseline.
 
 ## Non-Goals For Completion Pass
 

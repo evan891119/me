@@ -2,7 +2,7 @@
 
 ## Current Decision
 
-Automated and manual launch checks pass. The current primitive world baseline is ready for public deployment.
+Automated and manual launch checks pass. The primitive world remains the fallback baseline, with one measured Signal Tower GLB accepted for the exterior.
 
 ## Automated Checks
 
@@ -30,6 +30,9 @@ Automated and manual launch checks pass. The current primitive world baseline is
 - Done: first-person Pointer Lock state hides the title, exhibit index, controls, and performance UI
 - Done: paused state restores the resume panel and five enabled exhibits
 - Done: development performance metrics can be toggled with the `P` key while paused
+- Done: Signal Tower GLB loads through a separate model chunk
+- Done: missing Signal Tower asset falls back to the primitive landmark
+- Done: Signal Tower model remains inside the exterior performance and asset budgets
 
 ## Manual Desktop Walkthrough
 
@@ -50,6 +53,6 @@ The Phase 8 browser QA routes verify both transition directions without Pointer 
 
 - Desktop first; mobile first-person controls are not implemented.
 - No post-processing, real-time shadows, dynamic props, NPCs, or city-scale open-world systems.
-- No final GLB assets or texture payload are committed yet; the completed primitive world is the performance fallback and current visual baseline.
+- One low-poly Signal Tower GLB is committed; no texture payload is present, and the primitive tower remains its fallback.
 - The Rapier dependency emits a development-only deprecated initialization warning.
 - Pointer Lock still requires a real browser for future regression checks because the Codex in-app browser blocks that API.

@@ -8,6 +8,7 @@ import { StaticBox, type WorldMaterialName } from '../primitives/StaticBox';
 import { Atmosphere } from './Atmosphere';
 import { DiscoveryObjects } from './DiscoveryObjects';
 import { ExteriorLanterns, ExteriorRocks, ExteriorTrees } from './ExteriorDetails';
+import { SignalTowerLandmark } from './SignalTowerLandmark';
 
 const visualPieces = [...exteriorVisualPieces, ...exteriorPathPieces];
 const visualTokens = [...new Set(visualPieces.map((piece) => piece.token))] as WorldMaterialName[];
@@ -32,6 +33,7 @@ export function ExteriorWorld() {
       <ExteriorTrees />
       <ExteriorRocks />
       <ExteriorLanterns />
+      <SignalTowerLandmark />
       <DiscoveryObjects />
 
       <pointLight position={[0, 2.35, 6.25]} intensity={1.65} distance={7} color="#d8b170" />

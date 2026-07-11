@@ -135,4 +135,4 @@ Pointer Lock, overlays, and bidirectional transitions share player state. Any fu
 - Entry and exit QA routes produce `interior` and `exterior` states respectively.
 - A discovery overlay opens and closes through the shared content system.
 - The museum exhibit overlay still opens after the content-state refactor.
-- Runtime metrics remain below the hard caps with no texture or model payload.
+- Runtime metrics remain below the hard caps with one measured 69.95 KB Signal Tower GLB and no texture payload.

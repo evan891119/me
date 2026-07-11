@@ -1078,3 +1078,39 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Cross-device lab testing
   - Mobile controls
   - Final personal easter-egg copy
+
+### Issue 8.7: Prototype a production Signal Tower GLB
+
+- Title: Prototype a production Signal Tower GLB
+- Status: Done
+- Goal: Measure the real visual and performance cost of replacing one exterior primitive landmark with an optimized GLB.
+- Scope:
+  - Generate a low-poly Signal Tower GLB with no texture or animation dependency.
+  - Merge geometry by material and keep the asset below the ordinary prop budget.
+  - Load the model through a code-split environment asset component.
+  - Preserve the existing primitive tower during loading and after failure.
+  - Compare primitive, GLB, and missing-model fallback variants.
+- Acceptance Criteria:
+  - Done: Model is 69,948 bytes, 944 triangles, 2 meshes, and 2 materials.
+  - Done: Normal model route renders with no asset error.
+  - Done: Intentional missing-model route renders the primitive fallback.
+  - Done: GLB variant remains near the primitive FPS and frame-time baseline.
+  - Done: Draw calls remain below 100 and visible triangles remain below 100k.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `public/assets/models/landmark-signal-tower.v1.glb`
+  - `scripts/generate-signal-tower.mjs`
+  - `src/content/exteriorWorld.ts`
+  - `src/world/assets/WorldModelAsset.tsx`
+  - `src/world/exterior/SignalTowerLandmark.tsx`
+  - `docs/ASSET_PIPELINE.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.2
+  - Issue 8.5
+- Out of scope:
+  - Texture authoring
+  - Animation
+  - Real-time shadows
+  - Replacing additional landmarks
+  - Adding a general LOD system
