@@ -38,6 +38,7 @@ Recommended limits:
 - Purpose: Orient the visitor in the first minute.
 - Launch title: Welcome Console
 - Launch summary: A short orientation exhibit for the first minute of the museum.
+- Model: `public/assets/models/exhibit-welcome-console.v1.glb`
 - Body:
   - The museum layout and exhibit interaction are explained briefly.
   - Visitors are directed to use `E` when an exhibit comes into focus.
@@ -74,6 +75,7 @@ Recommended limits:
   - Stack: Node.js, npm workspaces, discord.js, @discordjs/voice, modular packages for bridge core, Discord adapter, local config, and local state storage. The project also includes Docker Compose support and JSON lifecycle/recovery logging.
   - Outcome: The MVP supports /bridge create, /bridge join <code>, /bridge status, and /bridge leave, with bidirectional voice forwarding, multi-speaker mixing, automatic cleanup when channels empty, multiple simultaneous bridge pairs, basic reconnect handling, and experimental opt-in three-endpoint group bridges.
 - Tags: discord, voice, node.js, self-hosted
+- Model: `public/assets/models/exhibit-project-voice-relay.v1.glb`
 - Links:
   - Repository: https://github.com/evan891119/discord-voice-relay-bot
   - Live demo:
@@ -86,6 +88,7 @@ Recommended limits:
 - Section: `skills`
 - Purpose: Show capabilities connected to actual work, not a generic keyword wall.
 - Launch title: Skills Workbench
+- Model: `public/assets/models/exhibit-skills-workbench.v1.glb`
 - Launch summary: A compact exhibit for capabilities connected to actual work.
 - Body:
   - Product structure, frontend implementation, Node.js services, deployment, and operations.
@@ -99,6 +102,7 @@ Recommended limits:
 - Purpose: Provide a clear follow-up path.
 - Launch title: Contact Terminal
 - Launch summary: The easiest way to reach me for projects, collaboration, or technical conversations.
+- Model: `public/assets/models/exhibit-contact-terminal.v1.glb`
 - Body:
   - If you want to talk about a project, collaboration, or technical idea, email is the best place to start.
   - You can also find more of my work on GitHub.
@@ -117,6 +121,7 @@ Recommended limits:
 - Purpose: Capture concise engineering principles without creating a text-heavy room.
 - Launch title: Working Principles
 - Launch summary: A short set of ideas that shape how I build and evaluate software.
+- Model: `public/assets/models/exhibit-working-principles.v1.glb`
 - Tags: ideas, systems, craft
 - Related exhibits:
   - `background-timeline`

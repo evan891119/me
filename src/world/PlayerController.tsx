@@ -21,8 +21,14 @@ const TRANSITION_COOLDOWN_MS = 750;
 const movementKeys = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD']);
 const devSearchParams = import.meta.env.DEV ? new URLSearchParams(window.location.search) : null;
 const qaTransition = devSearchParams?.get('qaTransition');
+const requestedScenePreview = devSearchParams?.get('scene');
 const isInteriorScenePreview =
-  import.meta.env.DEV && (devSearchParams?.get('scene') === 'interior' || qaTransition === 'exit');
+  import.meta.env.DEV &&
+  (requestedScenePreview === 'interior' ||
+    requestedScenePreview === 'welcome' ||
+    requestedScenePreview === 'ideas' ||
+    requestedScenePreview === 'contact' ||
+    qaTransition === 'exit');
 const exteriorPreviewSpawns = {
   garden: { position: { x: -9.2, y: 0.9, z: 16.2 } },
   signal: { position: { x: 8.4, y: 0.9, z: 16.0 } },
@@ -41,7 +47,15 @@ const qaTransitionSpawn =
     : qaTransition === 'exit'
       ? { position: interiorExitTransition.center }
       : null;
-const initialSpawn = qaTransitionSpawn ?? (isInteriorScenePreview ? interiorEntrySpawn : exteriorPreviewSpawn);
+const interiorPreviewSpawn =
+  requestedScenePreview === 'welcome'
+    ? { position: { x: 0, y: 0.9, z: -1.45 } }
+    : requestedScenePreview === 'ideas'
+    ? { position: { x: -1.35, y: 0.9, z: 2.2 } }
+    : requestedScenePreview === 'contact'
+      ? { position: { x: 1.35, y: 0.9, z: 2.2 } }
+    : interiorEntrySpawn;
+const initialSpawn = qaTransitionSpawn ?? (isInteriorScenePreview ? interiorPreviewSpawn : exteriorPreviewSpawn);
 
 function isInsideTransitionZone(
   position: { x: number; y: number; z: number },
@@ -72,7 +86,11 @@ export function PlayerController() {
     if (isInteriorScenePreview) {
       useAppStore.getState().setActiveLocation('interior');
     }
-  }, []);
+
+    if (requestedScenePreview === 'ideas' || requestedScenePreview === 'contact') {
+      camera.rotation.set(0, requestedScenePreview === 'ideas' ? Math.PI / 2 : -Math.PI / 2, 0);
+    }
+  }, [camera]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

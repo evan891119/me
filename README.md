@@ -43,6 +43,8 @@ Place optimized runtime GLB files under `public/assets/models/` and reference th
 
 Outdoor zones, landmarks, and easter eggs are maintained in `src/content/exteriorWorld.ts`. Add future hidden content to `worldDiscoveries`; no new render component is required.
 
+The exterior uses a one-draw-call procedural dawn sky with a sun disc, atmospheric glow, and static cloud bands. Fog, skyline silhouettes, and daylight colors are matched without HDRI, textures, post-processing, or weather particles.
+
 The Signal Yard uses `public/assets/models/landmark-signal-tower.v1.glb`, with the former primitive tower retained as its loading and error fallback. Regenerate the model with `node scripts/generate-signal-tower.mjs`; asset measurements and A/B results are recorded in `docs/ASSET_PIPELINE.md` and `docs/PERFORMANCE_NOTES.md`.
 
 The museum entrance uses `public/assets/models/landmark-museum-entrance.v1.glb` for its decorative frame while retaining the original facade and colliders. Regenerate it with `node scripts/generate-museum-entrance.mjs`.
@@ -50,6 +52,16 @@ The museum entrance uses `public/assets/models/landmark-museum-entrance.v1.glb` 
 The Garden Overlook uses `public/assets/models/prop-garden-bench.v1.glb` with one invisible primitive collider and a visible primitive fallback. Regenerate it with `node scripts/generate-garden-bench.mjs`.
 
 The Archive Grove uses `public/assets/models/landmark-archive-core.v1.glb` as a visual frame around the existing interactive cache. Regenerate it with `node scripts/generate-archive-core.mjs`.
+
+The central project plinth loads `public/assets/models/exhibit-project-voice-relay.v1.glb` from exhibit media data. Regenerate it with `node scripts/generate-project-voice-relay.mjs`.
+
+The Skills Workbench loads `public/assets/models/exhibit-skills-workbench.v1.glb` from exhibit media data. Regenerate it with `node scripts/generate-skills-workbench.mjs`.
+
+The Working Principles display loads `public/assets/models/exhibit-working-principles.v1.glb` from `ideas-note` media data. Regenerate it with `node scripts/generate-working-principles.mjs`; use `?scene=ideas` for its development-only fixed preview.
+
+The Contact display loads `public/assets/models/exhibit-contact-terminal.v1.glb` from `contact-terminal` media data. Regenerate it with `node scripts/generate-contact-terminal.mjs`; use `?scene=contact` for its development-only fixed preview.
+
+The Welcome Console loads `public/assets/models/exhibit-welcome-console.v1.glb` from `welcome-console` media data. Regenerate it with `node scripts/generate-welcome-console.mjs`; use `?scene=welcome` for its development-only fixed preview.
 
 ## Project Notes
 

@@ -2,7 +2,7 @@
 
 ## Current Decision
 
-Automated and manual launch checks pass. The primitive world remains the fallback baseline, with one measured Signal Tower GLB accepted for the exterior.
+Automated and manual launch checks pass. The primitive world remains the fallback baseline, with nine measured GLBs accepted across the exterior and exhibits.
 
 ## Automated Checks
 
@@ -39,6 +39,23 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: Garden Bench matches the primitive FPS, frame time, and draw-call sample
 - Done: Archive Core surrounds but does not replace the data-driven Archive Cache
 - Done: missing Archive Core asset restores the primitive core
+- Done: project artifact loads from exhibit media data through the existing lazy loader
+- Done: missing project artifact retains the complete primitive plinth
+- Done: Skills Workbench model loads from its exhibit media data
+- Done: targeted exhibit A/B changes Skills without disabling the Project Artifact
+- Done: Working Principles relief loads from `ideas-note` media data
+- Done: Ideas QA spawn verifies the side-wall model without changing the production spawn
+- Done: missing Working Principles asset retains the primitive note display
+- Done: Contact Terminal model loads from `contact-terminal` media data
+- Done: Contact QA spawn verifies the side-wall model without changing the production spawn
+- Done: missing Contact Terminal asset retains the primitive contact display and HTML links
+- Done: Welcome Console model loads from `welcome-console` media data
+- Done: Welcome QA spawn verifies the lobby model without changing the production spawn
+- Done: missing Welcome Console asset retains the primitive orientation display
+- Done: all five enabled interior exhibits have dedicated data-driven model media
+- Done: exterior sky provides a continuous 360-degree horizon, sun, and cloud layer
+- Done: sky, fog, skyline, hemisphere light, and directional light share one dawn palette
+- Done: Museum Plaza, Garden Overlook, and Signal Yard remain inside performance caps after the sky upgrade
 
 ## Manual Desktop Walkthrough
 
@@ -59,6 +76,6 @@ The Phase 8 browser QA routes verify both transition directions without Pointer 
 
 - Desktop first; mobile first-person controls are not implemented.
 - No post-processing, real-time shadows, dynamic props, NPCs, or city-scale open-world systems.
-- One low-poly Signal Tower GLB is committed; no texture payload is present, and the primitive tower remains its fallback.
+- Nine low-poly GLBs are committed; no texture payload is present, and primitive fallbacks remain available.
 - The Rapier dependency emits a development-only deprecated initialization warning.
 - Pointer Lock still requires a real browser for future regression checks because the Codex in-app browser blocks that API.

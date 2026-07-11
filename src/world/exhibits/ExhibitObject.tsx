@@ -25,7 +25,21 @@ export function ExhibitObject({ exhibit }: ExhibitObjectProps) {
   const scale: [number, number, number] = transform.scale
     ? toTuple(transform.scale)
     : [1, 1, 1];
-  const modelMedia = exhibit.media?.find((media) => media.type === 'model');
+  const configuredModelMedia = exhibit.media?.find((media) => media.type === 'model');
+  const modelTestValue = import.meta.env.DEV
+    ? new URLSearchParams(window.location.search).get('exhibitModel')
+    : null;
+  const [modelTestTarget, modelTestMode] = modelTestValue?.includes(':')
+    ? modelTestValue.split(':', 2)
+    : [null, modelTestValue];
+  const appliesToExhibit = modelTestTarget === null || modelTestTarget === exhibit.id;
+  const activeTestMode = appliesToExhibit ? modelTestMode : null;
+  const modelMedia =
+    activeTestMode === 'primitive'
+      ? undefined
+      : activeTestMode === 'missing' && configuredModelMedia
+        ? { ...configuredModelMedia, src: '/assets/models/missing-exhibit-model.glb' }
+        : configuredModelMedia;
 
   return (
     <StaticBox

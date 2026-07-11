@@ -383,3 +383,161 @@ Development A/B routes:
 /?spawn=archive&archiveModel=primitive
 /?spawn=archive&archiveModel=missing
 ```
+
+## Accepted Runtime Asset: Project Voice Relay v1
+
+The first interior exhibit GLB is accepted at:
+
+```text
+public/assets/models/exhibit-project-voice-relay.v1.glb
+```
+
+| Metric | Result | Budget |
+| --- | ---: | ---: |
+| File size | 71,316 bytes | Under 750 KB exhibit target |
+| Triangles | 964 | Under 20k exhibit target |
+| Meshes | 2 | Minimal |
+| Materials | 2 | 1-3 |
+| Textures | 0 | No texture payload |
+
+The artifact is referenced from the `project-plinth` media data and loaded by the existing `ExhibitModelAsset` path. It represents two voice endpoints connected by a relay signal while leaving project copy in the HTML overlay.
+
+Regenerate it with:
+
+```bash
+node scripts/generate-project-voice-relay.mjs
+```
+
+Development A/B routes:
+
+```text
+/?scene=interior&exhibitModel=primitive
+/?scene=interior&exhibitModel=missing
+```
+
+## Accepted Runtime Asset: Skills Workbench v1
+
+The second interior exhibit GLB is accepted at:
+
+```text
+public/assets/models/exhibit-skills-workbench.v1.glb
+```
+
+| Metric | Result | Budget |
+| --- | ---: | ---: |
+| File size | 21,844 bytes | Under 750 KB exhibit target |
+| Triangles | 276 | Under 20k exhibit target |
+| Meshes | 2 | Minimal |
+| Materials | 2 | 1-3 |
+| Textures | 0 | No texture payload |
+
+The model is referenced from `skills-workbench` media data. Targeted A/B parameters allow one exhibit model to be disabled without changing other loaded exhibit models.
+
+Regenerate it with:
+
+```bash
+node scripts/generate-skills-workbench.mjs
+```
+
+Development A/B routes:
+
+```text
+/?scene=interior&exhibitModel=skills-workbench:primitive
+/?scene=interior&exhibitModel=skills-workbench:missing
+```
+
+## Accepted Runtime Asset: Working Principles Relief v1
+
+The Ideas exhibit relief is accepted at:
+
+```text
+public/assets/models/exhibit-working-principles.v1.glb
+```
+
+| Metric | Result | Budget |
+| --- | ---: | ---: |
+| File size | 43,464 bytes | Under 750 KB exhibit target |
+| Triangles | 576 | Under 20k exhibit target |
+| Meshes | 2 | Minimal |
+| Materials | 2 | 1-3 |
+| Textures | 0 | No texture payload |
+
+The model is a wall-mounted three-branch decision compass. It is referenced from `ideas-note` media data, while the existing note display remains the collider and failure fallback.
+
+Regenerate it with:
+
+```bash
+node scripts/generate-working-principles.mjs
+```
+
+Development A/B routes:
+
+```text
+/?scene=ideas&exhibitModel=ideas-note:primitive
+/?scene=ideas
+/?scene=ideas&exhibitModel=ideas-note:missing
+```
+
+## Accepted Runtime Asset: Contact Terminal v1
+
+The Contact exhibit terminal is accepted at:
+
+```text
+public/assets/models/exhibit-contact-terminal.v1.glb
+```
+
+| Metric | Result | Budget |
+| --- | ---: | ---: |
+| File size | 50,372 bytes | Under 750 KB exhibit target |
+| Triangles | 672 | Under 20k exhibit target |
+| Meshes | 2 | Minimal |
+| Materials | 2 | 1-3 |
+| Textures | 0 | No texture payload |
+
+The GLB supplies the terminal body, display, signal indicators, and antennas. Contact copy and links remain in the HTML overlay, and the primitive exhibit remains the collider and failure fallback.
+
+Regenerate it with:
+
+```bash
+node scripts/generate-contact-terminal.mjs
+```
+
+Development A/B routes:
+
+```text
+/?scene=contact&exhibitModel=contact-terminal:primitive
+/?scene=contact
+/?scene=contact&exhibitModel=contact-terminal:missing
+```
+
+## Accepted Runtime Asset: Welcome Console v1
+
+The lobby orientation console is accepted at:
+
+```text
+public/assets/models/exhibit-welcome-console.v1.glb
+```
+
+| Metric | Result | Budget |
+| --- | ---: | ---: |
+| File size | 23,872 bytes | Under 750 KB exhibit target |
+| Triangles | 304 | Under 20k exhibit target |
+| Meshes | 2 | Minimal |
+| Materials | 2 | 1-3 |
+| Textures | 0 | No texture payload |
+
+The GLB supplies a dark orientation display, a four-node route map, and direction markers. Instructions remain in accessible HTML, and the primitive welcome display remains the collider and failure fallback.
+
+Regenerate it with:
+
+```bash
+node scripts/generate-welcome-console.mjs
+```
+
+Development A/B routes:
+
+```text
+/?scene=welcome&exhibitModel=welcome-console:primitive
+/?scene=welcome
+/?scene=welcome&exhibitModel=welcome-console:missing
+```

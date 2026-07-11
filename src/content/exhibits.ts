@@ -18,6 +18,17 @@ export const museumExhibits: MuseumExhibit[] = [
       scale: { x: 2.4, y: 1.1, z: 0.2 },
     },
     interactionRadius: 2.2,
+    media: [
+      {
+        type: 'model',
+        src: '/assets/models/exhibit-welcome-console.v1.glb',
+        alt: 'Low-poly museum orientation console with a route map',
+        transform: {
+          position: { x: 0, y: -0.2, z: 0.7 },
+          scale: { x: 0.5, y: 0.5, z: 0.5 },
+        },
+      },
+    ],
     relatedExhibitIds: ['project-plinth', 'contact-terminal'],
   },
   {
@@ -58,6 +69,17 @@ export const museumExhibits: MuseumExhibit[] = [
       scale: { x: 1.4, y: 0.9, z: 1.4 },
     },
     interactionRadius: 1.9,
+    media: [
+      {
+        type: 'model',
+        src: '/assets/models/exhibit-project-voice-relay.v1.glb',
+        alt: 'Low-poly dual-node voice relay artifact',
+        transform: {
+          position: { x: 0, y: 0.68, z: 0 },
+          scale: { x: 0.55, y: 0.55, z: 0.55 },
+        },
+      },
+    ],
     links: [
       {
         href: 'https://github.com/evan891119/discord-voice-relay-bot',
@@ -83,6 +105,17 @@ export const museumExhibits: MuseumExhibit[] = [
       scale: { x: 1.2, y: 0.9, z: 0.8 },
     },
     interactionRadius: 1.8,
+    media: [
+      {
+        type: 'model',
+        src: '/assets/models/exhibit-skills-workbench.v1.glb',
+        alt: 'Low-poly modular skills workbench artifact',
+        transform: {
+          position: { x: 0, y: 0.7, z: 0 },
+          scale: { x: 0.5, y: 0.5, z: 0.5 },
+        },
+      },
+    ],
   },
   {
     id: 'ideas-note',
@@ -101,6 +134,17 @@ export const museumExhibits: MuseumExhibit[] = [
       scale: { x: 1.5, y: 1.0, z: 0.35 },
     },
     interactionRadius: 2,
+    media: [
+      {
+        type: 'model',
+        src: '/assets/models/exhibit-working-principles.v1.glb',
+        alt: 'Low-poly three-branch working principles relief',
+        transform: {
+          position: { x: 0, y: 0, z: 0.62 },
+          scale: { x: 0.55, y: 0.55, z: 0.55 },
+        },
+      },
+    ],
     relatedExhibitIds: ['background-timeline', 'skills-workbench'],
   },
   {
@@ -120,6 +164,17 @@ export const museumExhibits: MuseumExhibit[] = [
       scale: { x: 1.5, y: 1.0, z: 0.35 },
     },
     interactionRadius: 2,
+    media: [
+      {
+        type: 'model',
+        src: '/assets/models/exhibit-contact-terminal.v1.glb',
+        alt: 'Low-poly communication terminal with dual signal antennas',
+        transform: {
+          position: { x: 0, y: -0.18, z: 0.62 },
+          scale: { x: 0.52, y: 0.52, z: 0.52 },
+        },
+      },
+    ],
     links: [
       {
         href: 'mailto:sneezycat@sneezycat.dev',

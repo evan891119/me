@@ -32,8 +32,8 @@ export function MuseumScene() {
 
   return (
     <>
-      <color attach="background" args={['#1d282b']} />
-      <fog attach="fog" args={['#1d282b', 15, 38]} />
+      <color attach="background" args={['#6f8f94']} />
+      <fog attach="fog" args={['#6f8586', 17, 42]} />
       {import.meta.env.DEV ? <PerformanceMonitor /> : null}
       <SceneLighting />
       <PointerLockControls

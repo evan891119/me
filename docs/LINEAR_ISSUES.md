@@ -1211,3 +1211,194 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - New collision
   - Animation or particles
   - Texture maps
+
+### Issue 8.11: Add the Project Voice Relay artifact
+
+- Title: Add the Project Voice Relay artifact
+- Status: Done
+- Goal: Prove the data-driven exhibit media pipeline with a real project-specific GLB.
+- Scope:
+  - Generate a dual-node voice-relay sculpture with two merged materials.
+  - Reference the GLB from the `project-plinth` media data.
+  - Keep project copy in the HTML overlay and collision on the primitive plinth.
+  - Preserve the primitive display during loading and after failure.
+  - Compare primitive, model, and missing-model variants in one test tab.
+- Acceptance Criteria:
+  - Done: Asset is 71,316 bytes, 964 triangles, 2 meshes, and 2 materials.
+  - Done: Model is configured from exhibit content data.
+  - Done: Missing-model route retains the full primitive plinth.
+  - Done: Interior remains below draw-call and triangle caps.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `public/assets/models/exhibit-project-voice-relay.v1.glb`
+  - `scripts/generate-project-voice-relay.mjs`
+  - `src/content/exhibits.ts`
+  - `src/world/exhibits/ExhibitObject.tsx`
+  - `docs/ASSET_PIPELINE.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.10
+  - Issue 7.10
+- Out of scope:
+  - Animated audio waves
+  - Texture maps
+  - Replacing project text with 3D labels
+  - New collision geometry
+
+### Issue 8.12: Add the Skills Workbench artifact
+
+- Title: Add the Skills Workbench artifact
+- Status: Done
+- Goal: Give the skills exhibit a readable modular artifact while proving targeted exhibit-model A/B controls.
+- Scope:
+  - Generate a three-module workbench artifact with two merged materials.
+  - Reference the model from `skills-workbench` media data.
+  - Add targeted `exhibitModel=<id>:<mode>` development testing.
+  - Keep the primitive exhibit and collider as fallback.
+  - Compare primitive, model, and missing variants with the Project Artifact still loaded.
+- Acceptance Criteria:
+  - Done: Asset is 21,844 bytes, 276 triangles, 2 meshes, and 2 materials.
+  - Done: Skills model is configured from exhibit data.
+  - Done: Targeted primitive and missing modes affect only Skills Workbench.
+  - Done: Missing-model route retains the primitive exhibit.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `public/assets/models/exhibit-skills-workbench.v1.glb`
+  - `scripts/generate-skills-workbench.mjs`
+  - `src/content/exhibits.ts`
+  - `src/world/exhibits/ExhibitObject.tsx`
+  - `docs/ASSET_PIPELINE.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.11
+- Out of scope:
+  - Interactive switches
+  - Animated tools
+  - Texture maps
+  - New collision geometry
+
+### Issue 8.13: Add the Working Principles relief
+
+- Title: Add the Working Principles relief
+- Status: Done
+- Goal: Give the Ideas exhibit a readable visual identity without replacing its data-driven copy or primitive fallback.
+- Scope:
+  - Generate a wall-mounted three-branch decision compass with two merged materials.
+  - Reference the model from `ideas-note` media data.
+  - Add a development-only Ideas spawn for repeatable side-wall QA.
+  - Keep the primitive note display and collider unchanged.
+  - Compare primitive, model, and missing variants in one test tab.
+- Acceptance Criteria:
+  - Done: Asset is 43,464 bytes, 576 triangles, 2 meshes, and 2 materials.
+  - Done: Model is configured from exhibit data and renders on the front of the wall display.
+  - Done: Targeted missing mode returns to 35 calls and 2,540 visible triangles.
+  - Done: No texture, animation, shadow, or collision payload is added.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `public/assets/models/exhibit-working-principles.v1.glb`
+  - `scripts/generate-working-principles.mjs`
+  - `src/content/exhibits.ts`
+  - `src/world/PlayerController.tsx`
+  - `docs/ASSET_PIPELINE.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.12
+- Out of scope:
+  - 3D text
+  - Animated branches
+  - Texture maps
+  - New collision geometry
+
+### Issue 8.14: Add the Contact Terminal artifact
+
+- Title: Add the Contact Terminal artifact
+- Status: Done
+- Goal: Give the final contact exhibit a recognizable communication object while preserving accessible HTML contact actions.
+- Scope:
+  - Generate a low-poly terminal with an angled display, dual antennas, and signal indicators.
+  - Reference the model from `contact-terminal` media data.
+  - Add a development-only Contact spawn for repeatable side-wall QA.
+  - Keep contact copy, email, and profile links in the HTML overlay.
+  - Compare primitive, model, and missing variants in one test tab.
+- Acceptance Criteria:
+  - Done: Asset is 50,372 bytes, 672 triangles, 2 meshes, and 2 materials.
+  - Done: Model renders on the front of the Contact display.
+  - Done: Targeted missing mode returns to 37 calls and 3,252 visible triangles.
+  - Done: Primitive collision and accessible contact links remain unchanged.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `public/assets/models/exhibit-contact-terminal.v1.glb`
+  - `scripts/generate-contact-terminal.mjs`
+  - `src/content/exhibits.ts`
+  - `src/world/PlayerController.tsx`
+  - `docs/ASSET_PIPELINE.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.13
+- Out of scope:
+  - Sending messages inside the 3D scene
+  - Animated antenna signals
+  - Texture maps
+  - New collision geometry
+
+### Issue 8.15: Add the Welcome Console artifact
+
+- Title: Add the Welcome Console artifact
+- Status: Done
+- Goal: Complete enabled interior exhibit model coverage with a clear first-minute orientation object.
+- Scope:
+  - Generate a low-poly console with a dark display, route map, nodes, and direction markers.
+  - Reference the model from `welcome-console` media data.
+  - Add a development-only Welcome spawn for repeatable front-facing QA.
+  - Keep instructions in HTML and collision on the primitive display.
+  - Compare primitive, model, and missing variants in one test tab.
+- Acceptance Criteria:
+  - Done: Asset is 23,872 bytes, 304 triangles, 2 meshes, and 2 materials.
+  - Done: Route lines and nodes have sufficient contrast against the console display.
+  - Done: Targeted missing mode returns to 29 calls and 1,788 visible triangles.
+  - Done: All five enabled interior exhibits now reference dedicated model media.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `public/assets/models/exhibit-welcome-console.v1.glb`
+  - `scripts/generate-welcome-console.mjs`
+  - `src/content/exhibits.ts`
+  - `src/world/PlayerController.tsx`
+  - `docs/ASSET_PIPELINE.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.14
+- Out of scope:
+  - 3D instructional text
+  - Animated route guidance
+  - Texture maps
+  - New collision geometry
+
+### Issue 8.16: Upgrade the procedural exterior sky
+
+- Title: Upgrade the procedural exterior sky
+- Status: Done
+- Goal: Make the exterior read as a continuous world rather than a prototype surrounded by a dark gradient.
+- Scope:
+  - Replace the minimum three-color dome with a 360-degree dawn atmosphere.
+  - Add a procedural sun disc, atmospheric glow, and static cloud bands in the existing shader draw call.
+  - Align fog, skyline colors, hemisphere light, and directional light with the sky.
+  - Check the default, Garden, and Signal viewpoints in one browser tab.
+- Acceptance Criteria:
+  - Done: No visible sky seam appears at the sampled exterior viewpoints.
+  - Done: Sun direction and scene lighting are visually consistent.
+  - Done: The sky remains one draw call with no texture, HDRI, post-processing, particle, or shadow payload.
+  - Done: Warmed samples remain above 60 FPS and below 100 calls and 100k visible triangles.
+  - Done: Typecheck, lint, and production build pass.
+- Files likely touched:
+  - `src/world/exterior/Atmosphere.tsx`
+  - `src/world/MuseumScene.tsx`
+  - `src/world/lighting.tsx`
+  - `docs/WORLD_COMPLETION_PLAN.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.15
+- Out of scope:
+  - Dynamic time of day
+  - Weather animation
+  - HDRI lighting
+  - Post-processing or volumetric clouds

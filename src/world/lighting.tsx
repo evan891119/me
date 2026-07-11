@@ -5,9 +5,9 @@ export function SceneLighting() {
 
   return (
     <>
-      <ambientLight intensity={0.58} />
-      <hemisphereLight args={['#7c8988', '#28251f', 0.72]} />
-      <directionalLight position={[5, 8, 6]} intensity={1.4} color="#dfbd8e" />
+      <ambientLight intensity={0.62} />
+      <hemisphereLight args={['#9abcc2', '#302b24', 0.8]} />
+      <directionalLight position={[-12, 10, -20]} intensity={1.45} color="#f1c98e" />
       {activeLocationId === 'interior' ? (
         <>
           <pointLight position={[0, 2.7, 2.8]} intensity={3.2} distance={7} />

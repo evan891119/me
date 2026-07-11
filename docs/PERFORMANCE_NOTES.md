@@ -387,3 +387,174 @@ Production build after the Archive Core addition:
 - App: 39.78 KB minified / 12.01 KB gzip;
 - World Model and loader chunks remain shared across every environment GLB;
 - no texture payload or additional physics body was introduced.
+
+## Project Voice Relay GLB A/B Check
+
+The fifth persistent GLB is the first model referenced directly from exhibit media data. It augments the existing project plinth, which remains the collider and visual fallback.
+
+Asset shape:
+
+- `public/assets/models/exhibit-project-voice-relay.v1.glb`;
+- 71,316 bytes;
+- 964 triangles;
+- 2 merged meshes and 2 materials;
+- no textures, animation, transparency, shadows, or new collider.
+
+Single-tab hardware-accelerated samples at the same interior preview spawn:
+
+| Variant | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Primitive project plinth | 132 | 7.5 ms | 48 | 2,664 |
+| Voice Relay GLB | 137 | 7.3 ms | 50 | 3,628 |
+| Missing-model fallback | 136 | 7.3 ms | 48 | 2,664 |
+
+The artifact adds two draw calls and 964 visible triangles. The normal route produced no model error, and the intentional missing route retained the complete primitive plinth. Total persistent GLB payload is now 224,140 bytes across five assets.
+
+Production build after the project artifact addition:
+
+- App: 39.96 KB minified / 12.06 KB gzip;
+- Exhibit Model component remains 0.90 KB / 0.54 KB gzip;
+- environment and exhibit models share the same optional loader chunk.
+
+## Skills Workbench GLB A/B Check
+
+The sixth persistent GLB adds a modular three-panel tool rack to the Skills Workbench while retaining its primitive display and collider.
+
+Asset shape:
+
+- `public/assets/models/exhibit-skills-workbench.v1.glb`;
+- 21,844 bytes;
+- 276 triangles;
+- 2 merged meshes and 2 materials;
+- no textures, animation, transparency, shadows, or new collider.
+
+Targeted single-tab samples with the Project Artifact left enabled:
+
+| Variant | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Skills primitive | 133 | 7.5 ms | 50 | 3,628 |
+| Skills Workbench GLB | 136 | 7.3 ms | 52 | 3,904 |
+| Targeted missing fallback | 135 | 7.4 ms | 50 | 3,628 |
+
+The model adds two draw calls and 276 visible triangles. The targeted query changed only `skills-workbench`; the Project Artifact remained loaded in all samples. Total persistent GLB payload is now 245,984 bytes across six assets.
+
+Production build after the Skills Workbench addition:
+
+- App: 40.29 KB minified / 12.17 KB gzip;
+- existing Exhibit Model and loader chunks remain shared;
+- no additional physics or texture payload was introduced.
+
+## Working Principles Relief GLB A/B Check
+
+The seventh persistent GLB adds a three-branch decision compass to the Ideas wall display. The existing note display remains visible and owns collision.
+
+Asset shape:
+
+- `public/assets/models/exhibit-working-principles.v1.glb`;
+- 43,464 bytes;
+- 576 triangles;
+- 2 merged meshes and 2 materials;
+- no textures, animation, transparency, shadows, or new collider.
+
+Targeted single-tab samples at the same Ideas QA spawn:
+
+| Variant | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Ideas primitive | 144 | 6.9 ms | 35 | 2,540 |
+| Working Principles GLB | 136 | 7.4 ms | 37 | 3,116 |
+| Targeted missing fallback | 131 | 7.6 ms | 35 | 2,540 |
+
+The model adds two draw calls and 576 visible triangles. FPS readings vary between sequential samples, while structural metrics return exactly to baseline on the intentional missing route. The normal model rendered without asset errors. Total persistent GLB payload is now 289,448 bytes across seven assets.
+
+Production build after the Working Principles addition:
+
+- App: 40.49 KB minified / 12.22 KB gzip;
+- Exhibit Model component remains 0.90 KB / 0.54 KB gzip;
+- the shared loader remains 66.18 KB / 18.77 KB gzip;
+- no additional physics or texture payload was introduced.
+
+## Contact Terminal GLB A/B Check
+
+The eighth persistent GLB adds a dedicated communication terminal to the Contact display. Contact links remain in the accessible HTML overlay and collision remains primitive.
+
+Asset shape:
+
+- `public/assets/models/exhibit-contact-terminal.v1.glb`;
+- 50,372 bytes;
+- 672 triangles;
+- 2 merged meshes and 2 materials;
+- no textures, animation, transparency, shadows, or new collider.
+
+Targeted single-tab samples at the same Contact QA spawn:
+
+| Variant | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Contact primitive | 133 | 7.5 ms | 37 | 3,252 |
+| Contact Terminal GLB | 136 | 7.3 ms | 39 | 3,924 |
+| Targeted missing fallback | 137 | 7.3 ms | 37 | 3,252 |
+
+The model adds two draw calls and 672 visible triangles. The normal route rendered without asset errors, and structural metrics returned exactly to baseline on the intentional missing route. Total persistent GLB payload is now 339,820 bytes across eight assets.
+
+Production build after the Contact Terminal addition:
+
+- App: 40.69 KB minified / 12.26 KB gzip;
+- Exhibit Model component remains 0.90 KB / 0.54 KB gzip;
+- the shared loader remains 66.18 KB / 18.77 KB gzip;
+- no additional physics or texture payload was introduced.
+
+## Welcome Console GLB A/B Check
+
+The ninth persistent GLB completes dedicated model coverage for all five enabled interior exhibits. The Welcome Console remains a primitive collider with accessible HTML instructions.
+
+Asset shape:
+
+- `public/assets/models/exhibit-welcome-console.v1.glb`;
+- 23,872 bytes;
+- 304 triangles;
+- 2 merged meshes and 2 materials;
+- no textures, animation, transparency, shadows, or new collider.
+
+Targeted single-tab samples at the same Welcome QA spawn:
+
+| Variant | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Welcome primitive | 136 | 7.4 ms | 29 | 1,788 |
+| Welcome Console GLB | 137 | 7.3 ms | 31 | 2,092 |
+| Targeted missing fallback | 138 | 7.3 ms | 29 | 1,788 |
+
+The model adds two draw calls and 304 visible triangles. The normal route rendered without asset errors, and structural metrics returned exactly to baseline on the intentional missing route. Total persistent GLB payload is now 363,692 bytes across nine assets.
+
+Production build after the Welcome Console addition:
+
+- App: 40.89 KB minified / 12.29 KB gzip;
+- Exhibit Model component remains 0.90 KB / 0.54 KB gzip;
+- the shared loader remains 66.18 KB / 18.77 KB gzip;
+- no additional physics or texture payload was introduced.
+
+## Procedural Dawn Sky Check
+
+The original three-color dark dome met the minimum Phase A requirement but did not provide enough atmospheric depth to make the exterior read as a world. It was replaced with a richer procedural dawn sky while retaining the same one-mesh, one-draw-call architecture.
+
+Visual additions:
+
+- a 360-degree horizon-to-zenith color model;
+- a visible sun disc and low-cost atmospheric glow;
+- static procedural cloud bands with no texture or animation dependency;
+- fog, skyline silhouettes, hemisphere light, and directional light aligned to the same dawn palette;
+- no HDRI, texture, post-processing, particle, shadow, or weather system.
+
+Single-tab hardware-accelerated samples after shader warm-up:
+
+| View | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Museum Plaza | 139 | 7.2 ms | 75 | 7,424 |
+| Garden Overlook | 137 | 7.3 ms | 74 | 7,144 |
+| Signal Yard | 137 | 7.3 ms | 75 | 7,844 |
+
+The first Museum Plaza sample briefly measured 93 FPS while the shader and scene initialized; a repeat after the Garden and Signal checks measured 139 FPS. All steady samples remain below the 100-call and 100k-triangle hard caps and above the 60 FPS target on the test machine. The dome remains one draw call; the higher sphere tessellation only increases inexpensive background triangles.
+
+Production build after the sky upgrade:
+
+- App: 42.02 KB minified / 12.63 KB gzip;
+- no new runtime asset request;
+- no change to optional model, Three, React, or physics chunks.

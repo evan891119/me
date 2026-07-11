@@ -179,7 +179,7 @@ Scope:
 
 ## Current Completion Status
 
-- Done: Phase A exterior atmosphere.
+- Done: Phase A exterior atmosphere, upgraded with a 360-degree dawn sky, sun disc, cloud bands, matched fog, and aligned daylight direction.
 - Done: Phase B interior material system.
 - Done: Phase C spatial guidance.
 - Done: Phase D exhibit polish and optional GLB layer.
@@ -187,7 +187,7 @@ Scope:
 - Done: Phase F performance, fallback, overlay, production build, laptop layout, and manual Pointer Lock checks.
 - Done: Phase G compact outdoor hub, bidirectional transition, and data-driven discovery slots.
 
-The lightweight primitive world now includes the museum and an explorable exterior hub. One measured Signal Tower GLB augments the exterior; further final GLB art remains optional and must pass the same asset budgets before replacing or augmenting the primitive baseline.
+The lightweight world now includes the museum, an explorable exterior hub, and a visually continuous atmosphere instead of a minimum dark gradient. Nine measured GLBs augment the exterior and every enabled interior exhibit while retaining primitive fallbacks. Further art remains optional and must pass the same asset budgets before replacing or augmenting the baseline.
 
 ## Non-Goals For Completion Pass
 
