@@ -187,8 +187,11 @@ Scope:
 - Done: Phase F performance, fallback, overlay, production build, laptop layout, and manual Pointer Lock checks.
 - Done: Phase G compact outdoor hub, bidirectional transition, and data-driven discovery slots.
 - Done: Reference-driven exterior environment art pass with modular museum architecture, plaza paving, loop paths, four finished destinations, three alcoves, faceted planting, warm fake-light pools, and perimeter skyline depth.
+- Done: Independent expanded interior with a 16 x 22 x 5.2 layout, five readable zones, framed transitions, typed reusable modules, isolated static colliders, and instanced architecture.
 
 The lightweight world now includes the museum, a reference-driven explorable exterior hub, and a visually continuous atmosphere instead of a minimum dark gradient. Nine measured GLBs augment the exterior and every enabled interior exhibit while retaining primitive fallbacks. The exterior's composition, material hierarchy, landmarks, vegetation, paths, alcoves, lighting language, and boundary depth now follow `docs/ENVIRONMENT_ART_PASS.md`.
+
+The museum interior is intentionally larger than the exterior facade. Location-based mounting keeps the two spaces independent, so the interior can provide a full entrance-to-exit exhibition route without rendering exterior geometry or increasing exterior cost.
 
 ## Non-Goals For Completion Pass
 

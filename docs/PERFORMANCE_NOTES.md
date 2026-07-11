@@ -210,6 +210,31 @@ Interpretation:
 
 The manual Pointer Lock launch checks passed in the production preview on 2026-07-10, including movement, exterior-to-interior transition, Escape recovery, overlay-close relock, and Contact Terminal spawn behavior.
 
+## Phase 8.19 Interior Expansion Check
+
+The independent museum interior is now 16 x 22 x 5.2 units with an entrance lobby, central Project Gallery, separate Ideas and Skills galleries, and a rear Contact / Exit zone. Repeated architectural modules are grouped by material and instanced; collision is limited to necessary static cuboids.
+
+Representative hardware-accelerated development measurements:
+
+| View | FPS | Frame time | Draw calls | Triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Entrance axis | 136 | 7.3 ms | 44 | 3,664 |
+| Central Project | 144 | 6.9 ms | 34 | 3,256 |
+| Contact / Exit | 144 | 6.9 ms | 14 | 1,320 |
+
+Results remain above 60 FPS and below the 100-call and 100k-triangle hard caps. Four real point lights cover the interior; repeated fixtures use emissive materials and add no lights, shadows, or post-processing.
+
+Final production build after the expansion:
+
+| Chunk | Minified | Gzip |
+| --- | ---: | ---: |
+| App | 62.13 KB | 17.18 KB |
+| CSS | 7.06 KB | 1.97 KB |
+| Optional model loader | 66.18 KB | 18.77 KB |
+| React vendor | 201.12 KB | 63.47 KB |
+| Three/R3F vendor | 856.87 KB | 229.52 KB |
+| Rapier physics vendor | 2,261.61 KB | 843.82 KB |
+
 Production preview was also checked at `http://127.0.0.1:4173/` after the final build:
 
 - one Canvas and all six exhibit index entries render on the normal route;

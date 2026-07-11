@@ -2,12 +2,16 @@ import { MeshStandardMaterial } from 'three';
 
 export interface WorldMaterialToken {
   color: string;
+  emissive?: string;
+  emissiveIntensity?: number;
   roughness: number;
   metalness?: number;
 }
 
 interface StandardMaterialProps {
   color: string;
+  emissive?: string;
+  emissiveIntensity?: number;
   metalness: number;
   roughness: number;
 }
@@ -127,23 +131,41 @@ export const worldMaterials = {
     roughness: 0.74,
   },
   interiorCeiling: {
-    color: '#242520',
+    color: '#292a27',
     roughness: 0.92,
   },
+  interiorDivider: {
+    color: '#303330',
+    roughness: 0.9,
+  },
   interiorFloor: {
-    color: '#2b2b25',
+    color: '#302f2a',
     roughness: 0.94,
+  },
+  interiorFloorAlt: {
+    color: '#3d3931',
+    roughness: 0.92,
   },
   interiorFloorInlay: {
     color: '#5a4930',
     roughness: 0.9,
   },
   interiorPanel: {
-    color: '#343735',
+    color: '#3c403d',
     roughness: 0.88,
   },
+  interiorGlow: {
+    color: '#d6ab65',
+    emissive: '#9b5d24',
+    emissiveIntensity: 0.7,
+    roughness: 0.56,
+  },
+  interiorStoneLight: {
+    color: '#8d8171',
+    roughness: 0.84,
+  },
   interiorWall: {
-    color: '#3a3730',
+    color: '#46413a',
     roughness: 0.88,
   },
 } satisfies Record<string, WorldMaterialToken>;
@@ -153,6 +175,12 @@ export function materialProps(token: WorldMaterialToken): StandardMaterialProps 
     color: token.color,
     metalness: token.metalness ?? 0,
     roughness: token.roughness,
+    ...(token.emissive
+      ? {
+          emissive: token.emissive,
+          emissiveIntensity: token.emissiveIntensity ?? 1,
+        }
+      : {}),
   };
 }
 

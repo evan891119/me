@@ -9,6 +9,7 @@ import {
   interiorExitTransition,
   worldTransitions,
 } from '../content/world';
+import { interiorPreviews } from '../content/interiorLayout';
 import { useAppStore } from '../state/useAppStore';
 
 const MOVE_SPEED = 3;
@@ -22,13 +23,12 @@ const movementKeys = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD']);
 const devSearchParams = import.meta.env.DEV ? new URLSearchParams(window.location.search) : null;
 const qaTransition = devSearchParams?.get('qaTransition');
 const requestedScenePreview = devSearchParams?.get('scene');
+const requestedInteriorPreview =
+  requestedScenePreview && requestedScenePreview in interiorPreviews
+    ? interiorPreviews[requestedScenePreview as keyof typeof interiorPreviews]
+    : null;
 const isInteriorScenePreview =
-  import.meta.env.DEV &&
-  (requestedScenePreview === 'interior' ||
-    requestedScenePreview === 'welcome' ||
-    requestedScenePreview === 'ideas' ||
-    requestedScenePreview === 'contact' ||
-    qaTransition === 'exit');
+  import.meta.env.DEV && (requestedInteriorPreview !== null || qaTransition === 'exit');
 const exteriorPreviewSpawns = {
   garden: { position: { x: -8.4, y: 0.9, z: 17.4 } },
   signal: { position: { x: 7.4, y: 0.9, z: 18.0 } },
@@ -57,14 +57,15 @@ const qaTransitionSpawn =
     : qaTransition === 'exit'
       ? { position: interiorExitTransition.center }
       : null;
-const interiorPreviewSpawn =
-  requestedScenePreview === 'welcome'
-    ? { position: { x: 0, y: 0.9, z: -1.45 } }
-    : requestedScenePreview === 'ideas'
-    ? { position: { x: -1.35, y: 0.9, z: 2.2 } }
-    : requestedScenePreview === 'contact'
-      ? { position: { x: 1.35, y: 0.9, z: 2.2 } }
-    : interiorEntrySpawn;
+const interiorPreviewSpawn = requestedInteriorPreview
+  ? {
+      position: {
+        x: requestedInteriorPreview.position[0],
+        y: requestedInteriorPreview.position[1],
+        z: requestedInteriorPreview.position[2],
+      },
+    }
+  : interiorEntrySpawn;
 const initialSpawn = qaTransitionSpawn ?? (isInteriorScenePreview ? interiorPreviewSpawn : exteriorPreviewSpawn);
 
 function isInsideTransitionZone(
@@ -97,8 +98,8 @@ export function PlayerController() {
       useAppStore.getState().setActiveLocation('interior');
     }
 
-    if (requestedScenePreview === 'ideas' || requestedScenePreview === 'contact') {
-      camera.rotation.set(0, requestedScenePreview === 'ideas' ? Math.PI / 2 : -Math.PI / 2, 0);
+    if (requestedInteriorPreview) {
+      camera.rotation.set(0, requestedInteriorPreview.yaw, 0);
     }
 
     if (requestedExteriorPreview && requestedExteriorPreview in exteriorPreviewYaws) {

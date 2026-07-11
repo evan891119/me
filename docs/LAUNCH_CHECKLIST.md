@@ -66,6 +66,11 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: exterior architecture unmounts after entering the museum and cannot intersect interior walls
 - Done: interior ceiling slab closes the shell without adding collision
 - Done: returning to exterior remounts the exterior world and guidance
+- Done: independent 16 x 22 x 5.2 interior includes entrance, Project, Ideas, Skills, and Contact / Exit zones
+- Done: interior layout, exhibit transforms, previews, and colliders are typed data outside the renderer
+- Done: entrance spawn focuses no exhibit and all five enabled exhibits open with `E`
+- Done: expanded interior remains above 60 FPS, below 100 calls, and below 100k visible triangles
+- Done: entrance and exit transition QA resolve to the correct active location
 
 ## Manual Desktop Walkthrough
 

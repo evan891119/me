@@ -1469,3 +1469,42 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Redesigning the interior
   - Changing transition coordinates
   - Adding ceiling collision or shadows
+
+### Issue 8.19: Expand the museum into a complete interior world
+
+- Title: Expand the museum into a complete interior world
+- Status: Done
+- Goal: Replace the single small room with a larger, readable museum route while preserving the isolated location architecture and laptop performance budget.
+- Scope:
+  - Build a 16 x 22 x 5.2 interior with an entrance lobby, central Project Gallery, Ideas Gallery, Skills Gallery, and Contact / Exit zone.
+  - Define typed layout, collider, exhibit-transform, preview, and guidance data outside React render components.
+  - Render repeated walls, floors, ceilings, columns, doorways, dividers, plinths, panels, light fixtures, and inlays with shared materials and instancing.
+  - Reposition all enabled exhibits and preserve their data-driven GLB media, primitive fallbacks, copy, and interaction behavior.
+  - Update entrance and exit spawns for the expanded footprint.
+  - Verify every zone, exhibit dialog, transition direction, fallback, and performance budget in one browser tab.
+- Acceptance Criteria:
+  - Done: The interior has five distinct, connected zones and does not expose every exhibit from the entrance.
+  - Done: Background Timeline remains disabled.
+  - Done: Exterior and interior geometry remain mutually exclusive by active location.
+  - Done: Entrance spawn focuses no exhibit; all five enabled exhibits focus and open with `E`.
+  - Done: Both transition directions resolve to the correct location.
+  - Done: Representative samples remain above 60 FPS, below 100 draw calls, and below 100k visible triangles.
+  - Done: Typecheck, lint, production build, and forced fallback verification pass.
+- Files likely touched:
+  - `src/content/interiorLayout.ts`
+  - `src/content/exhibits.ts`
+  - `src/content/world.ts`
+  - `src/world/interior/InteriorShell.tsx`
+  - `src/world/PlayerController.tsx`
+  - `src/world/lighting.tsx`
+  - `src/world/materials/worldMaterials.ts`
+  - `docs/INTERIOR_EXPANSION.md`
+  - `docs/PERFORMANCE_NOTES.md`
+  - `docs/LAUNCH_CHECKLIST.md`
+- Dependencies:
+  - Issue 8.18
+- Out of scope:
+  - Re-enabling Background Timeline
+  - Mobile first-person controls
+  - Dynamic doors, props, NPCs, or room streaming
+  - Real-time shadows, post-processing, or texture-heavy art

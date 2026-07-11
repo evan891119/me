@@ -20,7 +20,7 @@ export const exteriorSpawn: WorldSpawn = {
 };
 
 export const interiorEntrySpawn: WorldSpawn = {
-  position: { x: 0, y: 0.9, z: 3.35 },
+  position: { x: 0, y: 0.9, z: 9.2 },
 };
 
 export const exteriorEntryTransition: WorldTransitionZone = {
@@ -39,7 +39,7 @@ export const exteriorReturnSpawn: WorldSpawn = {
 export const interiorExitTransition: WorldTransitionZone = {
   id: 'museum-exit',
   sourceLocationId: 'interior',
-  center: { x: 0, y: 0.9, z: 4.35 },
+  center: { x: 0, y: 0.9, z: 10.25 },
   halfExtents: { x: 1.25, y: 1.2, z: 0.42 },
   targetLocationId: 'exterior',
   targetSpawn: exteriorReturnSpawn,

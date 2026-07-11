@@ -1,4 +1,5 @@
 import type { MuseumExhibit } from './types';
+import { interiorExhibitTransforms } from './interiorLayout';
 
 export const museumExhibits: MuseumExhibit[] = [
   {
@@ -12,11 +13,7 @@ export const museumExhibits: MuseumExhibit[] = [
     ],
     tags: ['orientation', 'museum'],
     displayStyle: 'welcome',
-    transform: {
-      position: { x: 0, y: 1.05, z: -3.35 },
-      rotation: { x: 0, y: 0, z: 0 },
-      scale: { x: 2.4, y: 1.1, z: 0.2 },
-    },
+    transform: interiorExhibitTransforms['welcome-console'],
     interactionRadius: 2.2,
     media: [
       {
@@ -63,11 +60,7 @@ export const museumExhibits: MuseumExhibit[] = [
     ],
     tags: ['discord', 'voice', 'node.js', 'self-hosted'],
     displayStyle: 'project',
-    transform: {
-      position: { x: 0, y: 0.95, z: -0.4 },
-      rotation: { x: 0, y: 0, z: 0 },
-      scale: { x: 1.4, y: 0.9, z: 1.4 },
-    },
+    transform: interiorExhibitTransforms['project-plinth'],
     interactionRadius: 1.9,
     media: [
       {
@@ -99,11 +92,7 @@ export const museumExhibits: MuseumExhibit[] = [
     ],
     tags: ['skills', 'engineering', 'product'],
     displayStyle: 'skill',
-    transform: {
-      position: { x: 2.7, y: 0.95, z: -2.25 },
-      rotation: { x: 0, y: -0.2, z: 0 },
-      scale: { x: 1.2, y: 0.9, z: 0.8 },
-    },
+    transform: interiorExhibitTransforms['skills-workbench'],
     interactionRadius: 1.8,
     media: [
       {
@@ -128,11 +117,7 @@ export const museumExhibits: MuseumExhibit[] = [
     ],
     tags: ['ideas', 'systems', 'craft'],
     displayStyle: 'note',
-    transform: {
-      position: { x: -3.55, y: 1.05, z: 2.2 },
-      rotation: { x: 0, y: Math.PI / 2, z: 0 },
-      scale: { x: 1.5, y: 1.0, z: 0.35 },
-    },
+    transform: interiorExhibitTransforms['ideas-note'],
     interactionRadius: 2,
     media: [
       {
@@ -158,11 +143,7 @@ export const museumExhibits: MuseumExhibit[] = [
     ],
     tags: ['contact', 'exit'],
     displayStyle: 'contact',
-    transform: {
-      position: { x: 3.55, y: 1.05, z: 2.2 },
-      rotation: { x: 0, y: -Math.PI / 2, z: 0 },
-      scale: { x: 1.5, y: 1.0, z: 0.35 },
-    },
+    transform: interiorExhibitTransforms['contact-terminal'],
     interactionRadius: 2,
     media: [
       {
@@ -170,7 +151,7 @@ export const museumExhibits: MuseumExhibit[] = [
         src: '/assets/models/exhibit-contact-terminal.v1.glb',
         alt: 'Low-poly communication terminal with dual signal antennas',
         transform: {
-          position: { x: 0, y: -0.18, z: 0.62 },
+          position: { x: 0, y: -0.18, z: 0.9 },
           scale: { x: 0.52, y: 0.52, z: 0.52 },
         },
       },
