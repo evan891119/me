@@ -46,6 +46,8 @@ The exported clips are:
 
 The model is visible only in third-person mode. The existing Rapier capsule remains the sole player collider. Movement rotates the visual character toward actual velocity with frame-rate-independent damping and leaves the last facing direction unchanged at rest. Before damping, yaw is converted to the nearest equivalent angle within a half-turn, preventing direction changes across the -pi / +pi boundary from taking the long path around. Animation changes use a 0.16-second crossfade, and the mixer reads mutable refs rather than causing per-frame React renders.
 
+Facing intent has a 120 ms release grace when a diagonal two-key input becomes one key. Physics still responds to the remaining key immediately. If the second key is also released inside the grace window, the model keeps the diagonal facing direction; if the remaining key stays held beyond the window, facing commits to that single direction. New direction presses and other input changes still update facing immediately.
+
 If the GLB fails, a local primitive character fallback renders inside the same capsule while physics, camera, and the rest of the scene continue.
 
 ## Running
@@ -134,6 +136,8 @@ Single-tab hardware-accelerated checks on 2026-07-11:
 | Missing player GLB | primitive fallback rendered; Canvas and physics stayed active |
 | Third-person strafing | left, right, and alternating strafe stayed centered with 0.00000 maximum horizontal screen error |
 | Third-person direction changes | all sampled turn arcs stayed at or below pi radians, including alternating left/right input |
+| Diagonal release intent | W+A, release W, then release A after 70 ms retained the W+A facing direction |
+| Deliberate single direction | holding A past the 120 ms grace committed facing from forward-left to left |
 
 Representative exterior performance after the movement pass: 144 FPS, 6.9 ms, 36 draw calls, and 7,772 visible triangles.
 

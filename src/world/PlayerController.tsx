@@ -35,6 +35,7 @@ const PLAYER_START_Y = 0.9;
 const PLAYER_RADIUS = 0.35;
 const PLAYER_SEGMENT_HALF_HEIGHT = 0.55;
 const TRANSITION_COOLDOWN_MS = 750;
+const FACING_RELEASE_GRACE_MS = 120;
 
 const devSearchParams = import.meta.env.DEV ? new URLSearchParams(window.location.search) : null;
 const qaTransition = devSearchParams?.get('qaTransition');
@@ -49,6 +50,23 @@ const idleMovementInput: MovementInput = {
   right: false,
   running: false,
 };
+
+function movementDirectionCount(input: MovementInput) {
+  return Number(input.forward) + Number(input.backward) + Number(input.left) + Number(input.right);
+}
+
+function movementDirectionSignature(input: MovementInput) {
+  return `${Number(input.forward)}${Number(input.backward)}${Number(input.left)}${Number(input.right)}`;
+}
+
+function isDirectionSubset(current: MovementInput, previous: MovementInput) {
+  return (
+    (!current.forward || previous.forward) &&
+    (!current.backward || previous.backward) &&
+    (!current.left || previous.left) &&
+    (!current.right || previous.right)
+  );
+}
 const requestedInteriorPreview =
   requestedScenePreview && requestedScenePreview in interiorPreviews
     ? interiorPreviews[requestedScenePreview as keyof typeof interiorPreviews]
@@ -134,6 +152,9 @@ export function PlayerController() {
   const qaMaxHeight = useRef(PLAYER_START_Y);
   const qaMaxHorizontalSpeed = useRef(0);
   const visualState = useRef({ ...initialPlayerVisualState });
+  const previousFacingInput = useRef<MovementInput>(idleMovementInput);
+  const pendingFacingSince = useRef<number | null>(null);
+  const pendingFacingSignature = useRef<string | null>(null);
   const groundRays = useMemo(
     () =>
       [
@@ -287,14 +308,28 @@ export function PlayerController() {
         'walk',
         'run',
         'diagonal',
+        'diagonalLeft',
         'strafeLeft',
         'strafeRight',
         'strafeSwitch',
       ];
-      if (basicMovementQa.includes(requestedMovementQa) && elapsed < 1000) {
+      if (requestedMovementQa === 'diagonalRelease') {
+        keysPressed.current.clear();
+        if (elapsed < 500) {
+          keysPressed.current.add('KeyW');
+          keysPressed.current.add('KeyA');
+        } else if (elapsed < 570) {
+          keysPressed.current.add('KeyA');
+        }
+      } else if (requestedMovementQa === 'diagonalHold') {
+        keysPressed.current.clear();
+        if (elapsed < 500) keysPressed.current.add('KeyW');
+        if (elapsed < 1000) keysPressed.current.add('KeyA');
+      } else if (basicMovementQa.includes(requestedMovementQa) && elapsed < 1000) {
         if (!requestedMovementQa.startsWith('strafe')) keysPressed.current.add('KeyW');
         if (requestedMovementQa === 'run') keysPressed.current.add('ShiftLeft');
         if (requestedMovementQa === 'diagonal') keysPressed.current.add('KeyD');
+        if (requestedMovementQa === 'diagonalLeft') keysPressed.current.add('KeyA');
         if (requestedMovementQa === 'strafeLeft') keysPressed.current.add('KeyA');
         if (requestedMovementQa === 'strafeRight') keysPressed.current.add('KeyD');
         if (requestedMovementQa === 'strafeSwitch') {
@@ -390,8 +425,9 @@ export function PlayerController() {
 
     right.current.copy(forward.current).cross(up.current).normalize();
     const movementInput = readMovementInput(keysPressed.current);
+    const effectiveMovementInput = controlsEnabled ? movementInput : idleMovementInput;
     calculateHorizontalVelocity(
-      controlsEnabled ? movementInput : idleMovementInput,
+      effectiveMovementInput,
       forward.current,
       right.current,
       velocity.current,
@@ -416,9 +452,35 @@ export function PlayerController() {
     );
 
     const horizontalSpeed = Math.hypot(velocity.current.x, velocity.current.z);
-    if (horizontalSpeed > 0.08) {
+    const currentDirectionCount = movementDirectionCount(effectiveMovementInput);
+    const previousDirectionCount = movementDirectionCount(previousFacingInput.current);
+    const currentDirectionSignature = movementDirectionSignature(effectiveMovementInput);
+    const now = performance.now();
+
+    if (pendingFacingSince.current !== null) {
+      if (currentDirectionCount === 0) {
+        pendingFacingSince.current = null;
+        pendingFacingSignature.current = null;
+      } else if (currentDirectionSignature !== pendingFacingSignature.current) {
+        pendingFacingSince.current = null;
+        pendingFacingSignature.current = null;
+        visualState.current.facingYaw = Math.atan2(velocity.current.x, velocity.current.z);
+      } else if (now - pendingFacingSince.current >= FACING_RELEASE_GRACE_MS) {
+        pendingFacingSince.current = null;
+        pendingFacingSignature.current = null;
+        visualState.current.facingYaw = Math.atan2(velocity.current.x, velocity.current.z);
+      }
+    } else if (
+      currentDirectionCount === 1 &&
+      previousDirectionCount >= 2 &&
+      isDirectionSubset(effectiveMovementInput, previousFacingInput.current)
+    ) {
+      pendingFacingSince.current = now;
+      pendingFacingSignature.current = currentDirectionSignature;
+    } else if (horizontalSpeed > 0.08) {
       visualState.current.facingYaw = Math.atan2(velocity.current.x, velocity.current.z);
     }
+    previousFacingInput.current = { ...effectiveMovementInput };
     visualState.current.grounded = grounded.current;
     visualState.current.horizontalSpeed = horizontalSpeed;
     visualState.current.running = controlsEnabled && movementInput.running;
