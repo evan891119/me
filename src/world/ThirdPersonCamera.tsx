@@ -16,6 +16,7 @@ const LOOK_SENSITIVITY = 0.002;
 const qaSearchParams = import.meta.env.DEV ? new URLSearchParams(window.location.search) : null;
 const qaYaw = qaSearchParams?.get('qaCameraYaw') ?? null;
 const qaPitch = qaSearchParams?.get('qaCameraPitch') ?? null;
+const qaSpinSpeed = qaSearchParams?.get('qaCameraSpinSpeed') ?? null;
 
 interface ThirdPersonCameraProps {
   cameraMode: CameraMode;
@@ -32,9 +33,11 @@ export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraPr
   const previousTarget = useRef(new Vector3());
   const offset = useRef(new Vector3());
   const desiredPosition = useRef(new Vector3());
+  const currentDistance = useRef(CAMERA_DISTANCE);
   const cameraDirection = useRef(new Vector3());
   const orbitEuler = useRef(new Euler(0, 0, 0, 'YXZ'));
   const teleportSnapCount = useRef(0);
+  const unobstructedMinDistance = useRef(CAMERA_DISTANCE);
   const cameraRay = useMemo(
     () => new rapier.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 1 }),
     [rapier],
@@ -87,6 +90,9 @@ export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraPr
       translation.z,
     );
     const teleported = wasActive.current && target.current.distanceTo(previousTarget.current) > 2;
+    if (import.meta.env.DEV && qaSpinSpeed !== null && Number.isFinite(Number(qaSpinSpeed))) {
+      yaw.current += Number(qaSpinSpeed) * delta;
+    }
     orbitEuler.current.set(pitch.current, yaw.current, 0);
     offset.current.set(0, 0, CAMERA_DISTANCE).applyEuler(orbitEuler.current);
     const idealDistance = offset.current.length();
@@ -110,22 +116,32 @@ export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraPr
     const collisionDistance = hit
       ? Math.max(CAMERA_MIN_DISTANCE, hit.timeOfImpact - CAMERA_COLLISION_MARGIN)
       : idealDistance;
-    desiredPosition.current
-      .copy(target.current)
-      .addScaledVector(offset.current, collisionDistance);
-
-    if (!wasActive.current || teleported || hit) {
-      camera.position.copy(desiredPosition.current);
+    if (!wasActive.current || teleported) {
+      currentDistance.current = collisionDistance;
       if (teleported) teleportSnapCount.current += 1;
       wasActive.current = true;
+    } else if (collisionDistance < currentDistance.current) {
+      currentDistance.current = collisionDistance;
     } else {
-      camera.position.lerp(
-        desiredPosition.current,
-        1 - Math.exp(-CAMERA_RETURN_RESPONSE * Math.min(delta, 0.1)),
+      currentDistance.current = MathUtils.damp(
+        currentDistance.current,
+        collisionDistance,
+        CAMERA_RETURN_RESPONSE,
+        Math.min(delta, 0.1),
       );
     }
+    desiredPosition.current
+      .copy(target.current)
+      .addScaledVector(offset.current, currentDistance.current);
+    camera.position.copy(desiredPosition.current);
     camera.lookAt(target.current);
     previousTarget.current.copy(target.current);
+    if (!hit) {
+      unobstructedMinDistance.current = Math.min(
+        unobstructedMinDistance.current,
+        camera.position.distanceTo(target.current),
+      );
+    }
 
     if (import.meta.env.DEV) {
       const shell = document.querySelector<HTMLElement>('main.app-shell');
@@ -135,6 +151,10 @@ export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraPr
       shell?.setAttribute('data-camera-yaw', yaw.current.toFixed(3));
       shell?.setAttribute('data-camera-pitch', pitch.current.toFixed(3));
       shell?.setAttribute('data-camera-teleport-snaps', String(teleportSnapCount.current));
+      shell?.setAttribute(
+        'data-camera-unobstructed-min-distance',
+        unobstructedMinDistance.current.toFixed(3),
+      );
     }
   });
 

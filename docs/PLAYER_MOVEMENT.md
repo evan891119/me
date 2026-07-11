@@ -25,7 +25,7 @@ High-frequency movement state stays in refs and the Rapier body. Zustand is not 
 
 `V` switches between `firstPerson` and `thirdPerson` while Pointer Lock is active. First-person mode preserves the original eye-height camera and Drei Pointer Lock rotation. Third-person mode disables Drei's camera rotation while retaining Pointer Lock, then applies yaw and pitch to a camera target 0.45 units above the capsule center.
 
-The third-person defaults are a 4.0-unit orbit distance, -0.28-radian pitch, and a pitch clamp from -0.9 to 0.3 radians. Camera motion uses frame-rate-independent exponential smoothing. A Rapier ray from the target to the ideal camera position shortens the boom before a static collider and leaves a 0.18-unit wall margin; the player's own rigid body is excluded. The boom returns smoothly to full distance after the obstruction clears.
+The third-person defaults are a 4.0-unit orbit distance, -0.28-radian pitch, and a pitch clamp from -0.9 to 0.3 radians. Orbit angle and boom distance are handled independently, so fast mouse rotation follows the spherical orbit instead of linearly cutting through the player and appearing to zoom. A Rapier ray from the target to the ideal camera position shortens the boom before a static collider and leaves a 0.18-unit wall margin; the player's own rigid body is excluded. The boom returns with frame-rate-independent damping after the obstruction clears.
 
 The camera snaps to the correct side of a teleport on a world transition instead of interpolating from the previous location.
 
