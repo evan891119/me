@@ -126,6 +126,10 @@ export const exteriorColliderPieces: ExteriorBoxPiece[] = [
   { id: 'signal-station-collider', position: [10.5, 0.85, 10.6], scale: [4.2, 1.7, 3.6], token: 'exteriorBoundary', visible: false },
   { id: 'archive-planter-west-collider', position: [-4.1, 0.3, 22.5], scale: [3.3, 0.6, 2.2], token: 'exteriorStoneMid', visible: false },
   { id: 'archive-planter-east-collider', position: [4.1, 0.3, 22.5], scale: [3.3, 0.6, 2.2], token: 'exteriorStoneMid', visible: false },
+  { id: 'museum-step-1-collider', position: [0, 0.05, 7.28], scale: [5.8, 0.1, 0.62], token: 'exteriorStoneLight', visible: false },
+  { id: 'museum-step-2-collider', position: [0, 0.12, 6.88], scale: [5.35, 0.24, 0.55], token: 'exteriorStoneLight', visible: false },
+  { id: 'museum-step-3-collider', position: [0, 0.2, 6.52], scale: [4.9, 0.4, 0.5], token: 'exteriorStoneLight', visible: false },
+  { id: 'museum-step-4-collider', position: [0, 0.29, 6.2], scale: [4.45, 0.58, 0.45], token: 'exteriorStoneLight', visible: false },
 ];
 
 function planterPieces(id: string, x: number, z: number, width: number, depth: number, height = 0.48): ExteriorBoxPiece[] {

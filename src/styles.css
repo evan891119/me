@@ -120,6 +120,12 @@ h1 {
   line-height: 1.45;
 }
 
+.enter-world-panel .control-legend {
+  margin-top: 8px;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
 #enter-world-button {
   min-height: 44px;
   padding: 0 18px;

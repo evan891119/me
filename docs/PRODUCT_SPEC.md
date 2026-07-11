@@ -142,7 +142,7 @@ The accepted launch baseline includes:
 - Mouse look after click-to-enter pointer lock.
 - Esc exits pointer lock.
 - Movement should be smooth, conservative, and predictable.
-- No sprint, jump, crouch, or head bob in phase 1 unless needed for testing.
+- Phase 1 excluded sprint and jump. The later movement pass adds hold-to-run and grounded jump while crouch and head bob remain out of scope.
 
 ### Exhibit Interaction
 

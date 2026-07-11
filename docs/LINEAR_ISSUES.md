@@ -1508,3 +1508,48 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Mobile first-person controls
   - Dynamic doors, props, NPCs, or room streaming
   - Real-time shadows, post-processing, or texture-heavy art
+
+### Issue 8.20: Add grounded jumping and hold-to-run movement
+
+- Title: Add grounded jumping and hold-to-run movement
+- Status: Done
+- Goal: Extend the Rapier first-person controller with stable running and jumping while preserving Pointer Lock, interactions, collisions, transitions, fallback behavior, and laptop performance.
+- Scope:
+  - Keep normalized, horizontal camera-relative WASD movement at 3.0 units/s.
+  - Add hold-to-run with either Shift key at 5.25 units/s.
+  - Enable Rapier gravity and add a 4.45 units/s grounded jump impulse.
+  - Detect ground with self-excluding downward ray casts and an upward-normal threshold.
+  - Preserve vertical velocity while controlling horizontal velocity and use limited air control.
+  - Clear WASD, Shift, Space, and queued-jump state on Pointer Lock exit, overlay open, blur, hidden document, transition, and unmount.
+  - Preserve narrow doorway transition volumes and reset velocity after teleporting.
+  - Add development-only movement QA snapshots without production UI.
+  - Update the visible control legend and movement documentation.
+- Acceptance Criteria:
+  - Done: Walk, run, and diagonal QA measure 3.0, 5.25, and 3.0 units/s respectively.
+  - Done: Standing and moving jumps reach about 1.0 unit through Rapier velocity and gravity.
+  - Done: Held Space causes one jump, an air press cannot double jump, and landing permits a second jump.
+  - Done: Overlay and explicit reset QA clear all input and stop horizontal velocity without cancelling gravity.
+  - Done: Exterior and interior floors ground correctly; Project and Ideas collision checks stop the capsule.
+  - Done: Four entrance-step colliders support running and jumping through the real doorway.
+  - Done: Entry and exit transitions resolve to the correct grounded destination spawn.
+  - Done: Forced fallback preserves Email and GitHub without mounting a Canvas.
+  - Done: Runtime remains above 60 FPS, below 100 draw calls, and below 100k visible triangles.
+  - Done: Typecheck, lint, production build, and `git diff --check` pass.
+- Files likely touched:
+  - `src/world/playerMovement.ts`
+  - `src/world/PlayerController.tsx`
+  - `src/world/MuseumScene.tsx`
+  - `src/content/exteriorWorld.ts`
+  - `src/ui/ControlPrompt.tsx`
+  - `src/styles.css`
+  - `src/vite-env.d.ts`
+  - `docs/PLAYER_MOVEMENT.md`
+  - `docs/PERFORMANCE_NOTES.md`
+  - `docs/LAUNCH_CHECKLIST.md`
+- Dependencies:
+  - Issue 8.19
+- Out of scope:
+  - Stamina, crouch, slide, climb, or double jump
+  - Character models, animation, footstep audio, particles, or camera effects
+  - Moving platforms or mobile virtual controls
+  - Museum content or art-direction changes

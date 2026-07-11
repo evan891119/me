@@ -71,6 +71,15 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: entrance spawn focuses no exhibit and all five enabled exhibits open with `E`
 - Done: expanded interior remains above 60 FPS, below 100 calls, and below 100k visible triangles
 - Done: entrance and exit transition QA resolve to the correct active location
+- Done: WASD remains normalized and camera-relative at 3.0 units/s
+- Done: holding Shift runs at 5.25 units/s and releasing it restores walk speed
+- Done: Space produces a grounded Rapier jump of about 1.0 unit
+- Done: held Space cannot bunny hop and an air press cannot double jump
+- Done: landing permits a new jump and moving jumps retain limited air control
+- Done: Pointer Lock, overlay, blur, visibility, transition, and unmount paths clear movement input
+- Done: jump and run work on both exterior and interior floors without crossing tested colliders
+- Done: four entrance-step colliders support the capsule without blocking the museum transition
+- Done: movement QA remains above 60 FPS and below scene draw-call and triangle caps
 
 ## Manual Desktop Walkthrough
 
@@ -86,6 +95,8 @@ Completed in a hardware-accelerated desktop browser on 2026-07-10:
 8. Done: Current launch links behave normally.
 
 The Phase 8 browser QA routes verify both transition directions without Pointer Lock. Before the next public deployment, repeat the real-browser walkthrough once to confirm continuous WASD movement through the new interior exit.
+
+Phase 8.20 development instrumentation verifies walk, run, diagonal normalization, jump height, held Space, mid-air Space, repeat jump after landing, moving jump, input reset, interior landing, collision stops, and both transition directions. Repeat the native Pointer Lock walkthrough before deployment to cover Escape and overlay-close relock with the new jump input.
 
 ## Known Limits
 

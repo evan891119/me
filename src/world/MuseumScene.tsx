@@ -13,6 +13,7 @@ import { DiscoveryFocusDetector } from './interactions/DiscoveryFocusDetector';
 import { SceneLighting } from './lighting';
 import { PlayerController } from './PlayerController';
 import { REQUEST_POINTER_LOCK_EVENT } from './pointerLockEvents';
+import { GRAVITY_Y } from './playerMovement';
 
 export function MuseumScene() {
   const activeLocationId = useAppStore((state) => state.activeLocationId);
@@ -44,7 +45,7 @@ export function MuseumScene() {
         onUnlock={() => setPointerLocked(false)}
       />
 
-      <Physics gravity={[0, 0, 0]}>
+      <Physics gravity={[0, GRAVITY_Y, 0]}>
         <PlayerController />
         <ExhibitFocusDetector />
         <DiscoveryFocusDetector />

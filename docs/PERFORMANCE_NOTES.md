@@ -630,3 +630,27 @@ The scene now mounts only the active location's world geometry:
 - a non-colliding interior ceiling slab now closes the shell at wall height.
 
 Interior QA after the fix measured 141 FPS, 35 calls, and 1,916 visible triangles. Exterior navigation back to `data-location="exterior"` was also verified. The only console warning remains Rapier's known development initialization warning.
+
+## Phase 8.20 Player Movement Check
+
+Running and grounded jumping add no render geometry, texture, model, post-processing, or runtime dependency. The dynamic player capsule now uses Rapier gravity and CCD. Ground detection checks the center ray first and only evaluates four offset probes when needed at an edge or step.
+
+Hardware-accelerated exterior sample after the movement pass:
+
+| Metric | Result | Budget |
+| --- | ---: | ---: |
+| FPS | 144 | at least 60 |
+| Frame time | 6.9 ms | below 16.7 ms |
+| Draw calls | 36 | below 100 |
+| Visible triangles | 7,772 | below 100,000 |
+| Dev transfer | 33.2 KB | diagnostic only |
+
+Measured movement values were 3.0 units/s walking, 5.25 units/s running, and about 1.0 unit jump height. Diagonal movement remained 3.0 units/s. Development-only QA also confirmed one jump for held Space, no mid-air second jump, a second jump after landing, input clearing, interior landing, collider stops, and both location transitions.
+
+Production build after the movement pass:
+
+- App: 64.20 KB minified / 17.97 KB gzip;
+- CSS: 7.14 KB minified / 1.98 KB gzip;
+- React, Three, optional model-loader, and Rapier chunks remain structurally unchanged;
+- `qaMovement`, `data-movement-qa`, and the QA window snapshot are absent from `dist`;
+- production forced fallback mounts no Canvas and preserves one Email and one GitHub link.
