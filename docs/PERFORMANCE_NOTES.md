@@ -558,3 +558,37 @@ Production build after the sky upgrade:
 - App: 42.02 KB minified / 12.63 KB gzip;
 - no new runtime asset request;
 - no change to optional model, Three, React, or physics chunks.
+
+## Reference-Driven Exterior Art Pass
+
+The exterior was rebuilt against `/Users/evan/Downloads/Generated image 1 (1).png` using shared primitive geometry, instancing, optional GLBs, and one low-cost radial lantern-pool shader.
+
+Representative hardware-accelerated samples:
+
+| View | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| South Arrival / Museum entry | 134 | 7.4 ms | 81 | 11,008 |
+| West Garden Overlook | 129 | 7.7 ms | 67 | 9,648 |
+| East Signal Courtyard | 129 | 7.8 ms | 80 | 9,454 |
+| Archive Grove worst sampled view | 99 | 10.1 ms | 94 | 12,456 |
+
+Three niche samples measured 137-138 FPS, 27-31 calls, and 6,484-7,108 visible triangles. The final Signal structural sample measured 78 calls and 10,816 triangles, but its FPS was discarded because the browser screenshot backend stalled during capture.
+
+Performance controls retained:
+
+- repeated boxes are grouped by shared material into instanced batches;
+- trees, plants, rocks, lantern components, light pools, guidance markers, and skyline blocks are instanced;
+- only major planters, the Signal station, and existing landmarks add simple static cuboid colliders;
+- lantern pools use one transparent radial shader draw call instead of per-lantern point lights;
+- no texture, HDRI, shadow, post-processing, particle, or dynamic-weather payload was introduced;
+- the clean development console contains only Rapier's existing deprecated initialization warning.
+
+Detailed visual and fallback evidence is recorded in `docs/ENVIRONMENT_ART_PASS.md`.
+
+Production build after the exterior environment pass:
+
+- App: 57.88 KB minified / 16.07 KB gzip;
+- CSS: 7.06 KB minified / 1.97 KB gzip;
+- optional world and exhibit model components remain below 1 KB each;
+- shared model loader remains 66.18 KB / 18.77 KB gzip and is not added to the initial preload graph;
+- no new runtime texture or model request was introduced by the environment modules.

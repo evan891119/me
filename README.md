@@ -45,6 +45,8 @@ Outdoor zones, landmarks, and easter eggs are maintained in `src/content/exterio
 
 The exterior uses a one-draw-call procedural dawn sky with a sun disc, atmospheric glow, and static cloud bands. Fog, skyline silhouettes, and daylight colors are matched without HDRI, textures, post-processing, or weather particles.
 
+The completed exterior environment art pass is documented in `docs/ENVIRONMENT_ART_PASS.md`. It covers the reference-driven museum facade, South Arrival Plaza, loop paths, Garden, Signal, Archive, three exploration alcoves, reusable modules, visual QA, fallback evidence, and measured laptop performance.
+
 The Signal Yard uses `public/assets/models/landmark-signal-tower.v1.glb`, with the former primitive tower retained as its loading and error fallback. Regenerate the model with `node scripts/generate-signal-tower.mjs`; asset measurements and A/B results are recorded in `docs/ASSET_PIPELINE.md` and `docs/PERFORMANCE_NOTES.md`.
 
 The museum entrance uses `public/assets/models/landmark-museum-entrance.v1.glb` for its decorative frame while retaining the original facade and colliders. Regenerate it with `node scripts/generate-museum-entrance.mjs`.
@@ -69,4 +71,5 @@ The Welcome Console loads `public/assets/models/exhibit-welcome-console.v1.glb` 
 - Product spec: `docs/PRODUCT_SPEC.md`
 - Linear issue drafts: `docs/LINEAR_ISSUES.md`
 - World completion plan: `docs/WORLD_COMPLETION_PLAN.md`
+- Environment art pass: `docs/ENVIRONMENT_ART_PASS.md`
 - Launch checklist: `docs/LAUNCH_CHECKLIST.md`

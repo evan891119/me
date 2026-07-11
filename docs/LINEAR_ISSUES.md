@@ -1402,3 +1402,41 @@ These markdown drafts are the repository tracking source. Status values reflect 
   - Weather animation
   - HDRI lighting
   - Post-processing or volumetric clouds
+
+### Issue 8.17: Complete the reference-driven exterior environment
+
+- Title: Complete the reference-driven exterior environment
+- Status: Done
+- Goal: Bring the playable exterior close to the approved low-poly dusk museum reference while retaining normal-laptop performance.
+- Scope:
+  - Rebuild the central museum massing, entrance frame, banners, doors, light strips, and approach stairs.
+  - Complete South Arrival Plaza, loop paths, branch routes, paving joints, curbs, and raised planting frames.
+  - Complete West Garden, East Signal Courtyard, Archive Grove, and three exploration alcoves.
+  - Add reusable low-poly modules for walls, planters, paving, steps, benches, lanterns, trees, rocks, and clustered plants.
+  - Strengthen skyline, perimeter silhouette, horizon continuity, and warm fake-light pools.
+  - Reuse one browser tab for iterative screenshots and measure every major exterior destination.
+  - Verify production fallback and update durable QA documentation.
+- Acceptance Criteria:
+  - Done: Museum silhouette, plaza composition, zone identities, palette, and environment density visibly follow the reference.
+  - Done: Garden, Signal, Archive, and three alcoves have distinct readable first-person compositions.
+  - Done: Content and placement remain data-driven; repeated geometry and guidance are instanced.
+  - Done: No heavy post-processing, real-time shadow, texture, HDRI, particle, or dynamic-weather payload is introduced.
+  - Done: Reliable samples remain above 60 FPS, below 100 calls, and below 100k visible triangles.
+  - Done: Movement, existing colliders, exhibits, optional GLB fallbacks, and non-WebGL fallback remain intact.
+  - Done: Typecheck, lint, production build, visual QA, and fallback verification pass.
+- Files likely touched:
+  - `src/content/exteriorWorld.ts`
+  - `src/world/exterior/Atmosphere.tsx`
+  - `src/world/exterior/ExteriorDetails.tsx`
+  - `src/world/exterior/ExteriorWorld.tsx`
+  - `src/world/guidance/SpatialGuidance.tsx`
+  - `src/world/materials/worldMaterials.ts`
+  - `docs/ENVIRONMENT_ART_PASS.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.16
+- Out of scope:
+  - Pixel-identical offline rendering
+  - Real-time shadows or SSAO
+  - Volumetric weather or dynamic time of day
+  - Full city geometry

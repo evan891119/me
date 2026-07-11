@@ -56,6 +56,13 @@ Automated and manual launch checks pass. The primitive world remains the fallbac
 - Done: exterior sky provides a continuous 360-degree horizon, sun, and cloud layer
 - Done: sky, fog, skyline, hemisphere light, and directional light share one dawn palette
 - Done: Museum Plaza, Garden Overlook, and Signal Yard remain inside performance caps after the sky upgrade
+- Done: central museum massing and entrance facade match the approved low-poly dusk direction
+- Done: South Arrival Plaza includes broad modular paving, joints, curbs, planters, benches, and stairs
+- Done: West Garden, East Signal, and Archive Grove each have a distinct landmark composition
+- Done: three exploration alcoves have readable floors, panels, plinths, wall lights, and discovery objects
+- Done: repeated environment modules, vegetation, lights, guidance, and skyline use instancing
+- Done: final exterior samples remain above 60 FPS, below 100 calls, and below 100k visible triangles
+- Done: production forced fallback still mounts no Canvas and preserves Email and GitHub links
 
 ## Manual Desktop Walkthrough
 

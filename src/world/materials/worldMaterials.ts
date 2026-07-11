@@ -62,28 +62,57 @@ export const worldMaterials = {
     roughness: 0.58,
   },
   exteriorBoundary: {
-    color: '#3b413e',
-    roughness: 0.94,
+    color: '#25292b',
+    roughness: 0.9,
   },
   exteriorFacade: {
-    color: '#514a40',
-    roughness: 0.88,
+    color: '#343638',
+    roughness: 0.86,
   },
   exteriorGround: {
-    color: '#2d3330',
+    color: '#242a27',
     roughness: 0.96,
   },
   exteriorPath: {
-    color: '#66563f',
-    roughness: 0.92,
+    color: '#6f6961',
+    roughness: 0.9,
   },
   exteriorPathEdge: {
-    color: '#9a7545',
-    roughness: 0.86,
+    color: '#9a8c78',
+    roughness: 0.84,
   },
   exteriorPlanting: {
-    color: '#344a40',
+    color: '#315a4c',
     roughness: 0.98,
+  },
+  exteriorBanner: {
+    color: '#7f493f',
+    roughness: 0.82,
+  },
+  exteriorLawn: {
+    color: '#3d563c',
+    roughness: 0.98,
+  },
+  exteriorMetal: {
+    color: '#252b2d',
+    metalness: 0.38,
+    roughness: 0.68,
+  },
+  exteriorPavingAlt: {
+    color: '#5b5853',
+    roughness: 0.92,
+  },
+  exteriorPavingJoint: {
+    color: '#35383a',
+    roughness: 0.96,
+  },
+  exteriorStoneLight: {
+    color: '#8c8275',
+    roughness: 0.86,
+  },
+  exteriorStoneMid: {
+    color: '#4c4d4c',
+    roughness: 0.9,
   },
   exteriorSkyline: {
     color: '#222a2d',

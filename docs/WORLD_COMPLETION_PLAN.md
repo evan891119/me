@@ -186,8 +186,9 @@ Scope:
 - Done: Phase E approved minimal content set.
 - Done: Phase F performance, fallback, overlay, production build, laptop layout, and manual Pointer Lock checks.
 - Done: Phase G compact outdoor hub, bidirectional transition, and data-driven discovery slots.
+- Done: Reference-driven exterior environment art pass with modular museum architecture, plaza paving, loop paths, four finished destinations, three alcoves, faceted planting, warm fake-light pools, and perimeter skyline depth.
 
-The lightweight world now includes the museum, an explorable exterior hub, and a visually continuous atmosphere instead of a minimum dark gradient. Nine measured GLBs augment the exterior and every enabled interior exhibit while retaining primitive fallbacks. Further art remains optional and must pass the same asset budgets before replacing or augmenting the baseline.
+The lightweight world now includes the museum, a reference-driven explorable exterior hub, and a visually continuous atmosphere instead of a minimum dark gradient. Nine measured GLBs augment the exterior and every enabled interior exhibit while retaining primitive fallbacks. The exterior's composition, material hierarchy, landmarks, vegetation, paths, alcoves, lighting language, and boundary depth now follow `docs/ENVIRONMENT_ART_PASS.md`.
 
 ## Non-Goals For Completion Pass
 

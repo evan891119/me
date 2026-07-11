@@ -1,8 +1,10 @@
-import { BackSide, Color, ShaderMaterial } from 'three';
+import { useLayoutEffect, useRef } from 'react';
+import { BackSide, BoxGeometry, Color, InstancedMesh, MeshBasicMaterial, Object3D, ShaderMaterial } from 'three';
 
 interface SkylineBlock {
   color: string;
   position: [number, number, number];
+  rotation?: [number, number, number];
   scale: [number, number, number];
 }
 
@@ -15,7 +17,48 @@ const skylineBlocks: SkylineBlock[] = [
   { color: '#495a5d', position: [8.9, 1.85, 30.7], scale: [1.4, 3.7, 0.18] },
   { color: '#405053', position: [11.7, 1.1, 30.85], scale: [1.8, 2.2, 0.18] },
   { color: '#4c5c5f', position: [14.5, 1.55, 30.65], scale: [1.5, 3.1, 0.18] },
+  { color: '#59676b', position: [-20.5, 2.25, 32.1], scale: [2.2, 4.5, 0.16] },
+  { color: '#526166', position: [-17.4, 1.35, 32.2], scale: [1.6, 2.7, 0.16] },
+  { color: '#5d696d', position: [17.8, 1.7, 32.0], scale: [2.0, 3.4, 0.16] },
+  { color: '#536267', position: [21.0, 2.45, 32.1], scale: [1.7, 4.9, 0.16] },
+  { color: '#45565a', position: [-30.4, 1.6, 2.0], rotation: [0, Math.PI / 2, 0], scale: [1.6, 3.2, 0.16] },
+  { color: '#4d5d61', position: [-30.5, 2.1, 8.0], rotation: [0, Math.PI / 2, 0], scale: [2.0, 4.2, 0.16] },
+  { color: '#425357', position: [-30.3, 1.35, 15.0], rotation: [0, Math.PI / 2, 0], scale: [1.5, 2.7, 0.16] },
+  { color: '#506064', position: [-30.5, 1.85, 22.0], rotation: [0, Math.PI / 2, 0], scale: [2.1, 3.7, 0.16] },
+  { color: '#48585c', position: [30.4, 1.45, 3.0], rotation: [0, Math.PI / 2, 0], scale: [1.8, 2.9, 0.16] },
+  { color: '#526267', position: [30.5, 2.2, 9.5], rotation: [0, Math.PI / 2, 0], scale: [1.8, 4.4, 0.16] },
+  { color: '#435458', position: [30.3, 1.25, 16.0], rotation: [0, Math.PI / 2, 0], scale: [1.7, 2.5, 0.16] },
+  { color: '#4e5e62', position: [30.5, 1.75, 23.0], rotation: [0, Math.PI / 2, 0], scale: [2.0, 3.5, 0.16] },
 ];
+
+const skylineGeometry = new BoxGeometry();
+const skylineMaterial = new MeshBasicMaterial({ vertexColors: true });
+const skylineTransform = new Object3D();
+
+function DistantSkyline() {
+  const skyline = useRef<InstancedMesh>(null);
+
+  useLayoutEffect(() => {
+    skylineBlocks.forEach((block, index) => {
+      skylineTransform.position.set(...block.position);
+      skylineTransform.rotation.set(...(block.rotation ?? [0, 0, 0]));
+      skylineTransform.scale.set(...block.scale);
+      skylineTransform.updateMatrix();
+      skyline.current?.setMatrixAt(index, skylineTransform.matrix);
+      skyline.current?.setColorAt(index, new Color(block.color));
+    });
+
+    if (skyline.current) {
+      skyline.current.instanceMatrix.needsUpdate = true;
+      if (skyline.current.instanceColor) {
+        skyline.current.instanceColor.needsUpdate = true;
+      }
+      skyline.current.computeBoundingSphere();
+    }
+  }, []);
+
+  return <instancedMesh ref={skyline} args={[skylineGeometry, skylineMaterial, skylineBlocks.length]} />;
+}
 
 const skyMaterial = new ShaderMaterial({
   depthWrite: false,
@@ -86,12 +129,7 @@ export function Atmosphere() {
         <meshBasicMaterial color="#526164" />
       </mesh>
 
-      {skylineBlocks.map((block, index) => (
-        <mesh key={`skyline-${index}`} position={block.position} scale={block.scale}>
-          <boxGeometry />
-          <meshBasicMaterial color={block.color} />
-        </mesh>
-      ))}
+      <DistantSkyline />
     </group>
   );
 }

@@ -30,10 +30,20 @@ const isInteriorScenePreview =
     requestedScenePreview === 'contact' ||
     qaTransition === 'exit');
 const exteriorPreviewSpawns = {
-  garden: { position: { x: -9.2, y: 0.9, z: 16.2 } },
-  signal: { position: { x: 8.4, y: 0.9, z: 16.0 } },
+  garden: { position: { x: -8.4, y: 0.9, z: 17.4 } },
+  signal: { position: { x: 7.4, y: 0.9, z: 18.0 } },
   archive: { position: { x: 0, y: 0.9, z: 25.2 } },
+  nicheGarden: { position: { x: -11.3, y: 0.9, z: 8.1 } },
+  nicheSignal: { position: { x: 10.6, y: 0.9, z: 7.1 } },
+  nicheArchive: { position: { x: 3.1, y: 0.9, z: 20.9 } },
 } as const;
+const exteriorPreviewYaws: Partial<Record<keyof typeof exteriorPreviewSpawns, number>> = {
+  garden: 0.32,
+  signal: -0.28,
+  nicheGarden: Math.PI / 2,
+  nicheSignal: -Math.PI / 2,
+  nicheArchive: 2.38,
+};
 const requestedExteriorPreview = import.meta.env.DEV
   ? devSearchParams?.get('spawn')
   : null;
@@ -89,6 +99,14 @@ export function PlayerController() {
 
     if (requestedScenePreview === 'ideas' || requestedScenePreview === 'contact') {
       camera.rotation.set(0, requestedScenePreview === 'ideas' ? Math.PI / 2 : -Math.PI / 2, 0);
+    }
+
+    if (requestedExteriorPreview && requestedExteriorPreview in exteriorPreviewYaws) {
+      camera.rotation.set(
+        0,
+        exteriorPreviewYaws[requestedExteriorPreview as keyof typeof exteriorPreviewYaws] ?? 0,
+        0,
+      );
     }
   }, [camera]);
 
