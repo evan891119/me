@@ -1,8 +1,8 @@
-# Product Spec: First-Person 3D Portfolio Museum
+# Product Spec: Switchable-Perspective 3D Portfolio Museum
 
 ## Product Positioning
 
-This site is an interactive personal introduction presented as a compact first-person 3D world. The museum is the main portfolio destination, while a lightweight outdoor hub gives visitors optional places to explore and discover hidden content.
+This site is an interactive personal introduction presented as a compact 3D world with switchable first-person and third-person views. The museum is the main portfolio destination, while a lightweight outdoor hub gives visitors optional places to explore and discover hidden content.
 
 The site communicates who I am, what I have built, how I think, and how to contact me. The museum format should make the visitor curious and encourage exploration, but the content must remain clear, fast to access, and maintainable.
 
@@ -14,7 +14,7 @@ The confirmed visual direction for Phase 1 is a small interactive game-like scen
 - Small world, high clarity: a compact hub with distinct landmarks is better than a large empty map.
 - Content is data: exhibit content should live in data files, not inside render components.
 - Interaction should clarify, not distract.
-- Desktop first: WASD, mouse look, and pointer lock are the primary interaction model.
+- Desktop first: WASD, mouse look, pointer lock, and `V` view switching are the primary interaction model.
 - Mobile fallback first: Phase 1 should show a fallback experience on unsupported or unsuitable devices instead of implementing touch controls.
 - Avoid visual overbuilding in early phases.
 
@@ -22,7 +22,7 @@ The confirmed visual direction for Phase 1 is a small interactive game-like scen
 
 1. Visitor lands in the Museum Plaza with the museum entrance centered ahead and visible side routes.
 2. The entrance lighting, branch paths, skyline, garden, and signal mast establish a compact world without blocking on optional assets.
-3. A compact prompt explains the minimum controls: click to enter, WASD to move, mouse to look, Esc to exit.
+3. A compact prompt explains the minimum controls: click to enter, WASD to move, mouse to look, `V` to switch view, and Esc to exit.
 4. The visitor can enter the museum directly or take a short detour to the Garden Overlook, Signal Yard, or Archive Grove.
 5. The visitor immediately sees the central project display plus the nearby skills, ideas, and contact exhibits.
 6. Looking at or approaching an exhibit reveals a simple interaction prompt.

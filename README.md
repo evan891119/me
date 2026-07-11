@@ -1,6 +1,6 @@
 # me
 
-First-person 3D portfolio museum, built as a desktop-first Vite + React + TypeScript + React Three Fiber app.
+Switchable first-person and third-person 3D portfolio museum, built as a desktop-first Vite + React + TypeScript + React Three Fiber app.
 
 ## Development
 
@@ -24,7 +24,7 @@ npm run build
 npm run preview -- --host 127.0.0.1
 ```
 
-Use `/?forceFallback=1` to verify the non-WebGL contact path. Development-only QA routes include `/?scene=interior`, `/?spawn=garden`, `/?spawn=signal`, `/?spawn=archive`, `/?qaTransition=entry`, `/?qaTransition=exit`, `/?qaPointer=locked`, `/?qaPointer=paused`, and `/?content=signal-fragment`. Production always starts at the exterior Museum Plaza.
+Use `/?forceFallback=1` to verify the non-WebGL contact path. Development-only QA routes include `/?scene=interior`, `/?spawn=garden`, `/?spawn=signal`, `/?spawn=archive`, `/?qaTransition=entry`, `/?qaTransition=exit`, `/?qaPointer=locked`, `/?qaPointer=paused`, `/?qaCamera=third`, and `/?content=signal-fragment`. Production always starts at the exterior Museum Plaza in first-person mode; press `V` while playing to switch view.
 
 ## Vercel
 
@@ -40,6 +40,8 @@ Hashed files under `dist/assets/` can use immutable caching. `index.html` should
 ## Runtime Assets
 
 Place optimized runtime GLB files under `public/assets/models/` and reference them from exhibit media data. Standard and Meshopt-compressed GLB files are supported through the optional local model-loader chunk; Draco remains disabled. See `docs/ASSET_PIPELINE.md` for naming, size, geometry, and transform rules.
+
+The third-person player uses `public/assets/models/player-character.v1.glb`. It contains the skinned character plus `Idle`, `Walk`, `Run`, and `Jump` clips; Rapier's existing capsule remains the only player collider.
 
 Outdoor zones, landmarks, and easter eggs are maintained in `src/content/exteriorWorld.ts`. Add future hidden content to `worldDiscoveries`; no new render component is required.
 

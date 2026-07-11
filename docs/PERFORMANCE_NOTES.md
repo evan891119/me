@@ -654,3 +654,20 @@ Production build after the movement pass:
 - React, Three, optional model-loader, and Rapier chunks remain structurally unchanged;
 - `qaMovement`, `data-movement-qa`, and the QA window snapshot are absent from `dist`;
 - production forced fallback mounts no Canvas and preserves one Email and one GitHub link.
+
+## Switchable First-Person And Third-Person Player
+
+The player now switches views with `V` while sharing one Rapier dynamic capsule, grounded queries, movement projection, jumping, interactions, and location transitions. Third-person mode adds the 406,220-byte `player-character.v1.glb`, a single animation mixer, a visible skinned character, and a collider-aware camera boom. First-person mode hides the character without changing the physical player.
+
+The GLB contains 8,444 triangles, five materials, one skin, 17 joints, and the four required clips: Idle 3.033 s, Walk 1.033 s, Run 0.733 s, and Jump 0.933 s. It has no external images or textures and does not use Draco.
+
+Same-location hardware-accelerated transition samples:
+
+| View | FPS | Frame time | Draw calls | Visible triangles |
+| --- | ---: | ---: | ---: | ---: |
+| First person | 126 | 7.94 ms | 44 | 3,676 |
+| Third person | 123 | 8.12 ms | 51 | 12,376 |
+
+The third-person cost in this sample is seven visible calls and about 8,700 triangles. Both modes remain above the 60 FPS target and below the 100-call and 100k-triangle hard caps. A separate exterior movement sample held 144 FPS while Walk, Run, and diagonal QA measured the existing 3.0, 5.25, and 3.0 units/s respectively.
+
+The interior Welcome preview shortened the camera boom from 4.0 to 3.42 units when its Rapier ray encountered a wall. The interaction remained focused and opened with `E`. The intentionally missing player-model route rendered the local visual fallback while Canvas, Rapier movement, and camera state stayed active.

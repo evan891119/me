@@ -42,7 +42,7 @@ export function PerformanceMonitor() {
     const frames = frameCount.current;
     const renderInfo = gl.info.render;
 
-    setMetrics({
+    const metrics = {
       assetTransferBytes: assetTransferBytes(),
       calls: renderInfo.calls,
       fps: Math.round((frames * 1000) / elapsedMs),
@@ -50,7 +50,13 @@ export function PerformanceMonitor() {
       lines: renderInfo.lines,
       points: renderInfo.points,
       triangles: renderInfo.triangles,
-    });
+    };
+    setMetrics(metrics);
+    if (import.meta.env.DEV) {
+      document
+        .querySelector<HTMLElement>('main.app-shell')
+        ?.setAttribute('data-performance', JSON.stringify(metrics));
+    }
 
     frameCount.current = 0;
     frameTimeTotal.current = 0;

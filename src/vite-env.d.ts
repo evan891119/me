@@ -2,6 +2,8 @@
 
 interface PlayerMovementQaSnapshot {
   activeLocationId: 'exterior' | 'interior';
+  cameraMode: 'firstPerson' | 'thirdPerson';
+  facingYaw: number;
   grounded: boolean;
   horizontalSpeed: number;
   inputCodes: string[];

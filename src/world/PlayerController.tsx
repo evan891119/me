@@ -16,6 +16,8 @@ import {
 } from '../content/world';
 import { interiorPreviews } from '../content/interiorLayout';
 import { useAppStore } from '../state/useAppStore';
+import { PlayerCharacter } from './PlayerCharacter';
+import { ThirdPersonCamera } from './ThirdPersonCamera';
 import {
   calculateHorizontalVelocity,
   controlledKeyCodes,
@@ -26,6 +28,7 @@ import {
   readMovementInput,
   type MovementInput,
 } from './playerMovement';
+import { initialPlayerVisualState, playerWorldPosition } from './playerVisualState';
 
 const CAMERA_OFFSET_Y = 0.8;
 const PLAYER_START_Y = 0.9;
@@ -110,6 +113,7 @@ export function PlayerController() {
   const { rapier, world } = useRapier();
   const isPointerLocked = useAppStore((state) => state.isPointerLocked);
   const isOverlayOpen = useAppStore((state) => state.isOverlayOpen);
+  const cameraMode = useAppStore((state) => state.cameraMode);
   const rigidBody = useRef<RapierRigidBody>(null);
   const keysPressed = useRef<Set<string>>(new Set());
   const forward = useRef(new Vector3());
@@ -128,6 +132,7 @@ export function PlayerController() {
   const qaStartHeight = useRef(PLAYER_START_Y);
   const qaMaxHeight = useRef(PLAYER_START_Y);
   const qaMaxHorizontalSpeed = useRef(0);
+  const visualState = useRef({ ...initialPlayerVisualState });
   const groundRays = useMemo(
     () =>
       [
@@ -173,6 +178,18 @@ export function PlayerController() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === 'KeyV' && !event.repeat) {
+        const { cameraMode: currentMode, isOverlayOpen: overlayOpen, isPointerLocked: pointerLocked } =
+          useAppStore.getState();
+        if (pointerLocked && !overlayOpen) {
+          event.preventDefault();
+          useAppStore
+            .getState()
+            .setCameraMode(currentMode === 'firstPerson' ? 'thirdPerson' : 'firstPerson');
+        }
+        return;
+      }
+
       if (!controlledKeyCodes.has(event.code)) {
         return;
       }
@@ -229,8 +246,11 @@ export function PlayerController() {
     }
 
     const translation = body.translation();
+    playerWorldPosition.set(translation.x, translation.y, translation.z);
     const currentVelocity = body.linvel();
-    camera.position.set(translation.x, translation.y + CAMERA_OFFSET_Y, translation.z);
+    if (cameraMode === 'firstPerson') {
+      camera.position.set(translation.x, translation.y + CAMERA_OFFSET_Y, translation.z);
+    }
 
     grounded.current = false;
     if (currentVelocity.y <= GROUNDED_MAX_UPWARD_SPEED) {
@@ -340,7 +360,9 @@ export function PlayerController() {
       const { position } = matchingTransition.targetSpawn;
       body.setTranslation(position, true);
       body.setLinvel({ x: 0, y: 0, z: 0 }, true);
-      camera.position.set(position.x, position.y + CAMERA_OFFSET_Y, position.z);
+      if (cameraMode === 'firstPerson') {
+        camera.position.set(position.x, position.y + CAMERA_OFFSET_Y, position.z);
+      }
       lastTransitionAt.current = performance.now();
       grounded.current = false;
       resetInput();
@@ -381,6 +403,15 @@ export function PlayerController() {
       true,
     );
 
+    const horizontalSpeed = Math.hypot(velocity.current.x, velocity.current.z);
+    if (horizontalSpeed > 0.08) {
+      visualState.current.facingYaw = Math.atan2(velocity.current.x, velocity.current.z);
+    }
+    visualState.current.grounded = grounded.current;
+    visualState.current.horizontalSpeed = horizontalSpeed;
+    visualState.current.running = controlsEnabled && movementInput.running;
+    visualState.current.verticalSpeed = verticalSpeed;
+
     if (import.meta.env.DEV) {
       qaMaxHorizontalSpeed.current = Math.max(
         qaMaxHorizontalSpeed.current,
@@ -388,6 +419,8 @@ export function PlayerController() {
       );
       const qaSnapshot: PlayerMovementQaSnapshot = {
         activeLocationId,
+        cameraMode,
+        facingYaw: visualState.current.facingYaw,
         grounded: grounded.current,
         horizontalSpeed: Math.hypot(velocity.current.x, velocity.current.z),
         inputCodes: [...keysPressed.current].sort(),
@@ -416,6 +449,8 @@ export function PlayerController() {
       ccd
       linearDamping={0}
     >
+      <PlayerCharacter stateRef={visualState} visible={cameraMode === 'thirdPerson'} />
+      <ThirdPersonCamera cameraMode={cameraMode} rigidBody={rigidBody} />
       <CapsuleCollider
         args={[PLAYER_SEGMENT_HALF_HEIGHT, PLAYER_RADIUS]}
         friction={0}

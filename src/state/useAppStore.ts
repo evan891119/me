@@ -1,8 +1,11 @@
 import { create } from 'zustand';
 import type { WorldLocationId } from '../content/world';
 
+export type CameraMode = 'firstPerson' | 'thirdPerson';
+
 interface AppState {
   activeLocationId: WorldLocationId;
+  cameraMode: CameraMode;
   focusedContentId: string | null;
   hasEnteredWorld: boolean;
   isOverlayOpen: boolean;
@@ -12,6 +15,7 @@ interface AppState {
   closeContent: (resumePointerLock?: boolean) => void;
   openContent: (selectedContentId: string) => void;
   setActiveLocation: (activeLocationId: WorldLocationId) => void;
+  setCameraMode: (cameraMode: CameraMode) => void;
   setFocusedContentId: (focusedContentId: string | null) => void;
   setOverlayOpen: (isOverlayOpen: boolean) => void;
   setPointerLocked: (isPointerLocked: boolean) => void;
@@ -19,6 +23,7 @@ interface AppState {
 
 export const useAppStore = create<AppState>((set) => ({
   activeLocationId: 'exterior',
+  cameraMode: 'firstPerson',
   focusedContentId: null,
   hasEnteredWorld: false,
   isOverlayOpen: false,
@@ -39,6 +44,7 @@ export const useAppStore = create<AppState>((set) => ({
       activeLocationId,
       focusedContentId: null,
     }),
+  setCameraMode: (cameraMode) => set({ cameraMode }),
   openContent: (selectedContentId) =>
     set((state) => ({
       focusedContentId: null,

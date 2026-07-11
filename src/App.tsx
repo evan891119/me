@@ -4,6 +4,7 @@ import { findInteractiveContent } from './content/interactiveContent';
 import { museumMetadata } from './content/museum';
 import { useAppStore } from './state/useAppStore';
 import { CanvasErrorBoundary } from './ui/CanvasErrorBoundary';
+import { CameraModeIndicator } from './ui/CameraModeIndicator';
 import { ControlPrompt } from './ui/ControlPrompt';
 import { ExhibitIndex } from './ui/ExhibitIndex';
 import { ExhibitOverlay } from './ui/ExhibitOverlay';
@@ -17,6 +18,7 @@ import { requestMuseumPointerLock } from './world/pointerLockEvents';
 export function App() {
   const canUseWebGL = useMemo(() => supportsWebGL(), []);
   const activeLocationId = useAppStore((state) => state.activeLocationId);
+  const cameraMode = useAppStore((state) => state.cameraMode);
   const isOverlayOpen = useAppStore((state) => state.isOverlayOpen);
   const isPointerLocked = useAppStore((state) => state.isPointerLocked);
 
@@ -53,6 +55,10 @@ export function App() {
       useAppStore.getState().setPointerLocked(true);
       useAppStore.getState().setPointerLocked(false);
     }
+
+    if (searchParams.get('qaCamera') === 'third') {
+      useAppStore.getState().setCameraMode('thirdPerson');
+    }
   }, []);
 
   if (!canUseWebGL) {
@@ -68,6 +74,7 @@ export function App() {
     >
       <main
         className="app-shell"
+        data-camera-mode={cameraMode}
         data-location={activeLocationId}
         onPointerDown={handleAppPointerDown}
       >
@@ -90,6 +97,7 @@ export function App() {
         ) : null}
 
         <ControlPrompt />
+        <CameraModeIndicator />
         <InteractionPrompt />
         <ExhibitIndex />
         <ExhibitOverlay />

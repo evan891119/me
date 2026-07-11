@@ -197,6 +197,8 @@ Do not add optimization automation until real assets exist and the commands are 
 
 Assets should be referenced from data, not hard-coded in scene components.
 
+The player character is the one runtime exception: `PlayerCharacter.tsx` owns the fixed `/assets/models/player-character.v1.glb` reference because it is part of the controller rather than exhibit content. The v1 asset is 406,220 bytes, 8,444 triangles, five materials, one skin, and 17 joints, with embedded `Idle`, `Walk`, `Run`, and `Jump` clips. It has no external images, no detailed collision mesh, and uses the existing Rapier capsule for all navigation collision.
+
 Good:
 
 ```ts

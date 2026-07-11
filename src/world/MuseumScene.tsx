@@ -16,6 +16,7 @@ import { GRAVITY_Y } from './playerMovement';
 export function MuseumScene() {
   const canvas = useThree((state) => state.gl.domElement);
   const activeLocationId = useAppStore((state) => state.activeLocationId);
+  const cameraMode = useAppStore((state) => state.cameraMode);
   const setPointerLocked = useAppStore((state) => state.setPointerLocked);
 
   return (
@@ -26,6 +27,7 @@ export function MuseumScene() {
       <SceneLighting />
       <PointerLockControls
         domElement={canvas}
+        enabled={cameraMode === 'firstPerson'}
         selector="[data-pointer-lock-trigger]"
         onLock={() => setPointerLocked(true)}
         onUnlock={() => setPointerLocked(false)}
