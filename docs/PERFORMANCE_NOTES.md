@@ -70,7 +70,7 @@ Production bundle after chunk splitting:
 
 | Chunk | Minified | Gzip |
 | --- | ---: | ---: |
-| App | 19.17 KB | 6.60 KB |
+| App | 20.69 KB | 7.03 KB |
 | CSS | 7.01 KB | 1.91 KB |
 | React vendor | 200.95 KB | 63.41 KB |
 | Three/R3F vendor | 854.34 KB | 228.46 KB |
@@ -104,9 +104,9 @@ The Vite chunk warning limit is set to 2,300 KB to reflect the current Rapier ve
 - No model or texture optimization is required yet because no production assets are committed.
 - Lazy loading is deferred until the first real GLB or texture assets exist; there is no meaningful asset payload to stream yet.
 
-## Exterior Arrival Budget
+## Exterior World Budget
 
-The accepted exterior direction is a lightweight arrival plaza, not an open world. The first exterior implementation must stay inside this budget until measured results justify changing it.
+The current exterior direction is a compact explorable hub, not a city-scale open world. New zones and discoveries must stay inside this budget until measured results justify changing it.
 
 | Metric | Target | Hard Cap |
 | --- | ---: | ---: |
@@ -144,3 +144,126 @@ Interpretation:
 - draw calls and triangles remain far below the exterior hard caps;
 - no GLB models or texture payload were added;
 - FPS must be rechecked manually in a normal desktop browser because headless SwiftShader is CPU-bound and not comparable to the earlier hardware baseline.
+
+## Phase 7.7 Exterior Atmosphere Check
+
+The lightweight exterior atmosphere pass was checked in Chrome headless with SwiftShader WebGL. This pass added a sky dome, background distance layer, skyline silhouettes, path edge accents, and shared material tokens. No GLB models, textures, post-processing, particles, or dynamic shadows were added.
+
+| Metric | Headless SwiftShader Result |
+| --- | ---: |
+| FPS | 60 |
+| Frame time | 16.7 ms |
+| Draw calls | 32 |
+| Triangles | 1,322 |
+| Lines | 0 |
+| Points | 0 |
+| Dev transfer | 8.19 MB |
+
+Interpretation:
+
+- draw calls and triangles remain well below the exterior hard caps;
+- the app gzip size increased modestly to support reusable world materials and atmosphere components;
+- no runtime asset payload was introduced;
+- FPS should still be rechecked manually in a normal hardware-accelerated desktop browser before launch.
+
+## Phase 7.8-7.10 World Completion Check
+
+The interior material kit, shared primitive resources, spatial guidance, six exhibit display variants, and optional GLB loading layer were checked in the hardware-accelerated Codex in-app browser.
+
+Runtime results at the default desktop viewport:
+
+| Scene | FPS | Frame time | Draw calls | Triangles | Dev transfer |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Exterior spawn | 140 | 7.1 ms | 64 | 1,706 | 35.9 KB |
+| Interior entry | 137 | 7.3 ms | 41 | 1,440 | 10.3 KB |
+
+Laptop layout check at `1024x768`:
+
+- 139 FPS and 7.2 ms at the exterior spawn;
+- no overlap between the title HUD and exhibit index;
+- no overlap between the performance panel and entry controls;
+- six exhibit index entries remain visible;
+- the entrance remains centered and readable.
+
+Current production build:
+
+| Chunk | Minified | Gzip | Initial preload |
+| --- | ---: | ---: | --- |
+| App | 26.03 KB | 8.58 KB | Yes |
+| CSS | 7.30 KB | 1.99 KB | Yes |
+| React vendor | 201.12 KB | 63.47 KB | Yes |
+| Three/R3F vendor | 856.81 KB | 229.49 KB | Yes |
+| Rapier physics vendor | 2,261.61 KB | 843.82 KB | Yes |
+| Optional model loader with Meshopt | 66.18 KB | 18.77 KB | No |
+| Optional model component | 0.90 KB | 0.54 KB | No |
+
+Interpretation:
+
+- the complete primitive world remains far below the draw-call and triangle hard caps;
+- no GLB or texture runtime payload is committed;
+- the GLB loader and model component are not module-preloaded and are requested only after model media is configured;
+- standard and Meshopt-compressed GLB files use the bundled optional decoder with no remote Draco dependency;
+- optional models retain the primitive exhibit and fail locally instead of replacing the entire site with the Canvas fallback;
+- forced fallback passes with no Canvas and two working contact links;
+- the in-app browser blocks Pointer Lock by policy, so movement, exterior-to-interior transition, Escape recovery, and overlay-close relock were verified through the manual production-preview walkthrough;
+- the current Rapier dependency emits one deprecated initialization warning in development; no application error is present.
+
+The manual Pointer Lock launch checks passed in the production preview on 2026-07-10, including movement, exterior-to-interior transition, Escape recovery, overlay-close relock, and Contact Terminal spawn behavior.
+
+Production preview was also checked at `http://127.0.0.1:4173/` after the final build:
+
+- one Canvas and all six exhibit index entries render on the normal route;
+- the development performance panel is absent;
+- the development-only `?scene=interior` parameter is ignored;
+- the project overlay opens and closes correctly;
+- forced fallback mounts no Canvas and preserves both contact links;
+- the only console message is the known Rapier deprecated initialization warning.
+
+## Meshopt Runtime Check
+
+The optional model path was verified with a generated 1.24 KB GLB using required `EXT_meshopt_compression` buffer views for positions and indices.
+
+- the bundled Meshopt decoder loaded the compressed GLB in the production preview;
+- the test triangle rendered visibly above the project plinth;
+- the project overlay still opened and closed correctly;
+- no GLTF, Meshopt, asset, or application error appeared in the console;
+- the only console message remained the known Rapier warning;
+- the generated model, temporary content reference, and generator were removed after QA;
+- the clean production build was regenerated and contains no runtime-test filename.
+
+## Phase 8 Exterior Hub Check
+
+The expanded exterior was checked in the hardware-accelerated Codex in-app browser at the default spawn plus the Garden Overlook, Signal Yard, and Archive Grove development preview routes.
+
+Representative development measurements:
+
+| View | FPS | Frame time | Draw calls | Triangles |
+| --- | ---: | ---: | ---: | ---: |
+| Museum Plaza spawn | 134 | 7.5 ms | 72 | 2,796 |
+| Museum Plaza at `1024x768` | 135 | 7.4 ms | 68 | 2,748 |
+
+The values vary slightly with frustum culling and the in-app browser workload. Garden, signal, and archive preview routes were also visually checked; every sampled view remained below the 100-call and 100k-triangle hard caps.
+
+Phase 8 implementation evidence:
+
+- repeated visual boxes, trees, lanterns, and rocks use instancing;
+- the gradient sky is one shader draw call;
+- only the player is dynamic; details have no Rapier bodies;
+- no texture, GLB, post-processing, particle, or shadow payload was added;
+- entry and exit QA routes changed active location to `interior` and `exterior` respectively;
+- the Signal Fragment discovery overlay opened and closed successfully;
+- the original project exhibit overlay still opened after the shared content-state refactor;
+- the only console warning remains Rapier's known deprecated initialization warning.
+
+Current production build after Phase 8:
+
+| Chunk | Minified | Gzip | Initial preload |
+| --- | ---: | ---: | --- |
+| App | 37.26 KB | 11.54 KB | Yes |
+| CSS | 7.30 KB | 1.99 KB | Yes |
+| React vendor | 201.12 KB | 63.47 KB | Yes |
+| Three/R3F vendor | 856.84 KB | 229.50 KB | Yes |
+| Rapier physics vendor | 2,261.61 KB | 843.82 KB | Yes |
+| Optional model loader with Meshopt | 66.18 KB | 18.77 KB | No |
+
+The App chunk grew by about 2.96 KB gzip from the previous completed primitive-world baseline while adding four outdoor zones, bidirectional transitions, environment detail, development QA routes, and the discovery content system.

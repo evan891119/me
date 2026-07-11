@@ -1,6 +1,6 @@
 # Linear Issue Drafts
 
-These are markdown drafts for Linear. Do not create the issues until the project direction and first implementation scope are confirmed.
+These markdown drafts are the repository tracking source. Status values reflect the current implementation and verification state; no Linear issues have been created automatically.
 
 ## Confirmed Project Decisions
 
@@ -9,13 +9,14 @@ These are markdown drafts for Linear. Do not create the issues until the project
 - Deployment target: Vercel.
 - Visual direction: small interactive game-like museum scene.
 - Mobile strategy: fallback experience in Phase 1.
-- First content inventory: not decided yet.
+- First content inventory: six launch exhibits covering lobby, background, project, skills, ideas, and contact.
 
 ## Phase 0: Product and Architecture Decisions
 
 ### Issue 0.1: Confirm architecture decision and product spec
 
 - Title: Confirm architecture decision and product spec
+- Status: Done
 - Goal: Lock the initial technical and product boundaries before implementation starts.
 - Scope:
   - Review `docs/ARCHITECTURE_DECISION.md`.
@@ -26,7 +27,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Architecture recommendation is accepted or explicitly revised. Current decision: accepted Vite + React Three Fiber for Phase 1.
   - Product scope for the first runnable version is confirmed. Current decision: small desktop-first interactive game-like museum with mobile fallback.
   - Non-goals are clear enough to prevent scope drift.
-  - Open questions are either answered or moved into follow-up issues. Current open item: first 3-5 exhibit inventory.
+  - Done: Open questions are answered or moved into follow-up issues; the six-exhibit launch inventory is recorded.
 - Files likely touched:
   - `docs/ARCHITECTURE_DECISION.md`
   - `docs/PRODUCT_SPEC.md`
@@ -41,17 +42,18 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 0.2: Define first content inventory
 
 - Title: Define first content inventory
+- Status: Done
 - Goal: Decide the minimum real content needed for the first museum prototype.
 - Scope:
-  - List the first 3-5 exhibits.
-  - Define the lobby introduction copy.
-  - Define one contact exhibit.
-  - Decide which links are safe to include in the prototype.
-  - Mark any missing copy as placeholder content explicitly.
+  - Done: List the six exhibits in the accepted minimal launch set.
+  - Done: Define the lobby introduction copy.
+  - Done: Define one contact exhibit.
+  - Done: Decide which links are safe to include.
+  - Done: Remove visible placeholder content from the launch set.
 - Acceptance Criteria:
-  - First exhibit list is documented.
-  - Each exhibit has a title, short summary, body target, section, and link policy.
-  - Prototype content can be represented in a data file without render-code edits.
+  - Done: First exhibit list is documented.
+  - Done: Each exhibit has a title, short summary, body, section, tags, and link policy where applicable.
+  - Done: Content is represented in typed data files without render-code edits.
 - Files likely touched:
   - `docs/PRODUCT_SPEC.md`
   - `docs/content-inventory.md`
@@ -178,7 +180,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 2.2: Implement first-person movement and pointer lock
 
 - Title: Implement first-person movement and pointer lock
-- Status: Implemented, pending manual pointer-lock confirmation
+- Status: Done
 - Goal: Let visitors move through the prototype using desktop first-person controls.
 - Scope:
   - Add click-to-enter pointer lock.
@@ -187,11 +189,11 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Add conservative speed and FOV defaults.
   - Add a minimal control prompt.
 - Acceptance Criteria:
-  - Implemented: WASD movement updates the camera while pointer lock is active.
-  - Implemented: Mouse look is handled by Drei `PointerLockControls`.
-  - Implemented: Escape exits pointer lock through the browser pointer-lock flow.
-  - Implemented: Movement is disabled while overlay state is open.
-  - Pending manual confirmation: automated in-app browser QA cannot grant pointer lock.
+  - Done: WASD movement updates the camera while pointer lock is active.
+  - Done: Mouse look is handled by Drei `PointerLockControls`.
+  - Done: Escape exits pointer lock through the browser pointer-lock flow.
+  - Done: Movement is disabled while overlay state is open.
+  - Done: Manual production-preview walkthrough confirmed Pointer Lock entry, movement, mouse look, Escape exit, and re-entry.
 - Files likely touched:
   - `src/world/PlayerController.tsx`
   - `src/state/useAppStore.ts`
@@ -360,7 +362,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Done: GLB naming and size expectations are clear.
   - Done: Optimization checklist exists.
   - Done: `.gitignore` blocks common large source asset formats and source staging folder contents.
-  - Note: No test asset was added because validation does not need one yet.
+  - Done: A temporary Meshopt-compressed GLB was generated for runtime validation and removed after QA.
 - Files likely touched:
   - `docs/ASSET_PIPELINE.md`
   - `public/assets/models/`
@@ -377,16 +379,17 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 4.3: Replace primitive exhibits with lightweight prototype assets
 
 - Title: Replace primitive exhibits with lightweight prototype assets
+- Status: Superseded by Issue 7.10 for the primitive launch baseline
 - Goal: Improve the prototype's spatial feel without starting a full art pass.
 - Scope:
   - Add a few optimized low-weight GLB props or display stands.
   - Keep primitive fallback available.
   - Ensure assets are referenced through content or asset mapping data.
 - Acceptance Criteria:
-  - At least 2-3 exhibit objects use lightweight GLB assets.
-  - Assets load reliably.
-  - Performance budget is still met.
-  - Scene still works if an asset is missing or delayed.
+  - Superseded: 2-3 final GLB exhibit objects are not required for the accepted primitive launch baseline.
+  - Done in Issue 7.10: Standard and Meshopt GLB assets load through a data-driven optional layer.
+  - Done: Performance budget is still met.
+  - Done: Primitive displays remain available if an optional asset is absent, delayed, or fails.
 - Files likely touched:
   - `public/assets/models/`
   - `src/world/exhibits/`
@@ -437,7 +440,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 - Goal: Let visitors intentionally open focused exhibits.
 - Scope:
   - Show a concise prompt for focused exhibits.
-  - Support `E` and click activation.
+  - Support `E` activation in first-person and explicit exhibit-index button activation outside pointer lock.
   - Connect activation to exhibit overlay.
   - Handle pointer lock transitions cleanly.
 - Acceptance Criteria:
@@ -498,17 +501,17 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 5.4: Add basic visitor guidance
 
 - Title: Add basic visitor guidance
-- Status: Deferred for now
+- Status: Done through Issue 7.9
 - Goal: Help visitors understand where to go without adding heavy navigation UI.
 - Scope:
   - Add simple signs, lighting cues, or floor markers.
   - Add optional small HTML guidance state for first-time visitors.
   - Keep all guidance compatible with the content system.
 - Acceptance Criteria:
-  - A first-time visitor can find the first few exhibits.
-  - Guidance does not clutter the scene.
-  - Guidance does not require custom art.
-  - Guidance can be disabled or reduced later.
+  - Done: Exterior path markers and entrance framing lead visitors into the museum.
+  - Done: Interior floor markers and gallery posts identify the exhibit route.
+  - Done: Guidance does not clutter the scene.
+  - Done: Guidance uses reusable primitives and does not require custom art.
 - Files likely touched:
   - `src/world/guidance/`
   - `src/content/museum.ts`
@@ -616,20 +619,21 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 7.1: Replace prototype copy with launch-ready content
 
 - Title: Replace prototype copy with launch-ready content
-- Status: Partially complete, blocked on remaining real portfolio content
+- Status: Done for the approved minimal launch set
 - Goal: Make the museum communicate clearly with real portfolio content.
 - Scope:
-  - Polish exhibit titles, summaries, and body copy.
-  - Verify all links.
-  - Remove obvious placeholder content.
-  - Keep content in data files.
+  - Done: Polish exhibit titles, summaries, and body copy.
+  - Done: Verify all links currently exposed by the museum.
+  - Done: Remove obvious placeholder content and empty media slots.
+  - Done: Add a minimal ideas exhibit so every planned museum section is represented.
+  - Done: Keep content in data files.
 - Acceptance Criteria:
-  - Pending: Every launch exhibit has real copy.
+  - Done: Every launch exhibit has concise real copy for the approved minimum.
   - Done: Site title and summary use real copy.
   - Done: Featured project exhibit uses real copy for `discord-voice-relay-bot`.
   - Done: Contact exhibit is accurate with real email and GitHub link.
-  - Pending: Welcome, background, and skills exhibits still need launch-ready copy.
-  - Pending: Remaining links are correct once remaining exhibits are filled.
+  - Done: Welcome, background, skills, and ideas exhibits no longer expose placeholder language.
+  - Done: Current repository, email, and profile links are correct in rendered QA.
   - Done: Required content fields are captured in `docs/content-inventory.md`.
   - Done: Render components still contain no portfolio copy.
 - Files likely touched:
@@ -646,6 +650,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 7.2: Final visual polish within performance budget
 
 - Title: Final visual polish within performance budget
+- Status: Done
 - Goal: Improve the museum's feel without sacrificing smoothness.
 - Scope:
   - Tune lighting, materials, labels, and spacing.
@@ -672,6 +677,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 7.3: Prepare static deployment
 
 - Title: Prepare static deployment
+- Status: Done
 - Goal: Make the site ready for preview and production hosting.
 - Scope:
   - Configure static build settings for Vercel.
@@ -699,6 +705,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 7.4: Launch readiness review
 
 - Title: Launch readiness review
+- Status: Done
 - Goal: Verify the site is stable enough to share publicly.
 - Scope:
   - Test desktop keyboard and mouse flow.
@@ -708,10 +715,10 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Run build and preview.
   - Record known limitations.
 - Acceptance Criteria:
-  - Core visitor path works from landing to contact.
-  - No blocking console errors remain.
-  - Known limitations are documented.
-  - Launch decision is explicit.
+  - Done: Core visitor path works from landing to contact.
+  - Done: No blocking console errors remain.
+  - Done: Known limitations are documented.
+  - Done: Launch decision is explicit.
 - Files likely touched:
   - `docs/LAUNCH_CHECKLIST.md`
   - `README.md`
@@ -758,7 +765,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
 ### Issue 7.6: Implement primitive exterior arrival blockout
 
 - Title: Implement primitive exterior arrival blockout
-- Status: Implemented, pending manual pointer-lock transition confirmation
+- Status: Done
 - Goal: Add the first lightweight exterior scene as a bounded arrival plaza before the museum entrance.
 - Scope:
   - Done: Add an exterior scene module using primitive geometry.
@@ -769,7 +776,7 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Done: Measure draw calls, triangles, FPS, and frame time after implementation.
 - Acceptance Criteria:
   - Done: Visitor starts outside and can identify the museum entrance immediately.
-  - Implemented, pending manual confirmation: Visitor can enter the current interior without breaking pointer lock controls.
+  - Done: Manual production-preview walkthrough confirmed the visitor can enter the interior without breaking Pointer Lock controls.
   - Done: Player cannot walk into unfinished empty space through static plaza boundaries.
   - Done: Exterior stays within the draw-call and triangle budgets in `docs/PERFORMANCE_NOTES.md`.
   - Done: No final GLB assets, post-processing, dynamic shadows, or complex outdoor systems are introduced.
@@ -792,3 +799,282 @@ These are markdown drafts for Linear. Do not create the issues until the project
   - Animated doors or portal rendering
   - Advanced post-processing
   - Mobile first-person controls
+
+### Issue 7.7: Add lightweight sky, ground materials, and exterior atmosphere
+
+- Title: Add lightweight sky, ground materials, and exterior atmosphere
+- Status: Done
+- Goal: Make the exterior arrival scene feel intentional without adding heavy assets.
+- Scope:
+  - Done: Add a low-cost sky gradient or sky dome.
+  - Done: Add shared lightweight materials for exterior ground, path, facade, boundary, and distant silhouettes.
+  - Done: Improve distant world impression with cheap skyline or landscape layers.
+  - Done: Add subtle entrance framing and warm exterior lighting.
+  - Done: Keep the scene primitive-based and measurable.
+- Acceptance Criteria:
+  - Done: Exterior first view no longer reads as raw blockout.
+  - Done: The museum entrance remains obvious from spawn.
+  - Done: No GLB, texture payload, post-processing, particles, or dynamic shadows are introduced.
+  - Done: Draw calls and triangles stay within the exterior budget.
+  - Done: Fallback experience still works with `/?forceFallback=1`.
+- Files likely touched:
+  - `src/world/exterior/`
+  - `src/world/materials/`
+  - `src/world/MuseumScene.tsx`
+  - `docs/PERFORMANCE_NOTES.md`
+  - `docs/LINEAR_ISSUES.md`
+- Dependencies:
+  - Issue 7.6
+- Out of scope:
+  - Final environment art
+  - GLB assets
+  - Interior redesign
+  - Post-processing
+  - Mobile controls
+
+### Issue 7.8: Build reusable interior material and primitive kit
+
+- Title: Build reusable interior material and primitive kit
+- Status: Done
+- Goal: Give the museum interior a coherent visual system while keeping geometry lightweight.
+- Scope:
+  - Done: Add reusable materials for floors, walls, panels, plinths, accents, and terminals.
+  - Done: Extract shared box geometry, material instances, and repeated primitive pieces.
+  - Done: Apply the kit to the current interior shell and exhibit objects.
+  - Done: Keep long text in HTML overlays.
+- Acceptance Criteria:
+  - Done: Interior shell and exhibits share an intentional material language.
+  - Done: Exhibit display styles remain data-driven.
+  - Done: No large texture or model payload is introduced.
+  - Done: Performance budget remains valid.
+- Files likely touched:
+  - `src/world/materials/`
+  - `src/world/exhibits/`
+  - `src/world/MuseumScene.tsx`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 7.7
+- Out of scope:
+  - Final GLB art pass
+  - CMS work
+  - Layout expansion
+
+### Issue 7.9: Add lightweight spatial guidance cues
+
+- Title: Add lightweight spatial guidance cues
+- Status: Done
+- Goal: Help visitors understand the route from exterior arrival to exhibits without a heavy navigation system.
+- Scope:
+  - Done: Add primitive entrance cues, path highlights, and simple gallery markers.
+  - Done: Reuse the existing control panel instead of adding more first-time UI.
+  - Done: Keep guidance visual and text-free inside the 3D scene.
+- Acceptance Criteria:
+  - Done: Visitor can identify where to enter and where the first exhibits are.
+  - Done: Guidance remains sparse at desktop and laptop viewports.
+  - Done: No minimap, quest system, or guided tour is introduced.
+- Files likely touched:
+  - `src/world/guidance/`
+  - `src/world/exterior/`
+  - `src/world/MuseumScene.tsx`
+  - `src/ui/ControlPrompt.tsx`
+- Dependencies:
+  - Issue 7.8
+- Out of scope:
+  - Minimap
+  - Quest system
+  - Dialogue system
+
+### Issue 7.10: Polish exhibit display primitives
+
+- Title: Polish exhibit display primitives
+- Status: Done
+- Goal: Make exhibit objects feel like portfolio displays instead of generic boxes.
+- Scope:
+  - Done: Improve exhibit proportions by display style.
+  - Done: Add small primitive visual details for plinths, panels, workbenches, notes, and terminals.
+  - Done: Keep exhibit content and placement data-driven.
+  - Done: Add an optional code-split GLB layer with primitive and error fallback behavior.
+  - Done: Verify an `EXT_meshopt_compression` GLB renders through the optional production loader.
+- Acceptance Criteria:
+  - Done: Each display style is visually distinct but consistent.
+  - Done: Exhibit index, overlay open, and overlay close behavior pass browser QA.
+  - Done: No final GLB art is required.
+- Files likely touched:
+  - `src/world/exhibits/`
+  - `src/content/exhibits.ts`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 7.8
+- Out of scope:
+  - Final copywriting
+  - Custom model pack
+  - 3D text labels
+
+## Phase 8: Explorable Exterior World
+
+### Issue 8.1: Define the compact outdoor hub
+
+- Title: Define the compact outdoor hub
+- Status: Done
+- Goal: Replace the narrow arrival-plaza boundary with a small explorable world that keeps the museum as its anchor.
+- Scope:
+  - Define four exterior zones and their roles.
+  - Define a loop-and-branch navigation layout.
+  - Set updated geometry, lighting, collider, and payload budgets.
+  - Document the boundary between compact exploration and open-world scope.
+- Acceptance Criteria:
+  - Done: Museum Plaza, Garden Overlook, Signal Yard, and Archive Grove are documented.
+  - Done: Every outdoor route returns to a recognizable landmark.
+  - Done: Updated performance caps remain suitable for normal laptops.
+  - Done: Future easter eggs have a defined data and interaction boundary.
+- Files likely touched:
+  - `docs/EXTERIOR_WORLD_PLAN.md`
+  - `docs/PRODUCT_SPEC.md`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 7.7
+- Out of scope:
+  - City-scale open world
+  - Procedural terrain
+  - Final environment art
+
+### Issue 8.2: Build the explorable exterior layout
+
+- Title: Build the explorable exterior layout
+- Status: Done
+- Goal: Give visitors multiple outdoor destinations without increasing scene cost materially.
+- Scope:
+  - Expand the ground and physical boundary.
+  - Add branch paths, terraces, museum shell, and zone landmarks.
+  - Add sparse trees, lanterns, rocks, skyline, fog, and gradient sky.
+  - Keep layout data outside React render components.
+- Acceptance Criteria:
+  - Done: All four zones render and are connected by walkable ground.
+  - Done: Museum entrance remains visible and dominant from the default spawn.
+  - Done: Player cannot leave the finished footprint through the outer boundary.
+  - Done: Repeated environmental detail uses instancing.
+  - Done: No textures, GLBs, post-processing, shadows, or dynamic props are added.
+- Files likely touched:
+  - `src/content/exteriorWorld.ts`
+  - `src/world/exterior/`
+  - `src/world/primitives/`
+  - `src/world/materials/`
+- Dependencies:
+  - Issue 8.1
+- Out of scope:
+  - Streaming chunks
+  - Dense foliage
+  - Animated environment systems
+
+### Issue 8.3: Add bidirectional museum transitions
+
+- Title: Add bidirectional museum transitions
+- Status: Done
+- Goal: Let visitors move between the outdoor world and museum in both directions without breaking exploration state.
+- Scope:
+  - Generalize world transition data.
+  - Add an interior-to-exterior exit trigger and exterior return spawn.
+  - Add cooldown protection against immediate transition bounce.
+  - Keep Pointer Lock and overlay state independent from location changes.
+- Acceptance Criteria:
+  - Done: Entry QA trigger changes active location to `interior`.
+  - Done: Exit QA trigger changes active location to `exterior`.
+  - Done: Target spawns are outside the opposite trigger.
+  - Done: Location transitions do not unlock or relock Pointer Lock.
+- Files likely touched:
+  - `src/content/world.ts`
+  - `src/world/PlayerController.tsx`
+  - `src/state/useAppStore.ts`
+- Dependencies:
+  - Issue 8.2
+  - Issue 5.3
+- Out of scope:
+  - Animated doors
+  - Portal rendering
+  - Scene streaming
+
+### Issue 8.4: Add data-driven outdoor discoveries
+
+- Title: Add data-driven outdoor discoveries
+- Status: Done
+- Goal: Let future easter eggs be added as content data instead of one-off React components.
+- Scope:
+  - Define typed discovery content and display styles.
+  - Add three initial discovery slots across outdoor zones.
+  - Render discovery objects from data.
+  - Reuse the focus, E-key prompt, and HTML overlay interaction model.
+- Acceptance Criteria:
+  - Done: A discovery contains title, summary, body, tags, zone, style, transform, and interaction radius.
+  - Done: Adding an object to `worldDiscoveries` requires no renderer change.
+  - Done: Discovery overlay opens and closes through the shared content system.
+  - Done: Museum exhibit overlays still work after the state refactor.
+- Files likely touched:
+  - `src/content/exteriorWorld.ts`
+  - `src/content/interactiveContent.ts`
+  - `src/content/types.ts`
+  - `src/world/interactions/DiscoveryFocusDetector.tsx`
+  - `src/ui/InteractionPrompt.tsx`
+  - `src/ui/ExhibitOverlay.tsx`
+- Dependencies:
+  - Issue 8.2
+  - Issue 5.2
+- Out of scope:
+  - Quest tracking
+  - Achievement system
+  - Remote CMS
+
+### Issue 8.5: Optimize repeated outdoor geometry
+
+- Title: Optimize repeated outdoor geometry
+- Status: Done
+- Goal: Keep the expanded world within the existing laptop performance target.
+- Scope:
+  - Share geometry and material instances.
+  - Instance decorative boxes, trees, lanterns, and rocks.
+  - Restrict colliders to ground, boundaries, facade, and large obstacles.
+  - Keep distant context visual-only.
+- Acceptance Criteria:
+  - Done: Outdoor scene remains below 100 draw calls and 100k visible triangles.
+  - Done: There is no new production texture or model payload.
+  - Done: There are no per-detail Rapier rigid bodies for foliage, lanterns, or rocks.
+  - Done: App gzip growth remains modest and measured.
+- Files likely touched:
+  - `src/world/primitives/`
+  - `src/world/exterior/`
+  - `docs/PERFORMANCE_NOTES.md`
+- Dependencies:
+  - Issue 8.2
+- Out of scope:
+  - Occlusion culling system
+  - LOD framework
+  - GPU compute or WebGPU path
+
+### Issue 8.6: Verify outdoor world launch readiness
+
+- Title: Verify outdoor world launch readiness
+- Status: Done
+- Goal: Prove the expanded world renders, transitions, interacts, and stays inside budget.
+- Scope:
+  - Run typecheck, lint, and production build.
+  - Inspect default, garden, signal, archive, entry, exit, and discovery QA routes.
+  - Recheck fallback and original exhibit overlay behavior.
+  - Record current runtime and bundle measurements.
+- Acceptance Criteria:
+  - Done: Typecheck, lint, and production build pass.
+  - Done: Default and zone preview routes render without application errors.
+  - Done: Entry and exit state transitions pass.
+  - Done: Discovery and museum overlays both pass open/close regression checks.
+  - Done: Runtime metrics remain within the exterior budget.
+  - Done: Forced fallback remains available.
+- Files likely touched:
+  - `docs/PERFORMANCE_NOTES.md`
+  - `docs/LAUNCH_CHECKLIST.md`
+  - `README.md`
+- Dependencies:
+  - Issue 8.3
+  - Issue 8.4
+  - Issue 8.5
+- Out of scope:
+  - Cross-device lab testing
+  - Mobile controls
+  - Final personal easter-egg copy

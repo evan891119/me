@@ -16,6 +16,13 @@ export default defineConfig({
           }
 
           if (
+            id.includes('three/examples/jsm/loaders/GLTFLoader') ||
+            id.includes('three/examples/jsm/libs/meshopt_decoder')
+          ) {
+            return 'vendor-model-loader';
+          }
+
+          if (
             id.includes('@react-three/fiber') ||
             id.includes('@react-three/drei') ||
             id.includes('three') ||

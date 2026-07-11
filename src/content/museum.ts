@@ -1,7 +1,7 @@
 import type { MuseumMetadata, MuseumSection } from './types';
 
 export const museumMetadata: MuseumMetadata = {
-  phaseLabel: 'Phase 3.2',
+  phaseLabel: 'Interactive Portfolio',
   title: "Evan's Portfolio Museum",
   summary: 'A first-person portfolio museum about my projects, tools, and engineering work.',
 };

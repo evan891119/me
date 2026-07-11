@@ -37,6 +37,7 @@ export interface ExhibitLink {
 export interface ExhibitMedia {
   alt: string;
   src: string;
+  transform?: Transform;
   type: 'image' | 'model' | 'video';
 }
 
@@ -54,6 +55,7 @@ export interface MuseumMetadata {
 
 export interface MuseumExhibit {
   id: string;
+  enabled?: boolean;
   title: string;
   sectionId: MuseumSectionId;
   summary: string;
@@ -65,4 +67,25 @@ export interface MuseumExhibit {
   links?: ExhibitLink[];
   media?: ExhibitMedia[];
   relatedExhibitIds?: string[];
+}
+
+export type ExteriorZoneId =
+  | 'arrival-plaza'
+  | 'west-garden'
+  | 'east-signal-yard'
+  | 'south-archive-grove';
+
+export type DiscoveryDisplayStyle = 'memory' | 'signal' | 'cache';
+
+export interface WorldDiscovery {
+  id: string;
+  title: string;
+  zoneId: ExteriorZoneId;
+  summary: string;
+  body: string[];
+  tags: string[];
+  displayStyle: DiscoveryDisplayStyle;
+  transform: Transform;
+  interactionRadius: number;
+  links?: ExhibitLink[];
 }

@@ -3,52 +3,52 @@ import type { WorldLocationId } from '../content/world';
 
 interface AppState {
   activeLocationId: WorldLocationId;
-  focusedExhibitId: string | null;
+  focusedContentId: string | null;
   hasEnteredWorld: boolean;
   isOverlayOpen: boolean;
   isPointerLocked: boolean;
   shouldResumePointerLockOnClose: boolean;
-  selectedExhibitId: string | null;
-  closeExhibit: () => void;
-  enterInterior: () => void;
-  openExhibit: (selectedExhibitId: string) => void;
-  setFocusedExhibitId: (focusedExhibitId: string | null) => void;
+  selectedContentId: string | null;
+  closeContent: () => void;
+  openContent: (selectedContentId: string) => void;
+  setActiveLocation: (activeLocationId: WorldLocationId) => void;
+  setFocusedContentId: (focusedContentId: string | null) => void;
   setOverlayOpen: (isOverlayOpen: boolean) => void;
   setPointerLocked: (isPointerLocked: boolean) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
   activeLocationId: 'exterior',
-  focusedExhibitId: null,
+  focusedContentId: null,
   hasEnteredWorld: false,
   isOverlayOpen: false,
   isPointerLocked: false,
   shouldResumePointerLockOnClose: false,
-  selectedExhibitId: null,
-  closeExhibit: () =>
+  selectedContentId: null,
+  closeContent: () =>
     set({
       isOverlayOpen: false,
-      selectedExhibitId: null,
+      selectedContentId: null,
       shouldResumePointerLockOnClose: false,
     }),
-  enterInterior: () =>
+  setActiveLocation: (activeLocationId) =>
     set({
-      activeLocationId: 'interior',
-      focusedExhibitId: null,
+      activeLocationId,
+      focusedContentId: null,
     }),
-  openExhibit: (selectedExhibitId) =>
+  openContent: (selectedContentId) =>
     set((state) => ({
-      focusedExhibitId: null,
+      focusedContentId: null,
       isOverlayOpen: true,
-      selectedExhibitId,
+      selectedContentId,
       shouldResumePointerLockOnClose: state.isPointerLocked,
     })),
-  setFocusedExhibitId: (focusedExhibitId) => set({ focusedExhibitId }),
+  setFocusedContentId: (focusedContentId) => set({ focusedContentId }),
   setOverlayOpen: (isOverlayOpen) => set({ isOverlayOpen }),
   setPointerLocked: (isPointerLocked) =>
     set(
       isPointerLocked
         ? { hasEnteredWorld: true, isPointerLocked }
-        : { focusedExhibitId: null, isPointerLocked },
+        : { focusedContentId: null, isPointerLocked },
     ),
 }));

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useAppStore } from '../state/useAppStore';
 import { usePerformanceStore } from '../state/usePerformanceStore';
 
 function formatBytes(bytes: number) {
@@ -18,44 +20,71 @@ function formatNumber(value: number) {
 
 export function PerformancePanel() {
   const metrics = usePerformanceStore((state) => state.metrics);
+  const isOverlayOpen = useAppStore((state) => state.isOverlayOpen);
+  const isPointerLocked = useAppStore((state) => state.isPointerLocked);
+  const [isExpanded, setIsExpanded] = useState(true);
 
-  if (!import.meta.env.DEV) {
+  useEffect(() => {
+    if (!import.meta.env.DEV || isPointerLocked || isOverlayOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code !== 'KeyP' || event.repeat) {
+        return;
+      }
+
+      setIsExpanded((current) => !current);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOverlayOpen, isPointerLocked]);
+
+  if (!import.meta.env.DEV || isPointerLocked || isOverlayOpen) {
     return null;
   }
 
   return (
-    <aside className="performance-panel" aria-label="Development performance metrics">
-      <p className="phase-label">Performance</p>
-      <dl>
-        <div>
-          <dt>FPS</dt>
-          <dd>{formatNumber(metrics.fps)}</dd>
-        </div>
-        <div>
-          <dt>Frame</dt>
-          <dd>{metrics.frameTimeMs.toFixed(1)} ms</dd>
-        </div>
-        <div>
-          <dt>Calls</dt>
-          <dd>{formatNumber(metrics.calls)}</dd>
-        </div>
-        <div>
-          <dt>Triangles</dt>
-          <dd>{formatNumber(metrics.triangles)}</dd>
-        </div>
-        <div>
-          <dt>Lines</dt>
-          <dd>{formatNumber(metrics.lines)}</dd>
-        </div>
-        <div>
-          <dt>Points</dt>
-          <dd>{formatNumber(metrics.points)}</dd>
-        </div>
-        <div>
-          <dt>Transfer</dt>
-          <dd>{formatBytes(metrics.assetTransferBytes)}</dd>
-        </div>
-      </dl>
-    </aside>
+    <div className="performance-tools">
+      {isExpanded ? (
+        <aside className="performance-panel" aria-label="Development performance metrics">
+          <p className="phase-label">Performance</p>
+          <dl>
+            <div>
+              <dt>FPS</dt>
+              <dd>{formatNumber(metrics.fps)}</dd>
+            </div>
+            <div>
+              <dt>Frame</dt>
+              <dd>{metrics.frameTimeMs.toFixed(1)} ms</dd>
+            </div>
+            <div>
+              <dt>Calls</dt>
+              <dd>{formatNumber(metrics.calls)}</dd>
+            </div>
+            <div>
+              <dt>Triangles</dt>
+              <dd>{formatNumber(metrics.triangles)}</dd>
+            </div>
+            <div>
+              <dt>Lines</dt>
+              <dd>{formatNumber(metrics.lines)}</dd>
+            </div>
+            <div>
+              <dt>Points</dt>
+              <dd>{formatNumber(metrics.points)}</dd>
+            </div>
+            <div>
+              <dt>Transfer</dt>
+              <dd>{formatBytes(metrics.assetTransferBytes)}</dd>
+            </div>
+          </dl>
+        </aside>
+      ) : null}
+    </div>
   );
 }

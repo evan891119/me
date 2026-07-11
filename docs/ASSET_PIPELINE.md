@@ -212,6 +212,26 @@ Good:
 }
 ```
 
+Optional model placement is also data-driven. The transform is local to the exhibit and uses the same one-unit display space as the primitive details:
+
+```ts
+media: [
+  {
+    type: 'model',
+    src: '/assets/models/exhibit-project-plinth.v1.glb',
+    alt: 'Low-poly project artifact',
+    transform: {
+      position: { x: 0, y: 0.58, z: 0 },
+      rotation: { x: 0, y: 0, z: 0 },
+      scale: { x: 0.45, y: 0.45, z: 0.45 },
+    },
+  },
+]
+```
+
+The GLB loader is code-split and only loads when model media is present. The primitive display remains visible while loading, and a failed optional model does not replace the whole site with the WebGL fallback.
+Runtime loading supports standard and Meshopt-compressed GLB files with a decoder bundled into the optional model-loader chunk. Draco remains disabled so the site has no remote decoder dependency.
+
 Avoid:
 
 ```tsx

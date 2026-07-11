@@ -1,26 +1,26 @@
 import { useEffect } from 'react';
-import { museumExhibits } from '../content/exhibits';
+import { findInteractiveContent } from '../content/interactiveContent';
 import { useAppStore } from '../state/useAppStore';
 import { REQUEST_POINTER_LOCK_EVENT } from '../world/pointerLockEvents';
 
 export function ExhibitOverlay() {
-  const selectedExhibitId = useAppStore((state) => state.selectedExhibitId);
-  const closeExhibit = useAppStore((state) => state.closeExhibit);
+  const selectedContentId = useAppStore((state) => state.selectedContentId);
+  const closeContent = useAppStore((state) => state.closeContent);
   const shouldResumePointerLockOnClose = useAppStore(
     (state) => state.shouldResumePointerLockOnClose,
   );
-  const exhibit = museumExhibits.find((item) => item.id === selectedExhibitId);
+  const content = findInteractiveContent(selectedContentId);
 
   const handleCloseButtonClick = () => {
     if (shouldResumePointerLockOnClose) {
       window.dispatchEvent(new Event(REQUEST_POINTER_LOCK_EVENT));
     }
 
-    closeExhibit();
+    closeContent();
   };
 
   useEffect(() => {
-    if (!exhibit) {
+    if (!content) {
       return;
     }
 
@@ -28,7 +28,7 @@ export function ExhibitOverlay() {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        closeExhibit();
+        closeContent();
       }
     };
 
@@ -37,9 +37,9 @@ export function ExhibitOverlay() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [closeExhibit, exhibit]);
+  }, [closeContent, content]);
 
-  if (!exhibit) {
+  if (!content) {
     return null;
   }
 
@@ -52,41 +52,55 @@ export function ExhibitOverlay() {
     >
       <div className="exhibit-overlay__header">
         <div>
-          <p className="phase-label">{exhibit.sectionId}</p>
-          <h2 id="exhibit-overlay-title">{exhibit.title}</h2>
+          <p className="phase-label">{content.eyebrow}</p>
+          <h2 id="exhibit-overlay-title">{content.title}</h2>
         </div>
         <button className="icon-button" type="button" onClick={handleCloseButtonClick} aria-label="Close exhibit">
           X
         </button>
       </div>
 
-      <p className="exhibit-overlay__summary">{exhibit.summary}</p>
+      <p className="exhibit-overlay__summary">{content.summary}</p>
 
       <div className="exhibit-overlay__body">
-        {exhibit.body.map((paragraph) => (
+        {content.body.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}
       </div>
 
-      {exhibit.media ? (
-        <div className="media-placeholder" aria-label="Media placeholder">
-          {exhibit.media.length} media item{exhibit.media.length === 1 ? '' : 's'} planned
+      {content.media && content.media.length > 0 ? (
+        <div className="exhibit-media" aria-label="Exhibit media">
+          {content.media.map((media) => {
+            if (media.type === 'image') {
+              return <img key={media.src} src={media.src} alt={media.alt} loading="lazy" />;
+            }
+
+            if (media.type === 'video') {
+              return (
+                <video key={media.src} controls preload="metadata" aria-label={media.alt}>
+                  <source src={media.src} />
+                </video>
+              );
+            }
+
+            return (
+              <p className="exhibit-media__model-note" key={media.src}>
+                {media.alt}
+              </p>
+            );
+          })}
         </div>
-      ) : (
-        <div className="media-placeholder" aria-label="Media placeholder">
-          Media slot
-        </div>
-      )}
+      ) : null}
 
       <div className="tag-row" aria-label="Tags">
-        {exhibit.tags.map((tag) => (
+        {content.tags.map((tag) => (
           <span key={tag}>{tag}</span>
         ))}
       </div>
 
-      {exhibit.links && exhibit.links.length > 0 ? (
+      {content.links && content.links.length > 0 ? (
         <div className="link-list" aria-label="Links">
-          {exhibit.links.map((link) => (
+          {content.links.map((link) => (
             <a key={`${link.kind}-${link.href}`} href={link.href}>
               {link.label}
             </a>

@@ -1,6 +1,8 @@
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useMemo } from 'react';
+import { Suspense, useEffect, useMemo } from 'react';
+import { findInteractiveContent } from './content/interactiveContent';
 import { museumMetadata } from './content/museum';
+import { useAppStore } from './state/useAppStore';
 import { CanvasErrorBoundary } from './ui/CanvasErrorBoundary';
 import { ControlPrompt } from './ui/ControlPrompt';
 import { ExhibitIndex } from './ui/ExhibitIndex';
@@ -13,6 +15,31 @@ import { MuseumScene } from './world/MuseumScene';
 
 export function App() {
   const canUseWebGL = useMemo(() => supportsWebGL(), []);
+  const activeLocationId = useAppStore((state) => state.activeLocationId);
+  const isOverlayOpen = useAppStore((state) => state.isOverlayOpen);
+  const isPointerLocked = useAppStore((state) => state.isPointerLocked);
+
+  useEffect(() => {
+    if (!import.meta.env.DEV) {
+      return;
+    }
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const previewContentId = searchParams.get('content');
+    if (previewContentId && findInteractiveContent(previewContentId)) {
+      useAppStore.getState().openContent(previewContentId);
+    }
+
+    const qaPointerState = searchParams.get('qaPointer');
+    if (qaPointerState === 'locked') {
+      useAppStore.getState().setPointerLocked(true);
+    }
+
+    if (qaPointerState === 'paused') {
+      useAppStore.getState().setPointerLocked(true);
+      useAppStore.getState().setPointerLocked(false);
+    }
+  }, []);
 
   if (!canUseWebGL) {
     return <FallbackView reason="webgl-unavailable" />;
@@ -25,22 +52,24 @@ export function App() {
         console.error('3D canvas failed to start', error);
       }}
     >
-      <main className="app-shell">
+      <main className="app-shell" data-location={activeLocationId}>
         <Canvas
           className="museum-canvas"
-          camera={{ position: [0, 1.7, 15.5], fov: 58, near: 0.1, far: 100 }}
-          dpr={[1, 1.75]}
+          camera={{ position: [0, 1.7, 19.5], fov: 58, near: 0.1, far: 100 }}
+          dpr={[1, 1.5]}
         >
           <Suspense fallback={null}>
             <MuseumScene />
           </Suspense>
         </Canvas>
 
-        <section className="scene-hud" aria-labelledby="site-title">
-          <p className="phase-label">{museumMetadata.phaseLabel}</p>
-          <h1 id="site-title">{museumMetadata.title}</h1>
-          <p>{museumMetadata.summary}</p>
-        </section>
+        {!isPointerLocked && !isOverlayOpen ? (
+          <section className="scene-hud" aria-labelledby="site-title">
+            <p className="phase-label">{museumMetadata.phaseLabel}</p>
+            <h1 id="site-title">{museumMetadata.title}</h1>
+            <p>{museumMetadata.summary}</p>
+          </section>
+        ) : null}
 
         <ControlPrompt />
         <InteractionPrompt />

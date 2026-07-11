@@ -2,6 +2,7 @@ import { useAppStore } from '../state/useAppStore';
 
 export function ControlPrompt() {
   const hasEnteredWorld = useAppStore((state) => state.hasEnteredWorld);
+  const isOverlayOpen = useAppStore((state) => state.isOverlayOpen);
   const isPointerLocked = useAppStore((state) => state.isPointerLocked);
   const canUsePointerLock =
     typeof HTMLCanvasElement !== 'undefined' &&
@@ -19,27 +20,26 @@ export function ControlPrompt() {
     );
   }
 
+  if (isPointerLocked || isOverlayOpen) {
+    return null;
+  }
+
   return (
-    <>
-      <div className="control-strip" aria-live="polite" hidden={!isPointerLocked}>
-        WASD move · Mouse look · Esc exit
+    <section className="enter-world-panel" aria-labelledby="enter-world-title">
+      <div>
+        <p className="phase-label">{hasEnteredWorld ? 'Paused' : 'Controls'}</p>
+        <h2 id="enter-world-title">
+          {hasEnteredWorld ? 'Resume world' : 'Enter the world'}
+        </h2>
+        <p>
+          {hasEnteredWorld
+            ? 'Click to return to first-person controls.'
+            : 'Use keyboard and mouse. Movement is intentionally slow for comfort.'}
+        </p>
       </div>
-      <section className="enter-world-panel" aria-labelledby="enter-world-title" hidden={isPointerLocked}>
-        <div>
-          <p className="phase-label">{hasEnteredWorld ? 'Paused' : 'Controls'}</p>
-          <h2 id="enter-world-title">
-            {hasEnteredWorld ? 'Resume museum' : 'Enter the museum'}
-          </h2>
-          <p>
-            {hasEnteredWorld
-              ? 'Click to return to first-person controls.'
-              : 'Use keyboard and mouse. Movement is intentionally slow for comfort.'}
-          </p>
-        </div>
-        <button id="enter-world-button" type="button">
-          {hasEnteredWorld ? 'Click to resume' : 'Click to enter'}
-        </button>
-      </section>
-    </>
+      <button id="enter-world-button" type="button">
+        {hasEnteredWorld ? 'Click to resume' : 'Click to enter'}
+      </button>
+    </section>
   );
 }

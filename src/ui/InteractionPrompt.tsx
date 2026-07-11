@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
-import { museumExhibits } from '../content/exhibits';
+import { findInteractiveContent } from '../content/interactiveContent';
 import { useAppStore } from '../state/useAppStore';
 
 export function InteractionPrompt() {
-  const focusedExhibitId = useAppStore((state) => state.focusedExhibitId);
+  const focusedContentId = useAppStore((state) => state.focusedContentId);
   const isOverlayOpen = useAppStore((state) => state.isOverlayOpen);
   const isPointerLocked = useAppStore((state) => state.isPointerLocked);
-  const openExhibit = useAppStore((state) => state.openExhibit);
-  const exhibit = museumExhibits.find((item) => item.id === focusedExhibitId);
+  const openContent = useAppStore((state) => state.openContent);
+  const content = findInteractiveContent(focusedContentId);
 
   useEffect(() => {
-    if (!focusedExhibitId || isOverlayOpen || !isPointerLocked) {
+    if (!focusedContentId || isOverlayOpen || !isPointerLocked) {
       return;
     }
 
@@ -21,7 +21,7 @@ export function InteractionPrompt() {
 
       event.preventDefault();
       document.exitPointerLock?.();
-      openExhibit(focusedExhibitId);
+      openContent(focusedContentId);
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -29,16 +29,16 @@ export function InteractionPrompt() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [focusedExhibitId, isOverlayOpen, isPointerLocked, openExhibit]);
+  }, [focusedContentId, isOverlayOpen, isPointerLocked, openContent]);
 
-  if (!exhibit || isOverlayOpen || !isPointerLocked) {
+  if (!content || isOverlayOpen || !isPointerLocked) {
     return null;
   }
 
   return (
     <div className="interaction-prompt" aria-live="polite">
-      <span>Focused exhibit</span>
-      <strong>{exhibit.title}</strong>
+      <span>{content.kind === 'discovery' ? 'Discovery nearby' : 'Focused exhibit'}</span>
+      <strong>{content.title}</strong>
       <kbd>E</kbd>
     </div>
   );

@@ -11,7 +11,7 @@ Accepted for Phase 1. This document is the implementation contract until a later
 - Deployment target: Vercel.
 - Visual direction: small interactive game-like museum scene, not a traditional portfolio page.
 - Mobile strategy: fallback experience for Phase 1, not touch-first navigation.
-- First exhibit inventory: not decided yet.
+- First exhibit inventory: six launch exhibits covering lobby, background, project, skills, ideas, and contact.
 
 ## Product Context
 

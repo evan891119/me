@@ -2,7 +2,7 @@
 
 ## Product Positioning
 
-This site is an interactive personal introduction presented as a small first-person 3D museum. It should feel like entering a compact, intentional world rather than scrolling through a traditional portfolio page.
+This site is an interactive personal introduction presented as a compact first-person 3D world. The museum is the main portfolio destination, while a lightweight outdoor hub gives visitors optional places to explore and discover hidden content.
 
 The site communicates who I am, what I have built, how I think, and how to contact me. The museum format should make the visitor curious and encourage exploration, but the content must remain clear, fast to access, and maintainable.
 
@@ -11,7 +11,7 @@ The confirmed visual direction for Phase 1 is a small interactive game-like scen
 ## Product Principles
 
 - Performance first: the world must run smoothly on normal laptops.
-- Small world, high clarity: a focused museum is better than a large empty space.
+- Small world, high clarity: a compact hub with distinct landmarks is better than a large empty map.
 - Content is data: exhibit content should live in data files, not inside render components.
 - Interaction should clarify, not distract.
 - Desktop first: WASD, mouse look, and pointer lock are the primary interaction model.
@@ -20,21 +20,22 @@ The confirmed visual direction for Phase 1 is a small interactive game-like scen
 
 ## User's First Minute
 
-1. Visitor lands on a loading screen with the site name and a short progress state.
-2. The first view opens in the museum lobby, facing a clear starting exhibit or welcome wall.
+1. Visitor lands in the Museum Plaza with the museum entrance centered ahead and visible side routes.
+2. The entrance lighting, branch paths, skyline, garden, and signal mast establish a compact world without blocking on optional assets.
 3. A compact prompt explains the minimum controls: click to enter, WASD to move, mouse to look, Esc to exit.
-4. The visitor moves a few steps and immediately sees 2-3 nearby exhibits.
-5. Looking at or approaching an exhibit reveals a simple interaction prompt.
-6. Activating the exhibit opens a readable overlay with title, short body, links, and optional media.
-7. The visitor can close the overlay and continue walking without losing orientation.
+4. The visitor can enter the museum directly or take a short detour to the Garden Overlook, Signal Yard, or Archive Grove.
+5. The visitor immediately sees the central project display plus the nearby skills, ideas, and contact exhibits.
+6. Looking at or approaching an exhibit reveals a simple interaction prompt.
+7. Activating the exhibit opens a readable overlay with title, short body, links, and optional media.
+8. Outdoor discoveries use the same interaction model, and the visitor can return through the museum doorway without losing controls.
 
 The first minute should prove that the site is stable, understandable, and worth exploring.
 
 ## World Concept
 
-The museum is a small personal knowledge space with the feel of a compact interactive game scene. It should feel curated rather than realistic. Architecture can be simple: a lobby, connected rooms, short corridors, and clear landmarks.
+The world is a small personal knowledge space with the feel of a compact interactive game scene. It should feel curated rather than realistic. The museum holds the main content; the surrounding hub provides a plaza, garden, signal yard, archive grove, and places for hidden discoveries.
 
-The first implementation should use clean geometry, readable signage, controlled lighting, and a few optimized GLB props. It does not need full custom art, complex shaders, dynamic lighting, or advanced post-processing.
+The first implementation uses clean geometry, visual guidance, controlled lighting, and an optional data-driven GLB layer over a complete primitive baseline. It does not need final custom art, complex shaders, dynamic lighting, or advanced post-processing.
 
 ## Museum Structure
 
@@ -119,12 +120,15 @@ Content:
 
 ## Required Exhibits for First Runnable Version
 
-The first runnable version only needs:
+The accepted launch baseline includes:
 
 - one lobby;
 - one small connected gallery;
-- 3-5 exhibit objects;
+- five active exhibit objects covering lobby, projects, skills, ideas, and contact;
+- one retained but disabled background exhibit that can be restored from data;
 - one contact/exit object;
+- one bounded exterior hub with four distinct zones and a clear entrance;
+- three data-driven outdoor discovery slots;
 - collision walls and exhibit colliders;
 - first-person movement and pointer lock;
 - one readable overlay component;
@@ -155,6 +159,7 @@ The first runnable version only needs:
 
 - Signs and lighting should guide visitors.
 - The world should be small enough that visitors cannot get meaningfully lost.
+- Outdoor branch paths should return to the museum plaza rather than extend indefinitely.
 - Later phases can add a minimap or quick navigation menu, but phase 1 should test spatial clarity first.
 
 ### UI Overlay
@@ -179,13 +184,14 @@ Content data should support:
 - interaction radius;
 - display style;
 - related exhibits.
+- outdoor discovery zone, visual style, placement, and interaction radius.
 
 Render components should not contain portfolio copy except temporary development labels.
 
 ## Non-Goals
 
 - Not a full game.
-- Not a large open-world environment.
+- Not a city-scale or streaming open-world environment.
 - Not a VR/WebXR project in the first launch.
 - Not a complex physics sandbox.
 - Not a CMS-backed site in phase 1.
@@ -203,8 +209,8 @@ Before public launch:
 - frame rate is acceptable on ordinary laptops;
 - content is readable without fighting the camera;
 - all core exhibits are data-driven;
-- assets are optimized;
-- loading state is clear;
+- committed assets are optimized;
+- the world renders without waiting for optional model assets, which load inside local Suspense boundaries;
 - pointer lock entry/exit is reliable;
 - contact path is obvious;
 - there is a graceful fallback message for unsupported or weak environments.

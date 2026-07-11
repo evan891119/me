@@ -2,7 +2,13 @@ import { CapsuleCollider, RapierRigidBody, RigidBody } from '@react-three/rapier
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Vector3 } from 'three';
-import { exteriorEntryTransition, exteriorSpawn } from '../content/world';
+import {
+  exteriorEntryTransition,
+  exteriorSpawn,
+  interiorEntrySpawn,
+  interiorExitTransition,
+  worldTransitions,
+} from '../content/world';
 import { useAppStore } from '../state/useAppStore';
 
 const MOVE_SPEED = 3;
@@ -10,11 +16,38 @@ const CAMERA_OFFSET_Y = 0.8;
 const PLAYER_START_Y = 0.9;
 const PLAYER_RADIUS = 0.35;
 const PLAYER_SEGMENT_HALF_HEIGHT = 0.55;
+const TRANSITION_COOLDOWN_MS = 750;
 
 const movementKeys = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD']);
+const devSearchParams = import.meta.env.DEV ? new URLSearchParams(window.location.search) : null;
+const qaTransition = devSearchParams?.get('qaTransition');
+const isInteriorScenePreview =
+  import.meta.env.DEV && (devSearchParams?.get('scene') === 'interior' || qaTransition === 'exit');
+const exteriorPreviewSpawns = {
+  garden: { position: { x: -9.2, y: 0.9, z: 16.2 } },
+  signal: { position: { x: 8.4, y: 0.9, z: 16.0 } },
+  archive: { position: { x: 0, y: 0.9, z: 25.2 } },
+} as const;
+const requestedExteriorPreview = import.meta.env.DEV
+  ? devSearchParams?.get('spawn')
+  : null;
+const exteriorPreviewSpawn =
+  requestedExteriorPreview && requestedExteriorPreview in exteriorPreviewSpawns
+    ? exteriorPreviewSpawns[requestedExteriorPreview as keyof typeof exteriorPreviewSpawns]
+    : exteriorSpawn;
+const qaTransitionSpawn =
+  qaTransition === 'entry'
+    ? { position: exteriorEntryTransition.center }
+    : qaTransition === 'exit'
+      ? { position: interiorExitTransition.center }
+      : null;
+const initialSpawn = qaTransitionSpawn ?? (isInteriorScenePreview ? interiorEntrySpawn : exteriorPreviewSpawn);
 
-function isInsideExteriorEntryZone(position: { x: number; y: number; z: number }) {
-  const { center, halfExtents } = exteriorEntryTransition;
+function isInsideTransitionZone(
+  position: { x: number; y: number; z: number },
+  transition: (typeof worldTransitions)[number],
+) {
+  const { center, halfExtents } = transition;
 
   return (
     Math.abs(position.x - center.x) <= halfExtents.x &&
@@ -33,6 +66,13 @@ export function PlayerController() {
   const right = useRef(new Vector3());
   const velocity = useRef(new Vector3());
   const up = useRef(new Vector3(0, 1, 0));
+  const lastTransitionAt = useRef(-Infinity);
+
+  useEffect(() => {
+    if (isInteriorScenePreview) {
+      useAppStore.getState().setActiveLocation('interior');
+    }
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -72,14 +112,23 @@ export function PlayerController() {
     const translation = body.translation();
     camera.position.set(translation.x, translation.y + CAMERA_OFFSET_Y, translation.z);
 
-    const { activeLocationId, enterInterior } = useAppStore.getState();
+    const { activeLocationId, setActiveLocation } = useAppStore.getState();
+    const matchingTransition = worldTransitions.find(
+      (transition) =>
+        transition.sourceLocationId === activeLocationId &&
+        isInsideTransitionZone(translation, transition),
+    );
 
-    if (activeLocationId === 'exterior' && isInsideExteriorEntryZone(translation)) {
-      const { position } = exteriorEntryTransition.targetSpawn;
+    if (
+      matchingTransition &&
+      performance.now() - lastTransitionAt.current >= TRANSITION_COOLDOWN_MS
+    ) {
+      const { position } = matchingTransition.targetSpawn;
       body.setTranslation(position, true);
       body.setLinvel({ x: 0, y: 0, z: 0 }, true);
       camera.position.set(position.x, position.y + CAMERA_OFFSET_Y, position.z);
-      enterInterior();
+      lastTransitionAt.current = performance.now();
+      setActiveLocation(matchingTransition.targetLocationId);
       return;
     }
 
@@ -127,7 +176,7 @@ export function PlayerController() {
     <RigidBody
       ref={rigidBody}
       type="dynamic"
-      position={[exteriorSpawn.position.x, PLAYER_START_Y, exteriorSpawn.position.z]}
+      position={[initialSpawn.position.x, PLAYER_START_Y, initialSpawn.position.z]}
       colliders={false}
       enabledRotations={[false, false, false]}
       linearDamping={8}

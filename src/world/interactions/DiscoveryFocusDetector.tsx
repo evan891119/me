@@ -1,39 +1,36 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { useRef } from 'react';
 import { Vector3 } from 'three';
-import { activeMuseumExhibits } from '../../content/exhibits';
-import type { MuseumExhibit } from '../../content/types';
+import { worldDiscoveries } from '../../content/exteriorWorld';
 import { useAppStore } from '../../state/useAppStore';
 
-const FOCUS_DOT_THRESHOLD = 0.78;
-const FOCUS_DISTANCE_PADDING = 0.25;
+const FOCUS_DOT_THRESHOLD = 0.76;
+const FOCUS_DISTANCE_PADDING = 0.3;
 
-function exhibitPosition(exhibit: MuseumExhibit): Vector3 {
-  const { position } = exhibit.transform;
-  return new Vector3(position.x, position.y, position.z);
-}
-
-const exhibitTargets = activeMuseumExhibits.map((exhibit) => ({
-  exhibit,
-  position: exhibitPosition(exhibit),
+const discoveryTargets = worldDiscoveries.map((discovery) => ({
+  discovery,
+  position: new Vector3(
+    discovery.transform.position.x,
+    discovery.transform.position.y,
+    discovery.transform.position.z,
+  ),
 }));
 
-export function ExhibitFocusDetector() {
+export function DiscoveryFocusDetector() {
   const camera = useThree((state) => state.camera);
   const setFocusedContentId = useAppStore((state) => state.setFocusedContentId);
   const lastFocusedId = useRef<string | null>(null);
   const cameraDirection = useRef(new Vector3());
-  const toExhibit = useRef(new Vector3());
+  const toDiscovery = useRef(new Vector3());
 
   useFrame(() => {
     const { activeLocationId, isOverlayOpen, isPointerLocked } = useAppStore.getState();
 
-    if (activeLocationId !== 'interior' || !isPointerLocked || isOverlayOpen) {
+    if (activeLocationId !== 'exterior' || !isPointerLocked || isOverlayOpen) {
       if (lastFocusedId.current !== null) {
         lastFocusedId.current = null;
         setFocusedContentId(null);
       }
-
       return;
     }
 
@@ -44,30 +41,26 @@ export function ExhibitFocusDetector() {
     let nextFocusedId: string | null = null;
     let bestScore = -Infinity;
 
-    for (const { exhibit, position } of exhibitTargets) {
-      toExhibit.current.copy(position).sub(camera.position);
-      toExhibit.current.y = 0;
-
-      const distance = toExhibit.current.length();
-      const maxDistance = exhibit.interactionRadius + FOCUS_DISTANCE_PADDING;
+    for (const { discovery, position } of discoveryTargets) {
+      toDiscovery.current.copy(position).sub(camera.position);
+      toDiscovery.current.y = 0;
+      const distance = toDiscovery.current.length();
+      const maxDistance = discovery.interactionRadius + FOCUS_DISTANCE_PADDING;
 
       if (distance === 0 || distance > maxDistance) {
         continue;
       }
 
-      toExhibit.current.normalize();
-      const facingScore = cameraDirection.current.dot(toExhibit.current);
-
+      toDiscovery.current.normalize();
+      const facingScore = cameraDirection.current.dot(toDiscovery.current);
       if (facingScore < FOCUS_DOT_THRESHOLD) {
         continue;
       }
 
-      const proximityScore = 1 - distance / maxDistance;
-      const score = facingScore * 2 + proximityScore;
-
+      const score = facingScore * 2 + (1 - distance / maxDistance);
       if (score > bestScore) {
         bestScore = score;
-        nextFocusedId = exhibit.id;
+        nextFocusedId = discovery.id;
       }
     }
 

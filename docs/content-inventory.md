@@ -2,9 +2,9 @@
 
 ## Status
 
-Issue 7.1 is partially complete.
+Issue 7.1 is complete for the approved minimal launch set.
 
-Site metadata, the featured project exhibit, and the contact exhibit have been synced into `src/content/`. Welcome, background, and skills still need launch-ready copy.
+All six museum sections have concise source copy in `src/content/exhibits.ts`. Five are currently active; `Background Timeline` is retained with `enabled: false` so it does not render, focus, or appear in the index.
 
 ## Site Metadata
 
@@ -33,14 +33,15 @@ Recommended limits:
 
 ### Welcome Console
 
-- Current placeholder ID: `welcome-console`
+- Source ID: `welcome-console`
 - Section: `lobby`
 - Purpose: Orient the visitor in the first minute.
-- Launch title: Welcome!!
-- Launch summary: Welcome to my Museum
+- Launch title: Welcome Console
+- Launch summary: A short orientation exhibit for the first minute of the museum.
 - Body:
-  - hi
-- Tags:
+  - The museum layout and exhibit interaction are explained briefly.
+  - Visitors are directed to use `E` when an exhibit comes into focus.
+- Tags: orientation, museum
 - Related exhibits:
   - `project-plinth`
   - `contact-terminal`
@@ -48,31 +49,31 @@ Recommended limits:
 
 ### Background Timeline
 
-- Current placeholder ID: `background-timeline`
+- Runtime status: Disabled
+
+- Source ID: `background-timeline`
 - Section: `background`
 - Purpose: Explain background, current focus, and the transitions that matter.
-- Launch title:
-- Launch summary:
+- Launch title: Background Timeline
+- Launch summary: The approach and priorities behind the work shown in this museum.
 - Body:
-  - 
-  - 
-- Tags:
-- Links:
-- Notes:
+  - Start with the real constraint and smallest useful version.
+  - Focus on maintainable systems and products that can be operated after release.
+- Tags: background, timeline
 
 ### Selected Project Plinth
 
-- Current placeholder ID: `project-plinth`
+- Source ID: `project-plinth`
 - Section: `projects`
 - Purpose: Show one featured project case study.
 - Launch title: discord-voice-relay-bot
-- Launch summary:
+- Launch summary: A self-hosted Discord voice relay bot for bridging voice channels across separate servers.
 - Body:
   - Problem: Discord communities often need to talk across separate servers without moving everyone into the same Discord server or exposing a public hosted service.
   - Role: I built a self-hosted Discord voice relay bot that lets communities bridge voice channels across different Discord servers using Discord-native slash commands and short-lived pairing codes.
   - Stack: Node.js, npm workspaces, discord.js, @discordjs/voice, modular packages for bridge core, Discord adapter, local config, and local state storage. The project also includes Docker Compose support and JSON lifecycle/recovery logging.
   - Outcome: The MVP supports /bridge create, /bridge join <code>, /bridge status, and /bridge leave, with bidirectional voice forwarding, multi-speaker mixing, automatic cleanup when channels empty, multiple simultaneous bridge pairs, basic reconnect handling, and experimental opt-in three-endpoint group bridges.
-- Tags:
+- Tags: discord, voice, node.js, self-hosted
 - Links:
   - Repository: https://github.com/evan891119/discord-voice-relay-bot
   - Live demo:
@@ -81,22 +82,19 @@ Recommended limits:
 
 ### Skills Workbench
 
-- Current placeholder ID: `skills-workbench`
+- Source ID: `skills-workbench`
 - Section: `skills`
 - Purpose: Show capabilities connected to actual work, not a generic keyword wall.
-- Launch title:
-- Launch summary:
+- Launch title: Skills Workbench
+- Launch summary: A compact exhibit for capabilities connected to actual work.
 - Body:
-  - Skill cluster 1: AI tools
-  - Skill cluster 2:
-  - Skill cluster 3:
-- Tags:
-- Related projects:
-- Notes:
+  - Product structure, frontend implementation, Node.js services, deployment, and operations.
+  - Clear boundaries, measured performance, and maintainable tooling.
+- Tags: skills, engineering, product
 
 ### Contact Terminal
 
-- Current placeholder ID: `contact-terminal`
+- Source ID: `contact-terminal`
 - Section: `contact`
 - Purpose: Provide a clear follow-up path.
 - Launch title: Contact Terminal
@@ -112,23 +110,27 @@ Recommended limits:
   - Other:
 - Notes:
 
+### Working Principles
+
+- Source ID: `ideas-note`
+- Section: `ideas`
+- Purpose: Capture concise engineering principles without creating a text-heavy room.
+- Launch title: Working Principles
+- Launch summary: A short set of ideas that shape how I build and evaluate software.
+- Tags: ideas, systems, craft
+- Related exhibits:
+  - `background-timeline`
+  - `skills-workbench`
+
 ## Placeholder Content Still In Source
 
-These source values should be replaced once the remaining inventory is filled:
-
-- `src/content/museum.ts`
-  - No known placeholder metadata remains.
-- `src/content/exhibits.ts`
-  - `Welcome Console`
-  - `Background Timeline`
-  - `Skills Workbench`
+No visible placeholder or empty media-slot copy remains in the current source.
 
 ## Replacement Checklist
 
-- Replace remaining prototype titles, summaries, body copy, tags, and links in `src/content/exhibits.ts`.
-- Confirm site title and summary still fit after the remaining exhibits are written.
-- Verify every external link.
-- Confirm contact email is correct.
-- Run `npm run lint`.
-- Run `npm run build`.
-- Manually verify overlay readability in the browser.
+- Done: Confirm site title and summary fit the first viewport.
+- Done: Verify every current external link in rendered QA.
+- Done: Confirm contact email is correct.
+- Done: Run `npm run lint` and `npm run build`.
+- Done: Verify overlay readability in the browser.
+- Optional: Replace or expand copy later without changing render code.

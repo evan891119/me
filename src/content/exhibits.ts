@@ -7,10 +7,10 @@ export const museumExhibits: MuseumExhibit[] = [
     sectionId: 'lobby',
     summary: 'A short orientation exhibit for the first minute of the museum.',
     body: [
-      'This prototype starts with a compact lobby, conservative movement, and readable interaction surfaces.',
-      'Final personal copy is intentionally deferred until the first content inventory is decided.',
+      'This museum is a compact map of my work: projects at the center, background and skills along the galleries, and contact near the exit.',
+      'Explore at your own pace. When an exhibit comes into focus, press E to open its full story.',
     ],
-    tags: ['orientation', 'prototype'],
+    tags: ['orientation', 'museum'],
     displayStyle: 'welcome',
     transform: {
       position: { x: 0, y: 1.05, z: -3.35 },
@@ -22,12 +22,13 @@ export const museumExhibits: MuseumExhibit[] = [
   },
   {
     id: 'background-timeline',
+    enabled: false,
     title: 'Background Timeline',
     sectionId: 'background',
-    summary: 'A placeholder for the story arc behind the work.',
+    summary: 'The approach and priorities behind the work shown in this museum.',
     body: [
-      'This exhibit will summarize background, current focus, and the transitions that matter.',
-      'It should stay concise enough to read inside an overlay without breaking the exploration flow.',
+      'I approach projects by starting with the real constraint, building the smallest useful version, and improving it through testing and observation.',
+      'The work shown here focuses on engineering decisions, maintainable systems, and products that can be operated after the first release.',
     ],
     tags: ['background', 'timeline'],
     displayStyle: 'timeline',
@@ -71,8 +72,8 @@ export const museumExhibits: MuseumExhibit[] = [
     sectionId: 'skills',
     summary: 'A compact exhibit for capabilities connected to actual work.',
     body: [
-      'The skills area should avoid a generic keyword wall.',
-      'Each skill cluster should connect back to projects, tools, or decisions visible elsewhere in the museum.',
+      'My work spans product structure, frontend implementation, Node.js services, deployment, and the operational details that keep software usable.',
+      'I value clear boundaries, measured performance, and tools that make the next change easier instead of more fragile.',
     ],
     tags: ['skills', 'engineering', 'product'],
     displayStyle: 'skill',
@@ -82,6 +83,25 @@ export const museumExhibits: MuseumExhibit[] = [
       scale: { x: 1.2, y: 0.9, z: 0.8 },
     },
     interactionRadius: 1.8,
+  },
+  {
+    id: 'ideas-note',
+    title: 'Working Principles',
+    sectionId: 'ideas',
+    summary: 'A short set of ideas that shape how I build and evaluate software.',
+    body: [
+      'Start with the user path and the operating constraint. Architecture is useful when it makes those two things easier to reason about.',
+      'Prefer observable behavior over confident guesses, and keep performance, fallback paths, and maintenance costs visible from the beginning.',
+    ],
+    tags: ['ideas', 'systems', 'craft'],
+    displayStyle: 'note',
+    transform: {
+      position: { x: -3.55, y: 1.05, z: 2.2 },
+      rotation: { x: 0, y: Math.PI / 2, z: 0 },
+      scale: { x: 1.5, y: 1.0, z: 0.35 },
+    },
+    interactionRadius: 2,
+    relatedExhibitIds: ['background-timeline', 'skills-workbench'],
   },
   {
     id: 'contact-terminal',
@@ -95,9 +115,9 @@ export const museumExhibits: MuseumExhibit[] = [
     tags: ['contact', 'exit'],
     displayStyle: 'contact',
     transform: {
-      position: { x: 0, y: 1.05, z: 2.75 },
-      rotation: { x: 0, y: Math.PI, z: 0 },
-      scale: { x: 1.6, y: 1.0, z: 0.4 },
+      position: { x: 3.55, y: 1.05, z: 2.2 },
+      rotation: { x: 0, y: -Math.PI / 2, z: 0 },
+      scale: { x: 1.5, y: 1.0, z: 0.35 },
     },
     interactionRadius: 2,
     links: [
@@ -112,6 +132,10 @@ export const museumExhibits: MuseumExhibit[] = [
         label: 'GitHub',
       },
     ],
-    relatedExhibitIds: ['welcome-console'],
+    relatedExhibitIds: ['welcome-console', 'ideas-note'],
   },
 ];
+
+export const activeMuseumExhibits = museumExhibits.filter(
+  (exhibit) => exhibit.enabled !== false,
+);
