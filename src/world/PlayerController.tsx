@@ -6,7 +6,7 @@ import {
 } from '@react-three/rapier';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Vector3 } from 'three';
+import { Group, Vector3 } from 'three';
 import {
   exteriorEntryTransition,
   exteriorSpawn,
@@ -115,6 +115,7 @@ export function PlayerController() {
   const isOverlayOpen = useAppStore((state) => state.isOverlayOpen);
   const cameraMode = useAppStore((state) => state.cameraMode);
   const rigidBody = useRef<RapierRigidBody>(null);
+  const renderAnchor = useRef<Group>(null);
   const keysPressed = useRef<Set<string>>(new Set());
   const forward = useRef(new Vector3());
   const right = useRef(new Vector3());
@@ -282,14 +283,25 @@ export function PlayerController() {
       qaStartedAt.current ??= now;
       const elapsed = now - qaStartedAt.current;
 
-      if (
-        ['walk', 'run', 'diagonal'].includes(requestedMovementQa) &&
-        elapsed < 700
-      ) {
-        keysPressed.current.add('KeyW');
+      const basicMovementQa = [
+        'walk',
+        'run',
+        'diagonal',
+        'strafeLeft',
+        'strafeRight',
+        'strafeSwitch',
+      ];
+      if (basicMovementQa.includes(requestedMovementQa) && elapsed < 1000) {
+        if (!requestedMovementQa.startsWith('strafe')) keysPressed.current.add('KeyW');
         if (requestedMovementQa === 'run') keysPressed.current.add('ShiftLeft');
         if (requestedMovementQa === 'diagonal') keysPressed.current.add('KeyD');
-      } else if (['walk', 'run', 'diagonal'].includes(requestedMovementQa)) {
+        if (requestedMovementQa === 'strafeLeft') keysPressed.current.add('KeyA');
+        if (requestedMovementQa === 'strafeRight') keysPressed.current.add('KeyD');
+        if (requestedMovementQa === 'strafeSwitch') {
+          keysPressed.current.delete(elapsed % 300 < 150 ? 'KeyD' : 'KeyA');
+          keysPressed.current.add(elapsed % 300 < 150 ? 'KeyA' : 'KeyD');
+        }
+      } else if (basicMovementQa.includes(requestedMovementQa)) {
         keysPressed.current.clear();
       }
 
@@ -449,8 +461,14 @@ export function PlayerController() {
       ccd
       linearDamping={0}
     >
-      <PlayerCharacter stateRef={visualState} visible={cameraMode === 'thirdPerson'} />
-      <ThirdPersonCamera cameraMode={cameraMode} rigidBody={rigidBody} />
+      <group ref={renderAnchor}>
+        <PlayerCharacter stateRef={visualState} visible={cameraMode === 'thirdPerson'} />
+      </group>
+      <ThirdPersonCamera
+        cameraMode={cameraMode}
+        renderAnchor={renderAnchor}
+        rigidBody={rigidBody}
+      />
       <CapsuleCollider
         args={[PLAYER_SEGMENT_HALF_HEIGHT, PLAYER_RADIUS]}
         friction={0}

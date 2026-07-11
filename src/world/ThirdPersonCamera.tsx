@@ -1,7 +1,7 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { type RapierRigidBody, useRapier } from '@react-three/rapier';
 import { useEffect, useMemo, useRef, type RefObject } from 'react';
-import { Euler, MathUtils, Vector3 } from 'three';
+import { Euler, Group, MathUtils, Vector3 } from 'three';
 import type { CameraMode } from '../state/useAppStore';
 
 const CAMERA_DISTANCE = 4;
@@ -20,16 +20,19 @@ const qaSpinSpeed = qaSearchParams?.get('qaCameraSpinSpeed') ?? null;
 
 interface ThirdPersonCameraProps {
   cameraMode: CameraMode;
+  renderAnchor: RefObject<Group | null>;
   rigidBody: RefObject<RapierRigidBody | null>;
 }
 
-export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraProps) {
+export function ThirdPersonCamera({ cameraMode, renderAnchor, rigidBody }: ThirdPersonCameraProps) {
   const camera = useThree((state) => state.camera);
   const { rapier, world } = useRapier();
   const yaw = useRef(0);
   const pitch = useRef(DEFAULT_PITCH);
   const wasActive = useRef(false);
   const target = useRef(new Vector3());
+  const visualAnchorPosition = useRef(new Vector3());
+  const projectedAnchor = useRef(new Vector3());
   const previousTarget = useRef(new Vector3());
   const offset = useRef(new Vector3());
   const desiredPosition = useRef(new Vector3());
@@ -38,6 +41,7 @@ export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraPr
   const orbitEuler = useRef(new Euler(0, 0, 0, 'YXZ'));
   const teleportSnapCount = useRef(0);
   const unobstructedMinDistance = useRef(CAMERA_DISTANCE);
+  const maxHorizontalScreenError = useRef(0);
   const cameraRay = useMemo(
     () => new rapier.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 1 }),
     [rapier],
@@ -78,17 +82,16 @@ export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraPr
 
   useFrame((_, delta) => {
     const body = rigidBody.current;
-    if (cameraMode !== 'thirdPerson' || !body) {
+    const anchor = renderAnchor.current;
+    if (cameraMode !== 'thirdPerson' || !body || !anchor) {
       wasActive.current = false;
       return;
     }
 
-    const translation = body.translation();
-    target.current.set(
-      translation.x,
-      translation.y + CAMERA_TARGET_OFFSET_Y,
-      translation.z,
-    );
+    anchor.updateWorldMatrix(true, false);
+    anchor.getWorldPosition(visualAnchorPosition.current);
+    target.current.copy(visualAnchorPosition.current);
+    target.current.y += CAMERA_TARGET_OFFSET_Y;
     const teleported = wasActive.current && target.current.distanceTo(previousTarget.current) > 2;
     if (import.meta.env.DEV && qaSpinSpeed !== null && Number.isFinite(Number(qaSpinSpeed))) {
       yaw.current += Number(qaSpinSpeed) * delta;
@@ -135,6 +138,12 @@ export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraPr
       .addScaledVector(offset.current, currentDistance.current);
     camera.position.copy(desiredPosition.current);
     camera.lookAt(target.current);
+    camera.updateMatrixWorld();
+    projectedAnchor.current.copy(visualAnchorPosition.current).project(camera);
+    maxHorizontalScreenError.current = Math.max(
+      maxHorizontalScreenError.current,
+      Math.abs(projectedAnchor.current.x),
+    );
     previousTarget.current.copy(target.current);
     if (!hit) {
       unobstructedMinDistance.current = Math.min(
@@ -146,6 +155,7 @@ export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraPr
     if (import.meta.env.DEV) {
       const shell = document.querySelector<HTMLElement>('main.app-shell');
       shell?.setAttribute('data-camera-mode', cameraMode);
+      shell?.setAttribute('data-camera-target-source', 'render-anchor');
       shell?.setAttribute('data-camera-distance', camera.position.distanceTo(target.current).toFixed(3));
       shell?.setAttribute('data-camera-occluded', String(hit !== null));
       shell?.setAttribute('data-camera-yaw', yaw.current.toFixed(3));
@@ -154,6 +164,10 @@ export function ThirdPersonCamera({ cameraMode, rigidBody }: ThirdPersonCameraPr
       shell?.setAttribute(
         'data-camera-unobstructed-min-distance',
         unobstructedMinDistance.current.toFixed(3),
+      );
+      shell?.setAttribute(
+        'data-camera-max-horizontal-screen-error',
+        maxHorizontalScreenError.current.toFixed(5),
       );
     }
   });

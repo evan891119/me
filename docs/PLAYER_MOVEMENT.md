@@ -25,7 +25,7 @@ High-frequency movement state stays in refs and the Rapier body. Zustand is not 
 
 `V` switches between `firstPerson` and `thirdPerson` while Pointer Lock is active. First-person mode preserves the original eye-height camera and Drei Pointer Lock rotation. Third-person mode disables Drei's camera rotation while retaining Pointer Lock, then applies yaw and pitch to a camera target 0.45 units above the capsule center.
 
-The third-person defaults are a 4.0-unit orbit distance, -0.28-radian pitch, and a pitch clamp from -0.9 to 0.3 radians. Orbit angle and boom distance are handled independently, so fast mouse rotation follows the spherical orbit instead of linearly cutting through the player and appearing to zoom. A Rapier ray from the target to the ideal camera position shortens the boom before a static collider and leaves a 0.18-unit wall margin; the player's own rigid body is excluded. The boom returns with frame-rate-independent damping after the obstruction clears.
+The third-person defaults are a 4.0-unit orbit distance, -0.28-radian pitch, and a pitch clamp from -0.9 to 0.3 radians. The camera targets a render anchor nested inside the Rapier body, so it follows the same interpolated transform as the visible character instead of the one-step-ahead raw physics translation; this prevents lateral movement jitter. Orbit angle and boom distance are handled independently, so fast mouse rotation follows the spherical orbit instead of linearly cutting through the player and appearing to zoom. A Rapier ray from the target to the ideal camera position shortens the boom before a static collider and leaves a 0.18-unit wall margin; the player's own rigid body is excluded. The boom returns with frame-rate-independent damping after the obstruction clears.
 
 The camera snaps to the correct side of a teleport on a world transition instead of interpolating from the previous location.
 
@@ -132,6 +132,7 @@ Single-tab hardware-accelerated checks on 2026-07-11:
 | Third-person camera collision | interior boom shortened from 4.0 to 3.42 units |
 | Third-person interaction | Welcome Console focused and opened with E |
 | Missing player GLB | primitive fallback rendered; Canvas and physics stayed active |
+| Third-person strafing | left, right, and alternating strafe stayed centered with 0.00000 maximum horizontal screen error |
 
 Representative exterior performance after the movement pass: 144 FPS, 6.9 ms, 36 draw calls, and 7,772 visible triangles.
 
